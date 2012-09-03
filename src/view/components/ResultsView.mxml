@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 xmlns:components="view.components.*"
+		 width="1920" height="1080"
+		 creationComplete="group1_creationCompleteHandler(event)"
+		 >
+	
+	<fx:Script>
+		<![CDATA[
+			import events.ChangeStateEvent;
+			import events.SocketEvent;
+			
+			import model.vo.GraphResultsVO;
+			
+			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
+			
+			import signals.ChangeState;
+			import signals.MusicVolumeSet;
+			import signals.StatusUpdate;
+			
+			private var _iteration:uint;
+			public var _currentAnim:MovieClip;
+			
+			private var inAir:*;
+			private var onGround:*;
+			
+			//	private var _planes:Planes;
+			[Inject]
+			public var statusUpdate:StatusUpdate;
+			
+			public static const ANIM_COMPLETED:String = "animCompleted";
+			
+			//used to store the graph data until the anim has finished
+			private var _graphResults:GraphResultsVO;
+			
+			private var _animTimer:Timer;
+			
+			public function setData( vo:GraphResultsVO ):void{
+				//clear the planes and panel
+				showPanels(false);
+				_graphResults = vo;
+				
+				_animTimer = new Timer(800, 1);
+				_animTimer.addEventListener(TimerEvent.TIMER_COMPLETE, startAnim);
+				_animTimer.start();
+				 
+				//set on the graph component
+				graph.setData(vo);
+				//
+				
+			}
+			
+			private function startAnim( t:TimerEvent = null ):void{
+				_animTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, startAnim);
+				_animTimer = null;
+				_currentAnim.gotoAndPlay(2);				
+				
+			}
+			
+			private function showPanels( b:Boolean ):void{
+				var alph:uint = 0;
+				if (b) {
+					alph = 1;
+					showSection(mainPanel, true);
+					
+					fadeInPlanes.play([inAir, onGround]);
+				}else{
+					mainPanel.alpha = alph;
+					inAir.alpha = alph;
+					onGround.alpha = alph;
+				}
+				
+			}
+			
+			private function showSection( sect:Group, b:Boolean ):void{
+				if(b){
+					fadeIn.target = sect;
+					fadeIn.play();
+				}else{
+					fadeOut.target = sect;
+					fadeOut.play();
+				}
+			}
+			
+			public function setAnimation(type:String):void{
+				
+				//remove previous if it exists
+				while(animHolder.numChildren>0) {
+					animHolder.removeChildAt(0);
+				}
+				_currentAnim = null;
+				switch(type){
+					case "plane":
+						_currentAnim = new Takeoff();
+						_currentAnim.x = 0;
+						_currentAnim.y = 0;
+						inAir = inAirPlanes;
+						onGround = onGroundPlanes;
+						
+						break
+					case "heli":
+						_currentAnim = new HeliTakeoff();
+						_currentAnim.x = 0-(1920/2);
+						_currentAnim.y = 0-(1080/2);
+						inAir = inAirHelis;
+						onGround = onGroundHelis;
+						break
+				}
+				
+				inAirPlanes.visible = false;
+				onGroundPlanes.visible = false;
+				inAirHelis.visible = false;
+				onGroundHelis.visible = false;
+				inAir.visible = true;
+				onGround.visible = true;
+				
+				animHolder.addChild(_currentAnim);
+				_currentAnim.addEventListener(Event.COMPLETE, animCompleted);
+				
+			}
+			
+			private function showPanelsWait(t:TimerEvent):void{
+				_animTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, startAnim);
+				_animTimer = null;
+				showPanels(true);
+				
+				
+			}
+			
+			private function animCompleted( e:Event ):void{
+				
+				_animTimer = new Timer(100, 1);
+				_animTimer.addEventListener(TimerEvent.TIMER_COMPLETE, showPanelsWait);
+				_animTimer.start();
+				
+				var e:Event = new Event(ANIM_COMPLETED);
+				dispatchEvent(e);
+			}
+			
+			private function fadeCompleted():void{
+				graph.setData(_graphResults);
+			}
+			
+			public function showInAir( n:uint ):void{
+				inAir.showPlanes(n);
+			}
+			
+			public function showOnGround( n:uint ):void{
+				onGround.showPlanes(n);
+			}
+			
+			protected function continue_clickHandler(event:MouseEvent):void
+			{
+				//need to change the state to input
+				var sock:SocketEvent = new SocketEvent("continue clicked iteration:"+_iteration);
+				dispatchEvent(sock);
+				if (_iteration <3){
+					var e:ChangeStateEvent = new ChangeStateEvent(ChangeState.ENTER_SCREEN);	
+					dispatchEvent(e);
+				}else{
+					var f:ChangeStateEvent = new ChangeStateEvent(ChangeState.ENTER_SCREEN);
+					f.state = ChangeState.EXIT_SCREEN;				
+					dispatchEvent(f);
+				}				
+			}
+			
+			
+			public function get iteration():uint
+			{
+				return _iteration;
+			}
+			
+			public function set iteration(value:uint):void
+			{
+				_iteration = value;
+				showTurn(_iteration);
+				
+				if (_iteration==1){
+					graph.initPlanes();
+				}
+			}
+
+			public function showTurn( n:uint ):void{
+				for (var i:uint = 0; i<turnImageHolder.numElements; i++){
+					var im:Image = turnImageHolder.getElementAt(i) as Image;
+					if (i==n-1){
+						im.includeInLayout = true;
+						im.visible = true;
+					}else{
+						im.includeInLayout = false;
+						im.visible = false;
+					}
+				}
+			}
+
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+			}
+			
+			protected function fadeIn_effectStartHandler(event:EffectEvent):void
+			{
+				(event.effectInstance.target as Group).visible = true;
+			}
+			
+			
+			protected function fadeOut_effectEndHandler(event:EffectEvent):void
+			{
+				(event.effectInstance.target as Group).visible = false;
+			}
+
+
+			protected function fadeIn_effectEndHandler(event:EffectEvent):void
+			{
+				graph.showData();
+			}
+
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Fade id="fadeIn" alphaTo="1" duration="2000" effectStart="fadeIn_effectStartHandler(event)" effectEnd="fadeIn_effectEndHandler(event)" startDelay="1000"/>
+		<s:Fade id="fadeInPlanes" alphaTo="1" duration="2000" effectStart="fadeIn_effectStartHandler(event)" startDelay="1000"/>
+		<s:Fade id="fadeOut"  alphaTo="0" duration="1500" effectEnd="fadeOut_effectEndHandler(event)"/>
+	</fx:Declarations>
+	<components:InAirHelis id="inAirHelis"/>
+	<components:OnGroundHelis id="onGroundHelis"/>
+	<components:InAirPlanes id="inAirPlanes" x="510" top="20"/>
+	<components:OnGroundPlanes id="onGroundPlanes" x="110" bottom="-10"/>
+	<mx:UIComponent id="animHolder" horizontalCenter="0" verticalCenter="0" alpha="1"/>
+	<s:Group id="mainPanel" horizontalCenter="0" verticalCenter="150" width="1148" height="516">
+		<mx:Image source="@Embed('../embed/graph.png')" width="1148" height="516" smoothBitmapContent="true" />
+		<components:GraphComponent id="graph" y="10" x="-2"/>
+		<s:HGroup id="turnImageHolder" top="65" left="55" width="345" height="28">
+			<mx:Image id="turn1" source="@Embed('../embed/results1.png')" smoothBitmapContent="true" includeInLayout="true"/>
+			<mx:Image id="turn2" source="@Embed('../embed/results2.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
+			<mx:Image id="turn3" source="@Embed('../embed/results3.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
+		</s:HGroup>
+		<s:HGroup  top="71" left="414" gap="0">
+			<s:Label text=" Monthly Profit / Loss " styleName="legend" />
+				<mx:Spacer width="3"/>
+			<s:Group>
+			<mx:Image source="@Embed('../embed/greyCurrSmall.png')" smoothBitmapContent="true" y="-2" scaleX=".9" scaleY=".9" />
+			</s:Group>
+			<s:Label text="m" styleName="legend" />
+		</s:HGroup>
+		<s:Label top="71" left="650" text="% Flown" styleName="legend"/>
+		<components:CustomButton id="continueBtn" right="55" top="52" click="continue_clickHandler(event)"/>
+	</s:Group>
+	
+	
+	
+</s:Group>

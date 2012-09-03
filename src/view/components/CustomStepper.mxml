@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 width="340" height="40" xmlns:components="view.components.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import events.LeverEvent;
+			import events.NumberEvent;
+			
+			import model.vo.InputObjectVO;
+			
+			public var _currVal:InputObjectVO;
+			[Bindable]
+			public var title:String;
+			[Bindable]
+			public var unit:String;
+			[Bindable]
+			public var values:Vector.<InputObjectVO>;
+			private var _budget:Number;//used to store the user's current balance so we can check if an incrment can be made
+			
+			public var initVal:InputObjectVO;//used to set the value at the start of the turn that you cant go below
+			
+			public var vidId:uint;
+			private var _switchDirection:Boolean;
+			
+			private var _currIndex:uint; //used to store the index of the stepper
+			
+			//used when the user presses go to send to the black box
+			public function get currVal():InputObjectVO
+			{
+				return _currVal;
+			}
+			
+			public function set currVal(value:InputObjectVO):void
+			{
+				_currVal = value;
+				//set the value
+				valLabel.text = _currVal.value.toString();
+				//check if the current val is the top or bottom and hide the corresponding button
+				
+				if (_currVal.theIndex == initVal.theIndex){ //check that the index isn't the same as the initial one passed (ie the bottom value)
+					if (_switchDirection){
+						up.visible = false;
+						
+					}else{
+						down.visible = false;
+					}
+				}else{
+					if (_switchDirection){
+						up.visible = true;
+					}else{
+						down.visible = true;
+					}
+				}
+				//if this value has the same index as the last item in the vector then hide the up button (or down if switched)
+				if (_currVal.theIndex == (values[values.length-1] as InputObjectVO).theIndex){
+					if (_switchDirection){
+						down.visible = false;
+					}else{
+						up.visible = false;
+					}
+				}else{
+					if (_switchDirection){
+						down.visible = true;
+					}else{
+						up.visible = true;
+					}			
+					
+				}
+				
+			}
+			
+			protected function down_clickHandler(event:MouseEvent):void
+			{
+				
+				var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
+				if (_currIndex>0){
+					_currIndex--;
+					currVal = values[_currIndex];
+				}else{
+					
+					
+				}
+				var newCost:Number = (values[_currIndex] as InputObjectVO).cost;
+				updateBalance(oldCost - newCost);
+			}
+			
+			public function disable():void{
+				
+				up.visible = false;
+				down.visible = false;
+				
+			}
+			
+			private function updateBalance( n:Number ):void{
+				if (n!=0){
+					var e:NumberEvent = new NumberEvent(NumberEvent.BALANCE_UPDATE,	n);
+					dispatchEvent(e);
+				}
+			}
+			
+			private function getCurrentVal():String{
+				
+				return currVal.value.toString()
+			}
+			
+			private function checkBalanceIsAvailable():Boolean{
+				var retB:Boolean = false;
+				if (values != null){
+					var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
+					//new cost will be 1 iteration up
+					var newCost:Number; 
+					//check there is a higher index available
+					if (_currIndex+1>values.length-1){
+						retB = false;
+					}else{
+						newCost = (values[_currIndex+1] as InputObjectVO).cost;
+						var diff:Number = newCost - oldCost;//will be negative
+						if(budget - diff>0){
+							retB = true;
+						}
+					}
+					
+					
+				}else{
+					//we are in the initial stage so do not update the buttons to show if balance is available
+					retB = true;
+				}
+			
+				return retB;				
+			}
+			
+			protected function up_clickHandler(event:MouseEvent):void
+			{
+				//check if the balance will not be negative
+				if (checkBalanceIsAvailable()){
+					var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
+					if (_currIndex<values.length-1){
+						_currIndex++;
+						currVal = values[_currIndex];
+					}
+					var newCost:Number = (values[_currIndex] as InputObjectVO).cost;
+					updateBalance(oldCost-newCost);
+					
+				}else{
+					//disable the up button if not switched
+					if (switchDirection){
+						down.visible = false
+					}else{
+						up.visible = false;
+					}
+				}
+				
+				
+			}
+			
+			public function get switchDirection():Boolean
+			{
+				return _switchDirection;
+			}
+			
+			//used to switch the direction of increments for negative steppers
+			public function set switchDirection(value:Boolean):void
+			{
+				_switchDirection = value;
+				if (_switchDirection){
+					down.addEventListener(MouseEvent.CLICK, up_clickHandler);
+					up.addEventListener(MouseEvent.CLICK, down_clickHandler);
+				}else{
+					down.addEventListener(MouseEvent.CLICK, down_clickHandler);
+					up.addEventListener(MouseEvent.CLICK, up_clickHandler);
+				}
+			}
+			
+			public function get currIndex():uint
+			{
+				return _currIndex;
+			}
+			
+			public function set currIndex(value:uint):void
+			{
+				_currIndex = value;
+			}
+
+			public function get budget():Number
+			{
+				return _budget;
+			}
+
+			public function set budget(value:Number):void
+			{
+				_budget = value;
+				checkCanShowNextButton();
+			}
+			
+			//triggered every time the budget is updated to see if th enext button can be shown or not - if the budget does allow then it is made visibile
+			private function checkCanShowNextButton():void{
+				if (checkBalanceIsAvailable()){
+					if(switchDirection){
+						down.visible = true;						
+					}else{
+						up.visible = true;
+					}
+					
+					
+				}else{
+					//there is not balance available for another step
+					//disable the up button if not switched
+					if (switchDirection){
+						down.visible = false;
+					}else{
+						up.visible = false;
+					}
+					
+				}
+				
+				
+			}
+
+			
+			
+
+			protected function infoButton_clickHandler(event:MouseEvent):void
+			{
+				var e:LeverEvent = new LeverEvent(LeverEvent.CLICKED);
+				e.vidID = vidId;
+				dispatchEvent(e);
+			}
+
+		]]>
+		
+		
+		
+	</fx:Script>
+	<s:Group width="100%" verticalCenter="0" height="100%">
+			<components:InformationButton id="infoButton" x="-60" y="3" click="infoButton_clickHandler(event)"/>
+		<s:Group x="365" height="100%" y="5" >
+			<s:Label id="valLabel" text="---" styleName="supportPanelCategoryNumber" textAlign="center" horizontalCenter="0" verticalCenter="0" verticalAlign="middle" />
+		</s:Group>
+		<s:HGroup verticalAlign="middle" height="100%" x="28" y="5">
+			<s:Label text="{title}" styleName="supportPanelCategory" verticalCenter="0" verticalAlign="middle" height="100%"/>
+			<s:Label id="unitLabel" text="{unit}" styleName="supportPanelCategoryItalic" verticalCenter="0" verticalAlign="middle"  height="100%"/>
+		</s:HGroup>
+		<s:HGroup right="0" verticalAlign="middle" gap="0">
+			<components:DownArrowButton id="down" />
+			<components:UpArrowButton id="up" />
+		</s:HGroup>
+	</s:Group>
+	
+	
+</s:Group>

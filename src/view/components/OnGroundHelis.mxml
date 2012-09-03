@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="view.components.*"
+		 creationComplete="group1_creationCompleteHandler(event)">
+	<fx:Declarations>
+		<s:Fade id="fadeIn" alphaTo="1" duration="300"/>
+		<s:Fade id="fadeOut"  alphaTo="0" duration="300"/>
+	</fx:Declarations> 
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			
+			private var _onGround:HeliGroundClip;
+			
+			public function showPlanes( n:uint ):void{
+			//	trace("======SHOW ON GROUND PLANES:"+n);
+				for (var i:uint = 0; i<10; i++){
+			//		trace("--i---"+i);
+					var im:* = _onGround.getChildByName("p"+i);
+				 	if (i<n){
+						if(im.alpha <1){
+							showPlane(im, true);
+						}
+					}else{
+			//			trace("checking alpha:"+i+"  alpha:"+im.alpha);
+							showPlane(im, false);
+			//				trace("hiding plane:"+i+"  im:"+im.name);
+					} 
+				}
+			}
+			
+			private function showPlane( pl:*, b:Boolean ):void{
+				if (b){
+					fadeIn.target = pl;
+					fadeIn.play();
+				}else{
+					fadeOut.target = pl;
+					fadeOut.play();
+				}
+			}
+			
+
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				_onGround = new HeliGroundClip();
+				holder.rawChildren.addChild(_onGround);
+				
+			}
+
+		]]>
+	</fx:Script>
+	<mx:Canvas id="holder"/>
+	
+	
+</s:Group>
