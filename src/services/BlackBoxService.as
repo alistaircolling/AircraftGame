@@ -69,7 +69,7 @@ package services
 		private var _iteration:uint; //only used during dummy runs
 		
 		//to be used for local testing without a black box
-		public function sendDataX( vo:InputVO ):void{
+		public function sendData( vo:InputVO ):void{
 			_iteration = Number(vo.iteration);
 			_tempSubmitVO = vo;
 		
@@ -91,7 +91,7 @@ package services
 			_attempts = 0;
 			initResubmission();
 			
-		//	return  //- only uncomment when testing without blackbox
+			return  //- only uncomment when testing without blackbox
 			statusUpdate.dispatch("connecting to socket on ip:"+_ip+"  port:"+_port);
 			
 			//create socket connection
@@ -193,7 +193,7 @@ package services
 		}
 		
 		
-		public function sendData( vo:InputVO ):void{
+		public function sendDataX( vo:InputVO ):void{
 			_tempSubmitVO = vo;
 			_iteration = Number(vo.iteration);
 			

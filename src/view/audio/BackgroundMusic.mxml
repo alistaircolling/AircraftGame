@@ -11,7 +11,7 @@
 			[Embed(source="../../../embed/music.mp3")]
 			public var soundClass:Class;
 			public var smallSound : Sound;
-			private static const START_VOL:Number = .2;
+			private static const START_VOL:Number = 0;//TODO remove for final version.2;
 			public var vol : Number;;
 			private var newVol:Number;
 			public var trans : SoundTransform;
