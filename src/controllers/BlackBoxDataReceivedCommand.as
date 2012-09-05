@@ -5,6 +5,7 @@ package controllers
 	import flashx.textLayout.operations.SplitParagraphOperation;
 	
 	import model.UserDataModel;
+	import model.vo.GameVO;
 	import model.vo.GraphResultsVO;
 	import model.vo.ReceivedDataVO;
 	
@@ -63,14 +64,15 @@ package controllers
 			//set graph vo
 			userModel.graphVO = graphVO;
 		
-			
+			//TODO update to match the new xml structure
 			trace("black box data received command");
 			var vo:ReceivedDataVO = new ReceivedDataVO();
-			vo.currentReliability = DataUtils.getObjectForValue(userModel.vo.reliability, Number(xml..currentReliability));
-			vo.currentNFF = DataUtils.getObjectForValue(userModel.vo.nff, xml..currentNFF);
-			vo.currentTuranaround = DataUtils.getObjectForValue(userModel.vo.turnaround, xml..currentTurnaround);
+			
+			vo.currentReliability = DataUtils.getObjectForValue(userModel.currentGameVO.reliability, Number(xml..currentReliability));
+			vo.currentNFF = DataUtils.getObjectForValue(userModel.currentGameVO.nff, xml..currentNFF);
+			vo.currentTuranaround = DataUtils.getObjectForValue(userModel.currentGameVO.turnaround, xml..currentTurnaround);
 			vo.currentSpares = Number(xml..currentSpares);
-			vo.sparesCostInc = userModel.vo.sparesCostInc;//already set and so retrieved
+			vo.sparesCostInc = userModel.currentGameVO.sparesCostInc;//already set and so retrieved
 			vo.iteration = Number(xml..iteration);
 			
 			vo.lastPercent = graphVO.percentFlown[graphVO.percentFlown.length-1];
@@ -82,13 +84,13 @@ package controllers
 			}
 			
 			//update vectors to start at minimum values
-			vo.reliability = DataUtils.getVectorFromStartingVO(userModel.vo.reliability, vo.currentReliability);
-			vo.nff = DataUtils.getVectorFromStartingVO(userModel.vo.nff, vo.currentNFF);
-			vo.turnaround = DataUtils.getVectorFromStartingVO(userModel.vo.turnaround, vo.currentTuranaround);
+			vo.reliability = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.reliability, vo.currentReliability);
+			vo.nff = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.nff, vo.currentNFF);
+			vo.turnaround = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.turnaround, vo.currentTuranaround);
 			vo.initialData = false;
 			//set on the model
 			
-			userModel.vo = vo;
+			userModel.currentGameVO = vo;
 			
 			//set the iteration on the model
 			userModel.iteration = Number(xml..iteration);

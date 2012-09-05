@@ -6,7 +6,9 @@ package services
 	
 	import model.UserDataModel;
 	import model.vo.ErrorVO;
+	import model.vo.GameVO;
 	import model.vo.InputObjectVO;
+	import model.vo.MainVO;
 	import model.vo.ReceivedDataVO;
 	
 	import mx.rpc.AsyncToken;
@@ -59,37 +61,61 @@ package services
 			trace("initialise xml received");
 			 
 			
-			var xml:XML = new XML(s);
-			var vo:ReceivedDataVO = new ReceivedDataVO();
-			vo.debug = xml.debug=="true";
+			var mainXml:XML = new XML(s);
+			var dataVO:MainVO = new MainVO();
+			dataVO.debug = mainXml.debug=="true";
 			//set lookup tables
-			var reliabList:XMLList = xml.reliability;
-			vo.reliability = DataUtils.returnVectorFromList( reliabList[0], Number(xml.currentReliability) );
-			var nffList:XMLList = xml.nff;
-			vo.nff = DataUtils.returnVectorFromList( nffList[0], Number(xml.currentNFF) );
-			var turnList:XMLList = xml.turnaround;
-			vo.turnaround = DataUtils.returnVectorFromList( turnList[0], Number(xml.currentTurnaround) );
+			var gamesXML:XMLList = mainXml.game;
 			
-			vo.sparesCostInc = Number(xml..sparesCost_ea);
+			for (var i:int = 0; i < mainXml.length; i++) 
+			{
+				var xml:XMLList = gamesXML[i];
+				var vo:ReceivedDataVO = new ReceivedDataVO();
+				vo.name = xml.@name;
+				//reliability
+				var reliabList:XMLList = xml.reliability;
+				vo.reliability = DataUtils.returnVectorFromList( reliabList[0], Number(xml.currentReliability) );
+				//nff
+				var nffList:XMLList = xml.nff;
+				vo.nff = DataUtils.returnVectorFromList( nffList[0], Number(xml.currentNFF) );
+				//turnaround
+				var turnList:XMLList = xml.turnaround;
+				vo.turnaround = DataUtils.returnVectorFromList( turnList[0], Number(xml.currentTurnaround) );
+				//platform mgt
+				if(xml.platformMgt){
+					trace("it has!");
+					//var platform:XMLList = xml
+				}
+				
+				
+				
+				vo.sparesCostInc = Number(xml..sparesCost_ea);
+				
+				//set current
+				vo.currentSpares = Number(xml.currentSpares);//used to store the current value
+				
+				vo.currentReliability = DataUtils.getObjectForValue( vo.reliability, Number(xml.currentReliability));
+				vo.currentNFF = DataUtils.getObjectForValue( vo.nff, Number(xml.currentNFF));
+				vo.currentTuranaround = DataUtils.getObjectForValue( vo.turnaround, Number(xml.currentTurnaround));
+				
+				vo.lastPercent = 65;
+				vo.initialData = true;
+				//minimum values will be set on view components that the user is unable to go below and so are not referenced in the model
+				
+				userModel.iteration = 0;//incremented when the user presses go
+				userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
+				
+				dataVO.games.push(vo);
+			}
+				userModel.allVO = dataVO;
 			
-			//set current
-			vo.currentSpares = Number(xml.currentSpares);//used to store the current value
 			
-			vo.currentReliability = DataUtils.getObjectForValue( vo.reliability, Number(xml.currentReliability));
-			vo.currentNFF = DataUtils.getObjectForValue( vo.nff, Number(xml.currentNFF));
-			vo.currentTuranaround = DataUtils.getObjectForValue( vo.turnaround, Number(xml.currentTurnaround));
 			
-			vo.lastPercent = 65;
-			vo.initialData = true;
-			//minimum values will be set on view components that the user is unable to go below and so are not referenced in the model
 			
-			userModel.iteration = 0;//incremented when the user presses go
-			userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
-			userModel.vo = vo;
 			
 			
 			//wait received
-			var waitMilliseconds:int = Number(xml.waitTime)*1000;
+			var waitMilliseconds:int = Number(mainXml.waitTime)*1000;
 			waitSet.dispatch(waitMilliseconds);
 			
 		}

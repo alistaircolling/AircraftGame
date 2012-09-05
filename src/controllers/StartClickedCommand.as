@@ -26,8 +26,12 @@ package controllers
 		override public function execute():void{
 			
 			trace("start clicked command, loading intial XML.....");
+			//TODO must reauest the leaderboard for the corect game- probably ill go in the service
+			
 			leaderBoardService.requestData();
-			initXMLService.loadXML("data/initParams.xml");
+			//relocated to LoadIniitalXMLCOmmand
+			//initXMLService.loadXML("data/initParams.xml");
+			
 		
 		}
 		

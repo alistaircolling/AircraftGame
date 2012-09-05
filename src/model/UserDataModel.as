@@ -1,6 +1,8 @@
 package model
 {
+	import model.vo.GameVO;
 	import model.vo.GraphResultsVO;
+	import model.vo.MainVO;
 	import model.vo.ReceivedDataVO;
 	
 	import org.robotlegs.mvcs.Actor;
@@ -47,13 +49,27 @@ package model
 		
 		private var _gameType:String = "plane";
 		
-		private var _vo:ReceivedDataVO;
+		//private var _vo:ReceivedDataVO;
+		private var _vo:GameVO;
 		private var _stage:int; /* -1 intro, 
 									0 entering first round, 1 showing first round, 
 									2 entering 2nd round, 3, showing 2nd round,
 									4, entering 3rd round, 5, showing 3rd round,
 									6 Final score screen
 									7 Exit Slide Screen */
+		public var allVO:MainVO;
+		private var _currentGameVO:ReceivedDataVO;
+
+		public function get currentGameVO():ReceivedDataVO
+		{
+			return _currentGameVO;
+		}
+
+		public function set currentGameVO(value:ReceivedDataVO):void
+		{
+			_currentGameVO = value;
+			//TODO create gameSet Signal if necessary 
+		}
 
 		public function get stage():int
 		{
@@ -74,20 +90,21 @@ package model
 			stageSet.dispatch(_stage); 
 		}
 
-		public function get vo():ReceivedDataVO
+		public function get vo():GameVO
 		{
 			return _vo;
 		}
 
-		public function set vo(value:ReceivedDataVO):void
+		public function set vo(value:GameVO):void
 		{
 			trace("received data vo set on model");
 			_vo = value;
-			if (vo.initialData){
+			//TODO check this!! not sure what it means or how it works with multiple games
+			/*if (vo.initialData){
 				
 				changeState.dispatch(ChangeState.ENTER_SCREEN); //
 				
-			}
+			}*/
 			//dispatch after so the mediator is instantiated
 			userDataSet.dispatch(_vo);
 			testSignal.dispatch(_vo);

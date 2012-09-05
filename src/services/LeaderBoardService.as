@@ -118,7 +118,8 @@ package services
 			
 			//set the vo on the model
 			lbModel.vo = vo;
-			
+			statusUpdate.dispatch("LEADERBOARD REceived");
+				
 		}
 		
 		private function handleServiceFault(event:Object):void{

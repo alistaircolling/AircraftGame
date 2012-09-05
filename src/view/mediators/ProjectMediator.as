@@ -4,6 +4,7 @@ package view.mediators
 	import flash.events.MouseEvent;
 	
 	import model.vo.LeaderBoardVO;
+	import model.vo.MainVO;
 	import model.vo.ReceivedDataVO;
 	
 	import mx.collections.ArrayCollection;
@@ -128,9 +129,10 @@ package view.mediators
 			}
 		}
 		
-		private function showDebug( vo:ReceivedDataVO ):void{
-			
-			viewComp.statusLabel.visible = vo.debug;
+		//TODO update the signal tohave the MainVO
+		private function showDebug( vo:MainVO ):void{
+			//TODO this must be set initially-need to check this is happening
+			viewComp.statusLabel.visible = true;//vo.debug;
 			userDataSet.removeAll();//remove after the first time the game is launched
 			
 		}
