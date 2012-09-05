@@ -64,12 +64,13 @@ package services
 			var mainXml:XML = new XML(s);
 			var dataVO:MainVO = new MainVO();
 			dataVO.debug = mainXml.debug=="true";
+			dataVO.games = new Vector.<ReceivedDataVO>();
 			//set lookup tables
 			var gamesXML:XMLList = mainXml.game as XMLList;
 			var xml:XML;
 			for each (var xml:XML in gamesXML) 
 			{
-				trace("one");
+				trace("loading game data:"+xml.@name);
 				//var xml:XMLList = gamesXML[i];
 				var vo:ReceivedDataVO = new ReceivedDataVO();
 				vo.name = xml.@name;

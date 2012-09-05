@@ -142,6 +142,7 @@
 			}
 			
 			private function checkIfCanBuyMoreSpares():void{
+				//TODO may need to fix this as getting NaN on loading initial XML
 				trace(" - - -  check if can buy more spares - - - ");
 				trace("_sparesCur:"+_sparesCurr+"  _sparesInit:"+_sparesInit);
 				var maxSpares:uint = Math.floor(budget/costInc);
