@@ -98,7 +98,7 @@ package services
 				
 				
 				
-				
+				//
 				vo.sparesCostInc = Number(xml..sparesCost_ea);
 				
 				//set current
@@ -122,11 +122,7 @@ package services
 			
 				userModel.allVO = dataVO;
 			
-			
-			
-			
-			
-			
+			//TODO- hard code current game to LAND			
 			//wait received
 			var waitMilliseconds:int = Number(mainXml.waitTime)*1000;
 			waitSet.dispatch(waitMilliseconds);
