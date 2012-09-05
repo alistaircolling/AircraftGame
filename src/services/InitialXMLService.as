@@ -65,11 +65,12 @@ package services
 			var dataVO:MainVO = new MainVO();
 			dataVO.debug = mainXml.debug=="true";
 			//set lookup tables
-			var gamesXML:XMLList = mainXml.game;
-			
-			for (var i:int = 0; i < mainXml.length; i++) 
+			var gamesXML:XMLList = mainXml.game as XMLList;
+			var xml:XML;
+			for each (var xml:XML in gamesXML) 
 			{
-				var xml:XMLList = gamesXML[i];
+				trace("one");
+				//var xml:XMLList = gamesXML[i];
 				var vo:ReceivedDataVO = new ReceivedDataVO();
 				vo.name = xml.@name;
 				//reliability
@@ -84,8 +85,16 @@ package services
 				//platform mgt
 				if(xml.platformMgt){
 					trace("it has!");
-					//var platform:XMLList = xml
+					var platform:XMLList = xml.platformMgt;
+					vo.platformMgt = DataUtils.returnVectorFromList( platform[0], Number(xml.currentPlatformMgt) );
 				}
+				//mis
+				if(xml.mis){
+					trace("it has mis!");
+					var mis:XMLList = xml.mis;
+					vo.mis = DataUtils.returnVectorFromList( mis[0], Number(xml.currentMIS) );
+				}
+				
 				
 				
 				
@@ -106,7 +115,10 @@ package services
 				userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
 				
 				dataVO.games.push(vo);
+				
+				
 			}
+			
 				userModel.allVO = dataVO;
 			
 			

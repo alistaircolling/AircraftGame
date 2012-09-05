@@ -21,6 +21,7 @@ package services
 	import org.robotlegs.mvcs.Actor;
 	
 	import signals.ErrorReceived;
+	import signals.LoadInitialXML;
 	import signals.StatusUpdate;
 	
 	public class LeaderBoardService extends Actor
@@ -31,6 +32,8 @@ package services
 		public var errorReceived:ErrorReceived;
 		[Inject]
 		public var statusUpdate:StatusUpdate;
+		[Inject]
+		public var loadInitialXML:LoadInitialXML;
 		
 		private var _xmlFile:String = "data/winners.xml";
 		private var _data:String;
@@ -119,6 +122,7 @@ package services
 			//set the vo on the model
 			lbModel.vo = vo;
 			statusUpdate.dispatch("LEADERBOARD REceived");
+			loadInitialXML.dispatch();
 				
 		}
 		

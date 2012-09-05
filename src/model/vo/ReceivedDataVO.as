@@ -19,6 +19,8 @@ package model.vo
 		//	public var spares:Vector.<InputObjectVO>;
 		public var reliability:Vector.<InputObjectVO>;
 		public var turnaround:Vector.<InputObjectVO>;
+		public var platformMgt:Vector.<InputObjectVO>;
+		public var mis:Vector.<InputObjectVO>;
 		public var nff:Vector.<InputObjectVO>;
 		//could remove lower values from 
 		

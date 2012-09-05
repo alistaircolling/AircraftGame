@@ -4,6 +4,7 @@ package
 	import controllers.EnterWinnerCommand;
 	import controllers.GameTypeSelectedCommand;
 	import controllers.InitSocketCommand;
+	import controllers.LoadInitialXMLCommand;
 	import controllers.LoadLeaderBoardXML;
 	import controllers.RequestGameIDCommand;
 	import controllers.RequestLeaderBoardCommand;
@@ -48,6 +49,7 @@ package
 	import signals.InitSocket;
 	import signals.IterationChange;
 	import signals.LeaderBoardSet;
+	import signals.LoadInitialXML;
 	import signals.LoadXML;
 	import signals.MusicVolumeSet;
 	import signals.RequestGameID;
@@ -110,6 +112,7 @@ package
 			
 			//map signal singletons
 			injector.mapSingleton(SettingsUpdated);
+			injector.mapSingleton(LoadInitialXML);
 			injector.mapSingleton(StartClicked);
 			injector.mapSingleton(TextSetOnModel);
 			injector.mapSingleton(LeaderBoardSet);
@@ -137,6 +140,10 @@ package
 			signalCommandMap.mapSignalClass(LoadXML, LoadLeaderBoardXML);
 			signalCommandMap.mapSignalClass(SettingsXMLLoaded, StoreSettingsXMLCommand);
 			signalCommandMap.mapSignalClass(SettingsUpdated, ServiceSetCommand);
+			//new
+			signalCommandMap.mapSignalClass(LoadInitialXML, LoadInitialXMLCommand);
+			//
+			
 			signalCommandMap.mapSignalClass(StartClicked, StartClickedCommand);
 			signalCommandMap.mapSignalClass(UpdateBalance, UpdateBalanceCommand);
 			signalCommandMap.mapSignalClass(DataSubmitted, SubmitData);

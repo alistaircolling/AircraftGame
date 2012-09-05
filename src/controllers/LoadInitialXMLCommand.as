@@ -19,7 +19,7 @@ package controllers
 		
 		
 		override public function execute():void{
-			
+			trace("EXECUTE!!!!");
 			trace("load initialXMLCOmmand execute");
 			initXMLService.loadXML("data/initParams.xml");
 		
