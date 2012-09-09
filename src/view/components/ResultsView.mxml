@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
 		 xmlns:components="view.components.*"
-		 width="1920" height="1080"
-		 creationComplete="group1_creationCompleteHandler(event)"
-		 >
+		 width="1920" height="1080" creationComplete="group1_creationCompleteHandler(event)">
 	
 	<fx:Script>
 		<![CDATA[
@@ -108,6 +106,15 @@
 						inAir = inAirHelis;
 						onGround = onGroundHelis;
 						break
+					case "land":
+						//TODO add new anim in and also new components
+						_currentAnim = new Takeoff();
+						_currentAnim.x = 0;//-(1920/2);
+						_currentAnim.y = 0;//-(1080/2);
+						inAir = inAirHelis;
+						onGround = onGroundHelis;
+						break
+						
 				}
 				
 				inAirPlanes.visible = false;
@@ -221,33 +228,41 @@
 	</fx:Script>
 	
 	<fx:Declarations>
-		<s:Fade id="fadeIn" alphaTo="1" duration="2000" effectStart="fadeIn_effectStartHandler(event)" effectEnd="fadeIn_effectEndHandler(event)" startDelay="1000"/>
-		<s:Fade id="fadeInPlanes" alphaTo="1" duration="2000" effectStart="fadeIn_effectStartHandler(event)" startDelay="1000"/>
-		<s:Fade id="fadeOut"  alphaTo="0" duration="1500" effectEnd="fadeOut_effectEndHandler(event)"/>
+		<s:Fade id="fadeIn" alphaTo="1" duration="2000" effectEnd="fadeIn_effectEndHandler(event)"
+				effectStart="fadeIn_effectStartHandler(event)" startDelay="1000"/>
+		<s:Fade id="fadeInPlanes" alphaTo="1" duration="2000"
+				effectStart="fadeIn_effectStartHandler(event)" startDelay="1000"/>
+		<s:Fade id="fadeOut" alphaTo="0" duration="1500" effectEnd="fadeOut_effectEndHandler(event)"/>
 	</fx:Declarations>
 	<components:InAirHelis id="inAirHelis"/>
 	<components:OnGroundHelis id="onGroundHelis"/>
 	<components:InAirPlanes id="inAirPlanes" x="510" top="20"/>
 	<components:OnGroundPlanes id="onGroundPlanes" x="110" bottom="-10"/>
-	<mx:UIComponent id="animHolder" horizontalCenter="0" verticalCenter="0" alpha="1"/>
-	<s:Group id="mainPanel" horizontalCenter="0" verticalCenter="150" width="1148" height="516">
-		<mx:Image source="@Embed('../embed/graph.png')" width="1148" height="516" smoothBitmapContent="true" />
-		<components:GraphComponent id="graph" y="10" x="-2"/>
-		<s:HGroup id="turnImageHolder" top="65" left="55" width="345" height="28">
-			<mx:Image id="turn1" source="@Embed('../embed/results1.png')" smoothBitmapContent="true" includeInLayout="true"/>
-			<mx:Image id="turn2" source="@Embed('../embed/results2.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
-			<mx:Image id="turn3" source="@Embed('../embed/results3.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
+	<mx:UIComponent id="animHolder" alpha="1" horizontalCenter="0" verticalCenter="0"/>
+	<s:Group id="mainPanel" width="1148" height="516" horizontalCenter="0" verticalCenter="150">
+		<mx:Image width="1148" height="516" smoothBitmapContent="true"
+				  source="@Embed('../embed/graph.png')"/>
+		<components:GraphComponent id="graph" x="-2" y="10"/>
+		<s:HGroup id="turnImageHolder" left="55" top="65" width="345" height="28">
+			<mx:Image id="turn1" includeInLayout="true" smoothBitmapContent="true"
+					  source="@Embed('../embed/results1.png')"/>
+			<mx:Image id="turn2" visible="false" includeInLayout="false" smoothBitmapContent="true"
+					  source="@Embed('../embed/results2.png')"/>
+			<mx:Image id="turn3" visible="false" includeInLayout="false" smoothBitmapContent="true"
+					  source="@Embed('../embed/results3.png')"/>
 		</s:HGroup>
-		<s:HGroup  top="71" left="414" gap="0">
-			<s:Label text=" Monthly Profit / Loss " styleName="legend" />
+		<s:HGroup left="414" top="71" gap="0">
+			<s:Label styleName="legend" text=" Monthly Profit / Loss "/>
 				<mx:Spacer width="3"/>
 			<s:Group>
-			<mx:Image source="@Embed('../embed/greyCurrSmall.png')" smoothBitmapContent="true" y="-2" scaleX=".9" scaleY=".9" />
+			<mx:Image y="-2" scaleX=".9" scaleY=".9" smoothBitmapContent="true"
+					  source="@Embed('../embed/greyCurrSmall.png')"/>
 			</s:Group>
-			<s:Label text="m" styleName="legend" />
+			<s:Label styleName="legend" text="m"/>
 		</s:HGroup>
-		<s:Label top="71" left="650" text="% Flown" styleName="legend"/>
-		<components:CustomButton id="continueBtn" right="55" top="52" click="continue_clickHandler(event)"/>
+		<s:Label left="650" top="71" styleName="legend" text="% Flown"/>
+		<components:CustomButton id="continueBtn" right="55" top="52"
+								 click="continue_clickHandler(event)"/>
 	</s:Group>
 	
 	

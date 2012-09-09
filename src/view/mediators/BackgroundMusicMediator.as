@@ -1,10 +1,13 @@
 
 package view.mediators
 {
+	import model.vo.ReceivedDataVO;
+	
 	import org.robotlegs.mvcs.Mediator;
 	
 	import signals.ChangeState;
 	import signals.MusicVolumeSet;
+	import signals.UserDataSet;
 	
 	import view.audio.BackgroundMusic;
 	
@@ -24,6 +27,8 @@ package view.mediators
 			musicVolSet.add(onMusicVolumeSet);
 			
 		}
+		
+		
 		
 		private function onStateChanged( s:String):void{
 			//always set to 20 (is triggered when anim completes)

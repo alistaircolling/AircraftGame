@@ -3,6 +3,8 @@ package controllers
 	
 	
 	
+	import model.UserDataModel;
+	
 	import org.robotlegs.mvcs.SignalCommand;
 	
 	import services.CompiledXMLService;
@@ -12,10 +14,12 @@ package controllers
 	{
 		[Inject]
 		public var leaderBoard:LeaderBoardService;
-		
+		[Inject]
+		public var userModel:UserDataModel;	
 		
 		override public function execute():void{
-			leaderBoard.requestData();
+			var gType:String = userModel.gameType;
+			leaderBoard.requestData(gType);
 			
 		}
 	}

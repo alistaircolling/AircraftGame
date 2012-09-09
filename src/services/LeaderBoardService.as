@@ -8,6 +8,7 @@ package services
 	import flash.filesystem.FileStream;
 	
 	import model.LeaderBoardModel;
+	import model.UserDataModel;
 	import model.vo.ErrorVO;
 	import model.vo.LeaderBoardVO;
 	import model.vo.UserVO;
@@ -20,6 +21,7 @@ package services
 	
 	import org.robotlegs.mvcs.Actor;
 	
+	import signals.ChangeState;
 	import signals.ErrorReceived;
 	import signals.LoadInitialXML;
 	import signals.StatusUpdate;
@@ -34,19 +36,22 @@ package services
 		public var statusUpdate:StatusUpdate;
 		[Inject]
 		public var loadInitialXML:LoadInitialXML;
+		[Inject]
+		public var changeState:ChangeState;
 		
-		private var _xmlFile:String = "data/winners.xml";
+		//private var _xmlFile:String = "data/winners.xml";
 		private var _data:String;
 		private var _xml:XML;
 		private var _dataFile:File;
 		
-		public function requestData():void
+		public function requestData(s:String):void
 		{
 			//todo swap out to use flash vars instead
 			//loads xml
+			var gameType:String = s;//userModel.gameType;
 			
 			var directory:File = File.documentsDirectory;
-			_dataFile = directory.resolvePath("Selex"+File.separator+"winners.xml");
+			_dataFile = directory.resolvePath("Selex"+File.separator+gameType+"winners.xml");
 			statusUpdate.dispatch("loading leaderboard from:"+_dataFile.url);
 			var stream:FileStream = new FileStream();
 			stream.open(_dataFile, FileMode.READ);
@@ -122,7 +127,12 @@ package services
 			//set the vo on the model
 			lbModel.vo = vo;
 			statusUpdate.dispatch("LEADERBOARD REceived");
-			loadInitialXML.dispatch();
+			//as the leaderboardf data is always requested at the start of a game, we can fire the state change to go to the intro
+			
+			changeState.dispatch(ChangeState.INTRO_SCREEN);
+			
+			
+		//	loadInitialXML.dispatch();
 				
 		}
 		

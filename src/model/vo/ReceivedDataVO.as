@@ -29,6 +29,7 @@ package model.vo
 		//used to display on the input screen
 		public var lastPercent:Number;
 		public var name:String;
+		public var debug:Boolean;
 		
 		
 	}

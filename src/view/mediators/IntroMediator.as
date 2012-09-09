@@ -3,14 +3,13 @@ package view.mediators
 	import flash.events.MouseEvent;
 	
 	import model.vo.LeaderBoardVO;
-	import model.vo.UserVO;
-	
-	import mx.collections.ArrayCollection;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
 	import signals.GameTypeSelected;
+	import signals.GameTypeSet;
 	import signals.LeaderBoardSet;
+	import signals.LoadInitialXML;
 	import signals.LoadXML;
 	import signals.StartClicked;
 	import signals.StatusUpdate;
@@ -36,15 +35,24 @@ package view.mediators
 		[Inject]
 		public var gameTypeSelected:GameTypeSelected;
 		[Inject]
+		public var gameTypeSet:GameTypeSet;
+		[Inject]
 		public var waitSet:WaitSetByXML;
+		[Inject]
+		public var loadInitialXML:LoadInitialXML;
+		
+		private var _gameType:String;
 		
 		override public function onRegister():void{
 			trace("Intro Mediator registered");
 			update.dispatch("Intro mediator registered");
 			//register listeners 
 			addListeners();
-			//
-			loadXML.dispatch();
+			//should not load leaderboard first
+			//loadXML.dispatch();
+			loadInitialXML.dispatch();
+			
+			
 		}
 		
 		override public function onRemove():void{
@@ -52,10 +60,14 @@ package view.mediators
 			introView.planeButton.removeEventListener(MouseEvent.CLICK, planeClicked);
 			introView.heliButton.removeEventListener(MouseEvent.CLICK, heliClicked);
 			introView.continueButton.removeEventListener(MouseEvent.CLICK, videoContinueClicked);
+			introView.startGameButton.removeEventListener(MouseEvent.CLICK, onStartClicked);
 			//add listener for signal
+			//FIXME ? not sure of these may need to be removed though it may be on purpose
 			textSetOnModel.add(onModelChanged);
 			leaderBoardSet.add(updateLeaderBoard);
+			//
 			waitSet.remove(onWaitSet);
+			gameTypeSet.remove(onGameTypeSet);
 			
 		}
 		
@@ -65,10 +77,23 @@ package view.mediators
 			introView.continueButton.addEventListener(MouseEvent.CLICK, videoContinueClicked);
 			introView.planeButton.addEventListener(MouseEvent.CLICK, planeClicked);
 			introView.heliButton.addEventListener(MouseEvent.CLICK, heliClicked);
+			introView.startGameButton.addEventListener(MouseEvent.CLICK, onStartClicked);
 			
 			//add listener for signal
 			textSetOnModel.add(onModelChanged);
 			leaderBoardSet.add(updateLeaderBoard);
+			gameTypeSet.add(onGameTypeSet);
+		}
+		
+		private function onGameTypeSet(s:String):void
+		{
+			_gameType = s;
+			
+		}
+		
+		protected function onStartClicked(event:MouseEvent):void
+		{
+			startClicked.dispatch();			
 		}
 		//milliseconds wait set
 		private function onWaitSet(n:int):void{
@@ -78,7 +103,9 @@ package view.mediators
 		private function videoContinueClicked( m:MouseEvent ):void{
 			
 			introView.showVideo(false);		
-			introView.startTimer(true);
+			if (_gameType=="plane"||_gameType=="heli"){
+				introView.startTimer(true);
+			}
 		}
 		private function updateLeaderBoard( vo:LeaderBoardVO ):void{
 			introView.leaderboardIntro.dp = vo.winners;
@@ -91,13 +118,18 @@ package view.mediators
 		}
 		
 		private function planeClicked( m:MouseEvent ):void{
+			if (_gameType=="plane"||_gameType=="heli"){
 				introView.startTimer(false);
-				gameTypeSelected.dispatch("plane");
+			}
+				//FIXME ? i dont think this is used anywhere 
+			//	gameTypeSelected.dispatch("plane");
 				startClicked.dispatch();
 		}
 		private function heliClicked( m:MouseEvent ):void{
+			if (_gameType=="plane"||_gameType=="heli"){
 				introView.startTimer(false);
-				gameTypeSelected.dispatch("heli");
+			}
+		//		gameTypeSelected.dispatch("heli");
 				startClicked.dispatch();
 		}
 		

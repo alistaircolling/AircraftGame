@@ -16,10 +16,13 @@
     <sourceAttachmentPath/>
   </compiler>
   <applications>
+    <application path="AircraftGame.mxml">
+      <airExcludes/>
+    </application>
     <application path="Lenimentus.mxml">
       <airExcludes/>
     </application>
-    <application path="AircraftGame.mxml">
+    <application path="AircraftOptionsPanel.mxml">
       <airExcludes/>
     </application>
   </applications>

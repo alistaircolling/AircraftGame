@@ -91,11 +91,11 @@ package
 		
 		public function ProjectContext(contextView:DisplayObjectContainer=null, autoStartup:Boolean=true)
 		{
-			super(contextView, autoStartup);
+			super(contextView, true);
 		}
 		
 		override public function startup():void{
-			
+			trace("startup");
 		
 			//map models
 			injector.mapSingleton(SettingsModel);
@@ -166,7 +166,7 @@ package
 			mediatorMap.mapView(FinalView, FinalViewMediator);
 			mediatorMap.mapView(ExitView, ExitMediator);
 			mediatorMap.mapView(BackgroundMusic, BackgroundMusicMediator);
-			
+			trace("startup complete");
 			
 			
 			

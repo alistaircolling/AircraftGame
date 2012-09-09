@@ -79,6 +79,7 @@ package view.mediators
 			lBSet.add(leaderBoardSet);
 			gameTypeSet.add(gameTypeSetListener);
 			errorReceived.add(showErrorReceived);
+			return;
 			requestID.dispatch();
 			initSocket.dispatch();
 			viewComp.addEventListener("restart", restartGameListener);
@@ -91,7 +92,8 @@ package view.mediators
 			trace("close preview vid");
 			viewComp.previewVideo.stop();
 			viewComp.previewVid.visible = false;
-			viewComp.introView.startTimer(true);
+			
+			if (viewComp.gType =="plane"||viewComp.gType =="heli") viewComp.introView.startTimer(true);
 			
 		}
 		
@@ -113,6 +115,7 @@ package view.mediators
 		}
 		
 		private function gameTypeSetListener( s:String ):void{
+			viewComp.gType = s;
 			switch(s){
 				case "plane":
 					viewComp.heliBackground.visible = false;
@@ -126,13 +129,21 @@ package view.mediators
 					viewComp.introView.introPanelHeli.visible = true;
 					viewComp.introView.introPanelPlane.visible = false;
 					break
+				case "land":
+					//TODO add the correct elements
+					
+					viewComp.heliBackground.visible = true;
+					viewComp.planeBackground.visible = false;
+					viewComp.introView.introPanelHeli.visible = true;
+					viewComp.introView.introPanelPlane.visible = false;
+					break
 			}
 		}
 		
 		//TODO update the signal tohave the MainVO
-		private function showDebug( vo:MainVO ):void{
-			//TODO this must be set initially-need to check this is happening
-			viewComp.statusLabel.visible = true;//vo.debug;
+		private function showDebug( vo:ReceivedDataVO ):void{
+			//TODO temporarily hiding this so the music doesnt play
+			viewComp.statusLabel.visible = vo.debug;
 			userDataSet.removeAll();//remove after the first time the game is launched
 			
 		}

@@ -25,13 +25,14 @@
 			private var context:ProjectContext;
 			
 			private var square:Sprite;
+			public var gType:String;
 			
 			protected function windowedapplication1_creationCompleteHandler(event:Event):void
 			{
 				stage.scaleMode = StageScaleMode.SHOW_ALL;
 				
 				context = new ProjectContext(this, true);
-				updateState(ChangeState.INTRO_SCREEN);
+				//updateState(ChangeState.INTRO_SCREEN);  MOVED TO AFTER GAME CHOSEN
 				addEventListener(KeyboardEvent.KEY_UP, keyHandler);
 				createContextMenu(); 
 			}
@@ -182,7 +183,7 @@
 						
 						showSection(blackout, false);
 						showSection(introView, true);
-						introView.startTimer(true);//used to track user interaction and show video
+						if (gType=="plane"||gType=="heli") introView.startTimer(true);//used to track user interaction and show video
 						showSection(inputView, false);
 						showSection(resultsView, false);
 						showSection(lbHolder, false);

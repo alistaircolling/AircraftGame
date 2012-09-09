@@ -6,14 +6,8 @@ package services
 	
 	import model.UserDataModel;
 	import model.vo.ErrorVO;
-	import model.vo.GameVO;
-	import model.vo.InputObjectVO;
 	import model.vo.MainVO;
 	import model.vo.ReceivedDataVO;
-	
-	import mx.rpc.AsyncToken;
-	import mx.rpc.Responder;
-	import mx.rpc.http.HTTPService;
 	
 	import signals.ErrorReceived;
 	import signals.WaitSetByXML;
@@ -63,7 +57,7 @@ package services
 			
 			var mainXml:XML = new XML(s);
 			var dataVO:MainVO = new MainVO();
-			dataVO.debug = mainXml.debug=="true";
+			dataVO.debug = (mainXml.debug.valueOf()=="true")?true:false;
 			dataVO.games = new Vector.<ReceivedDataVO>();
 			//set lookup tables
 			var gamesXML:XMLList = mainXml.game as XMLList;
@@ -74,6 +68,7 @@ package services
 				//var xml:XMLList = gamesXML[i];
 				var vo:ReceivedDataVO = new ReceivedDataVO();
 				vo.name = xml.@name;
+				vo.debug = dataVO.debug;
 				//reliability
 				var reliabList:XMLList = xml.reliability;
 				vo.reliability = DataUtils.returnVectorFromList( reliabList[0], Number(xml.currentReliability) );
@@ -120,9 +115,10 @@ package services
 				
 			}
 			
-				userModel.allVO = dataVO;
+			userModel.allVO = dataVO;
+			//TODO remove for multi game version
+			userModel.vo = userModel.allVO.games[0];
 			
-			//TODO- hard code current game to LAND			
 			//wait received
 			var waitMilliseconds:int = Number(mainXml.waitTime)*1000;
 			waitSet.dispatch(waitMilliseconds);

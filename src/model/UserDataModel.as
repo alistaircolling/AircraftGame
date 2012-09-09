@@ -1,11 +1,12 @@
 package model
 {
-	import model.vo.GameVO;
 	import model.vo.GraphResultsVO;
 	import model.vo.MainVO;
 	import model.vo.ReceivedDataVO;
 	
 	import org.robotlegs.mvcs.Actor;
+	
+	import services.LeaderBoardService;
 	
 	import signals.BalanceSet;
 	import signals.ChangeState;
@@ -16,8 +17,6 @@ package model
 	import signals.StageSet;
 	import signals.UserDataSet;
 	import signals.UserDataSetLive;
-	
-	import spark.components.mediaClasses.VolumeBar;
 	
 	public class UserDataModel extends Actor
 	{
@@ -39,6 +38,8 @@ package model
 		public var testSignal:UserDataSetLive;
 		[Inject]
 		public var gameTypeSet:GameTypeSet;
+		[Inject]
+		public var leaderboardService:LeaderBoardService;
 		
 		private var _gameID:Number;
 		
@@ -49,8 +50,9 @@ package model
 		
 		private var _gameType:String = "plane";
 		
-		//private var _vo:ReceivedDataVO;
-		private var _vo:GameVO;
+		//used for the current game
+		private var _vo:ReceivedDataVO;
+		//private var _vo:GameVO;
 		private var _stage:int; /* -1 intro, 
 									0 entering first round, 1 showing first round, 
 									2 entering 2nd round, 3, showing 2nd round,
@@ -90,14 +92,14 @@ package model
 			stageSet.dispatch(_stage); 
 		}
 
-		public function get vo():GameVO
+		public function get vo():ReceivedDataVO
 		{
 			return _vo;
 		}
 
-		public function set vo(value:GameVO):void
+		public function set vo(value:ReceivedDataVO):void
 		{
-			trace("received data vo set on model");
+			trace("user has selected game type vo set on model:"+value.name);
 			_vo = value;
 			//TODO check this!! not sure what it means or how it works with multiple games
 			/*if (vo.initialData){
@@ -106,8 +108,10 @@ package model
 				
 			}*/
 			//dispatch after so the mediator is instantiated
+		
 			userDataSet.dispatch(_vo);
 			testSignal.dispatch(_vo);
+			gameType = _vo.name;
 				
 		}
 
@@ -172,6 +176,9 @@ package model
 		{
 			_gameType = value;
 			gameTypeSet.dispatch(_gameType);
+			//whenever the game type is set we will see the intro screen and load the leaderboard for that game
+			leaderboardService.requestData(value);
+			
 		}
 
 

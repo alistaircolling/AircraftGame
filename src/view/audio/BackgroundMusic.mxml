@@ -54,6 +54,12 @@
 			
 			
 			public function setVolume(n:int):void {
+				//FIXME
+				//for testing only
+				vol = 0;
+				return;
+				
+				
 				//toggling
 				trace("newvol:"+newVol);
 				if(n<0){
