@@ -22,9 +22,6 @@
     <application path="Lenimentus.mxml">
       <airExcludes/>
     </application>
-    <application path="AircraftOptionsPanel.mxml">
-      <airExcludes/>
-    </application>
   </applications>
   <modules/>
   <buildCSSFiles/>

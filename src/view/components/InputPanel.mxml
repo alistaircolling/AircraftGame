@@ -37,6 +37,12 @@
 			public var nffVal:InputObjectVO;
 			[Bindable]
 			public var turnaroundVal:InputObjectVO;
+			[Bindable]
+			public var platformMgtVal:InputObjectVO;
+			[Bindable]
+			public var misVal:InputObjectVO;
+			
+			
 			
 			//vectors for lookup tables
 			[Bindable]
@@ -45,7 +51,12 @@
 			public var nffValues:Vector.<InputObjectVO>;
 			[Bindable]
 			public var turnaroundValues:Vector.<InputObjectVO>;
+			[Bindable]
+			public var platformMgtValues:Vector.<InputObjectVO>;
+			[Bindable]
+			public var misValues:Vector.<InputObjectVO>;
 			
+			//TODO add the vectors for the other values
 			private var vidToPlay:uint;
 			
 			
@@ -178,10 +189,12 @@
 				<s:Group left="65">
 				<s:VGroup gap="10" left="54">
 					<mx:Spacer height="29" left="54"/>					
+					<components:CustomStepper id="reliability" title="MTBF" totalRects="5"  unit="" currVal="{reliablityVal}" values="{reliabilityValues}" width="623" height="50" vidId="1"/>
+					<components:CustomStepper id="nff" title="NFF" unit="" totalRects="5" currVal="{nffVal}" values="{nffValues}" width="623" height="48" vidId="2"/>
+					<components:CustomStepper id="turnaround" title="RTRT" totalRects="5"  unit="" currVal="{turnaroundVal}" values="{turnaroundValues}" width="623" height="48" vidId="3" />
+					<components:CustomStepper id="platformMgt" title="Platform Mgt" totalRects="3" unit="" currVal="{platformMgtVal}" values="{platformMgtValues}" width="623" height="48" vidId="3" />
 					<components:SparesStepper id="spares" title="Spares" width="623" height="50" vidId="0"/>
-					<components:CustomStepper id="reliability" title="Improve Reliability MTBF" unit="Hrs" currVal="{reliablityVal}" values="{reliabilityValues}" width="623" height="50" vidId="1"/>
-					<components:CustomStepper id="nff" title="Reduce NFF" unit="%" currVal="{nffVal}" values="{nffValues}" width="623" height="48" vidId="2"/>
-					<components:CustomStepper id="turnaround" title="Reduce Repair Turnaround Time" unit="Days" currVal="{turnaroundVal}" values="{turnaroundValues}" width="623" height="48" vidId="3" />
+					<components:CustomStepper id="mis" title="MIS" totalRects="3"  unit="" currVal="{misVal}" values="{misValues}" width="623" height="48" vidId="3" />
 					<components:GoButton id="submit"/>
 				</s:VGroup>
 				</s:Group>

@@ -83,12 +83,14 @@ package services
 					trace("it has!");
 					var platform:XMLList = xml.platformMgt;
 					vo.platformMgt = DataUtils.returnVectorFromList( platform[0], Number(xml.currentPlatformMgt) );
+					vo.currentPlatformMgt = DataUtils.getObjectForValue( vo.platformMgt, Number(xml.currentPlatformMgt));
 				}
 				//mis
 				if(xml.mis){
 					trace("it has mis!");
 					var mis:XMLList = xml.mis;
 					vo.mis = DataUtils.returnVectorFromList( mis[0], Number(xml.currentMIS) );
+					vo.currentMIS = DataUtils.getObjectForValue( vo.mis, Number(xml.currentMIS));
 				}
 				
 				

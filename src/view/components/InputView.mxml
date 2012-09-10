@@ -42,23 +42,34 @@
 				inputPanel.turnaround.initVal = _receivedVO.currentTuranaround;
 				inputPanel.nff.initVal = _receivedVO.currentNFF;
 				
+				inputPanel.platformMgt.initVal = _receivedVO.currentPlatformMgt;
+				inputPanel.mis.initVal = _receivedVO.currentMIS;
+				
 				inputPanel.reliablityVal = _receivedVO.currentReliability;
 				inputPanel.turnaroundVal = _receivedVO.currentTuranaround;
 				inputPanel.nffVal = _receivedVO.currentNFF;
+				inputPanel.platformMgtVal = _receivedVO.currentPlatformMgt;
+				inputPanel.mis.initVal = _receivedVO.currentMIS;
 				
 				//set new vectors
 				inputPanel.reliabilityValues = _receivedVO.reliability;
 				inputPanel.turnaroundValues = _receivedVO.turnaround;
 				inputPanel.nffValues = _receivedVO.nff;
+				inputPanel.misValues = _receivedVO.mis;
+				inputPanel.platformMgtValues = _receivedVO.platformMgt;
 				//resetn current indices to 0
 				
 				inputPanel.nff.currIndex = 0;
 				inputPanel.turnaround.currIndex = 0;
 				inputPanel.reliability.currIndex = 0;
+				inputPanel.platformMgt.currIndex = 0;
+				inputPanel.mis.currIndex = 0;
 
 				inputPanel.reliability.currVal = _receivedVO.currentReliability;
 				inputPanel.turnaround.currVal = _receivedVO.currentTuranaround;
 				inputPanel.nff.currVal = _receivedVO.currentNFF;
+				inputPanel.mis.currVal = _receivedVO.currentMIS;
+				inputPanel.platformMgt.currVal = _receivedVO.currentPlatformMgt;
 
 				//set the % flown remaining
 				inputPanel.flownCurr.text = "Current % Flown: "+_receivedVO.lastPercent.toString()+"%";
@@ -74,6 +85,10 @@
 				inputPanel.nff.budget = n;
 				inputPanel.turnaround.budget = n;
 				inputPanel.reliability.budget = n;
+				inputPanel.mis.budget = n;
+				inputPanel.platformMgt.budget = n;
+				
+				
 				inputPanel.budget = n;
 				
 				//if the balance is negative disable all buttons

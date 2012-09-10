@@ -9,6 +9,9 @@ package model.vo
 		public var currentSpares:Number;
 		public var currentTuranaround:InputObjectVO;
 		public var currentNFF:InputObjectVO;
+		//new
+		public var currentPlatformMgt:InputObjectVO;
+		public var currentMIS:InputObjectVO;
 		
 		public var iteration:uint;//only used to check the last iteratoin by finalviewmediator
 		public var avAvailability:Number;//only used in final stage (3)
@@ -30,6 +33,7 @@ package model.vo
 		public var lastPercent:Number;
 		public var name:String;
 		public var debug:Boolean;
+		
 		
 		
 	}
