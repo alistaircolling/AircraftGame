@@ -44,7 +44,6 @@ package services
 			_gameID = Number(_gameXML.valueOf());
 			_gameID ++;
 			userModel.gameID = _gameID;
-			
 			updateID(_gameID);
 			
 		

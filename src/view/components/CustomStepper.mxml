@@ -77,7 +77,7 @@
 					}			
 					
 				}
-				
+				volStepper.value = _currVal.theIndex;
 			}
 			
 			protected function down_clickHandler(event:MouseEvent):void

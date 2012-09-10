@@ -61,6 +61,7 @@ package model
 									7 Exit Slide Screen */
 		public var allVO:MainVO;
 		private var _currentGameVO:ReceivedDataVO;
+		public var firstTime:Boolean = true;
 
 		public function get currentGameVO():ReceivedDataVO
 		{
@@ -70,7 +71,9 @@ package model
 		public function set currentGameVO(value:ReceivedDataVO):void
 		{
 			_currentGameVO = value;
-			//TODO create gameSet Signal if necessary 
+			//TODO create gameSet Signal if necessary
+			//this is new- should update the params on the input panel
+			testSignal.dispatch(_currentGameVO);
 		}
 
 		public function get stage():int
@@ -164,6 +167,7 @@ package model
 		{
 			_gameID = value;
 			gameIDSet.dispatch(_gameID);
+			trace("game id set in model:"+_gameID);
 			
 		}
 

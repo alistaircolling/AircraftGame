@@ -167,6 +167,7 @@ package
 			mediatorMap.mapView(ExitView, ExitMediator);
 			mediatorMap.mapView(BackgroundMusic, BackgroundMusicMediator);
 			trace("startup complete");
+				
 			
 			
 			

@@ -47,7 +47,7 @@ package utils
 		//returns the correct vo for the corresponding value --todo nice - should be abstracted to a utils class
 		public static function getObjectForValue( vector:Vector.<InputObjectVO>, n:Number ):InputObjectVO {
 			
-			var retObj:InputObjectVO;
+			var retObj:InputObjectVO = null;
 			for (var i:uint = 0; i<vector.length; i++){
 				
 				var obj:InputObjectVO = vector[i];
@@ -55,6 +55,9 @@ package utils
 					
 					retObj = obj;
 				}
+			}
+			if (retObj==null){
+				trace("THE VALUE RETURNED FROM THE BLACK BOX DOES NOT MATCH ANY IN THE INITPARAMS TABLES!!!");
 			}
 			return retObj;
 		}

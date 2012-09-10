@@ -60,10 +60,14 @@ package controllers
 			//TODO update to match the new xml structure
 			trace("black box data received command");
 			var vo:ReceivedDataVO = new ReceivedDataVO();
-			
+			trace("rel:"+userModel.currentGameVO.reliability+":"+ Number(xml..currentReliability));
 			vo.currentReliability = DataUtils.getObjectForValue(userModel.currentGameVO.reliability, Number(xml..currentReliability));
 			vo.currentNFF = DataUtils.getObjectForValue(userModel.currentGameVO.nff, xml..currentNFF);
 			vo.currentTuranaround = DataUtils.getObjectForValue(userModel.currentGameVO.turnaround, xml..currentTurnaround);
+			//new
+			vo.currentPlatformMgt = DataUtils.getObjectForValue(userModel.currentGameVO.platformMgt, xml..currentPlatformMgt);
+			vo.currentMIS = DataUtils.getObjectForValue(userModel.currentGameVO.mis, xml..currentMIS);
+			
 			vo.currentSpares = Number(xml..currentSpares);
 			vo.sparesCostInc = userModel.currentGameVO.sparesCostInc;//already set and so retrieved
 			vo.iteration = Number(xml..iteration);
@@ -71,8 +75,9 @@ package controllers
 			vo.lastPercent = graphVO.percentFlown[graphVO.percentFlown.length-1];
 			if (vo.iteration == 3){
 				
-				vo.avAvailability = xml..averageAvailability;
-				vo.finalScore = Number(xml..currentBudget);
+				vo.avAvailability = xml..averageAchieved;
+				//TODO need to check if the final score value should be money in bank for all games
+				vo.finalScore = Number(xml..moneyInBank);
 				vo.costPerFHr = Number(xml..costperFH);
 			}
 			
@@ -80,6 +85,10 @@ package controllers
 			vo.reliability = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.reliability, vo.currentReliability);
 			vo.nff = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.nff, vo.currentNFF);
 			vo.turnaround = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.turnaround, vo.currentTuranaround);
+			//new
+			vo.platformMgt = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.platformMgt, vo.currentPlatformMgt);
+			vo.mis = DataUtils.getVectorFromStartingVO(userModel.currentGameVO.mis, vo.currentMIS);
+			
 			vo.initialData = false;
 			//set on the model
 			

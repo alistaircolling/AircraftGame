@@ -2,6 +2,7 @@ package view.mediators
 {
 	import flash.events.MouseEvent;
 	
+	import model.UserDataModel;
 	import model.vo.LeaderBoardVO;
 	
 	import org.robotlegs.mvcs.Mediator;
@@ -11,6 +12,7 @@ package view.mediators
 	import signals.LeaderBoardSet;
 	import signals.LoadInitialXML;
 	import signals.LoadXML;
+	import signals.RequestGameID;
 	import signals.StartClicked;
 	import signals.StatusUpdate;
 	import signals.TextSetOnModel;
@@ -40,6 +42,10 @@ package view.mediators
 		public var waitSet:WaitSetByXML;
 		[Inject]
 		public var loadInitialXML:LoadInitialXML;
+		[Inject]
+		public var requestGameID:RequestGameID;
+		[Inject]
+		public var userModel:UserDataModel;
 		
 		private var _gameType:String;
 		
@@ -50,7 +56,14 @@ package view.mediators
 			addListeners();
 			//should not load leaderboard first
 			//loadXML.dispatch();
-			loadInitialXML.dispatch();
+			//loadInitialXML.dispatch();
+			//inly request the data the first time
+			//TODO this will be reset each time the user picks a new game- must be updated for tyhe multi game version
+			if (userModel.firstTime){
+				requestGameID.dispatch();
+				loadInitialXML.dispatch();
+				userModel.firstTime = false;
+			}
 			
 			
 		}
