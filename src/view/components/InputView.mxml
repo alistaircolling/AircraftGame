@@ -23,6 +23,8 @@
 				inputPanel.nff.switchDirection = true;
 				inputPanel.turnaround.switchDirection = true;
 				inputPanel.reliability.switchDirection = false;
+				inputPanel.platformMgt.switchDirection = false;
+				inputPanel.mis.switchDirection = false;
 				
 				
 				inputPanel.spares.sparesInc = 1;//hard coded for the moment - not passed in xml
@@ -41,13 +43,14 @@
 				inputPanel.reliability.initVal = _receivedVO.currentReliability;
 				inputPanel.turnaround.initVal = _receivedVO.currentTuranaround;
 				inputPanel.nff.initVal = _receivedVO.currentNFF;
-				
+				//new
 				inputPanel.platformMgt.initVal = _receivedVO.currentPlatformMgt;
 				inputPanel.mis.initVal = _receivedVO.currentMIS;
 				
 				inputPanel.reliablityVal = _receivedVO.currentReliability;
 				inputPanel.turnaroundVal = _receivedVO.currentTuranaround;
 				inputPanel.nffVal = _receivedVO.currentNFF;
+				//new
 				inputPanel.platformMgtVal = _receivedVO.currentPlatformMgt;
 				inputPanel.mis.initVal = _receivedVO.currentMIS;
 				
@@ -55,6 +58,7 @@
 				inputPanel.reliabilityValues = _receivedVO.reliability;
 				inputPanel.turnaroundValues = _receivedVO.turnaround;
 				inputPanel.nffValues = _receivedVO.nff;
+				//new	
 				inputPanel.misValues = _receivedVO.mis;
 				inputPanel.platformMgtValues = _receivedVO.platformMgt;
 				//resetn current indices to 0

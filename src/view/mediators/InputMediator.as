@@ -116,6 +116,11 @@ package view.mediators
 			vo.nff = inputView.inputPanel.nff.currVal.theIndex.toString();
 			vo.turnaround = inputView.inputPanel.turnaround.currVal.theIndex.toString();
 			vo.reliability = inputView.inputPanel.reliability.currVal.theIndex.toString();
+			//new
+			vo.mis = inputView.inputPanel.mis.currVal.theIndex.toString();
+			vo.platformMgt = inputView.inputPanel.platformMgt.currVal.theIndex.toString();
+			
+			
 			vo.spares = (inputView.inputPanel.spares.sparesCurr - inputView.inputPanel.spares.sparesInit).toString();
 			trace("SPARES SUBMITTED:"+vo.spares);
 			var it:uint = userModel.iteration;
@@ -186,6 +191,8 @@ package view.mediators
 			inputView.inputPanel.nff.budget = newBudget;
 			inputView.inputPanel.turnaround.budget = newBudget;
 			inputView.inputPanel.reliability.budget = newBudget;
+			inputView.inputPanel.platformMgt.budget = newBudget;
+			inputView.inputPanel.mis.budget = newBudget;
 			
 		}
 		

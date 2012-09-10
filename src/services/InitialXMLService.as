@@ -120,6 +120,7 @@ package services
 			userModel.allVO = dataVO;
 			//TODO remove for multi game version
 			userModel.vo = userModel.allVO.games[0];
+			userModel.currentGameVO = userModel.vo;
 			
 			//wait received
 			var waitMilliseconds:int = Number(mainXml.waitTime)*1000;

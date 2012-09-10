@@ -143,6 +143,7 @@
 			
 			protected function up_clickHandler(event:MouseEvent):void
 			{
+				
 				//check if the balance will not be negative
 				if (checkBalanceIsAvailable()){
 					var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;

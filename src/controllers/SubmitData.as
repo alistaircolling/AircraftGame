@@ -25,6 +25,7 @@ package controllers
 			statusUpdate.dispatch("submit data command");
 			//add the iteration and game ID
 			vo.gameID = userModel.gameID.toString();
+			vo.gameType = userModel.gameType;
 			statusUpdate.dispatch("got game ID:"+vo.gameID);
 			
 			blackBox.sendData(vo);
