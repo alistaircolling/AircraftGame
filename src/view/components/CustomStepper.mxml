@@ -259,7 +259,8 @@
 			<s:Label id="valLabel" horizontalCenter="0" styleName="supportPanelCategoryNumber"
 					 text="---" textAlign="center" verticalAlign="middle" verticalCenter="0" includeInLayout="false"/>
 			<components:VolumeStepper id="volStepper" totalRects="{totalRects}" />
-			<components:UpArrowButton id="up" skinClass="view.skins.UpPlusButtonSkin"/>
+		
+			<components:UpArrowButton id="up" skinClass="view.skins.UpPlusButtonSkin" top="1"/>
 		</s:HGroup>
 	</s:Group>
 	

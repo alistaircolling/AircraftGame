@@ -13,10 +13,10 @@
 			
 		]]>
 	</fx:Script>
-	<s:Group width="825" height="42" id="rectHolder">
+	<s:Group width="490" height="42" id="rectHolder" top="0">
 		<s:Rect width="100%" height="100%">
 			<s:fill>
-				<s:SolidColor color="0xff00ff"/>
+				<s:SolidColor color="0xff00ff" alpha="0"/>
 			</s:fill>
 		</s:Rect>
 		
