@@ -152,7 +152,7 @@
 				}else{
 					negativeLabel.text = "";
 				}
-				title.text = budgetString+"m";
+				title.text = budgetString;//+"m";
 				
 			}
 			

@@ -16,6 +16,8 @@
 			import mx.collections.ArrayCollection;
 			import mx.events.FlexEvent;
 			
+			import view.renderers.RowNumberRendererMX;
+			
 			
 			[Bindable]
 			public var dp:ArrayCollection; 
@@ -25,6 +27,9 @@
 			public var spacerHeight:uint = 27;
 			
 			
+			
+			
+			
 			[Embed(source="../embed/fonts/MyriadPro-Bold.otf",
                     fontFamily="MyriadPro", fontWeight="bold",
                     embedAsCFF="false")]
@@ -32,6 +37,13 @@
 			
 		
 			
+			public function get currency():String
+			{
+				return _currency;
+			}
+
+			
+
 			protected function list_clickHandler(event:MouseEvent):void
 			{
 				var t:Number = 10;
@@ -57,6 +69,7 @@
 				}
 				imToShow.includeInLayout = true;
 				imToShow.visible = true;
+				
 			}
 			
 		]]>

@@ -5,6 +5,7 @@ package services
 	import flash.filesystem.FileStream;
 	
 	import model.UserDataModel;
+	import model.vo.CopyVO;
 	import model.vo.ErrorVO;
 	import model.vo.InputObjectVO;
 	import model.vo.ReceivedDataVO;
@@ -83,10 +84,30 @@ package services
 			vo.initialData = true;
 			//minimum values will be set on view components that the user is unable to go below and so are not referenced in the model
 			
+			
+			//platform mgt
+			if(xml.platformMgt){
+				trace("it has!");
+				var platform:XMLList = xml.platformMgt;
+				vo.platformMgt = DataUtils.returnVectorFromList( platform[0], Number(xml.currentPlatformMgt) );
+				vo.currentPlatformMgt = DataUtils.getObjectForValue( vo.platformMgt, Number(xml.currentPlatformMgt));
+			}
+			//mis
+			if(xml.mis){
+				trace("it has mis!");
+				var mis:XMLList = xml.mis;
+				vo.mis = DataUtils.returnVectorFromList( mis[0], Number(xml.currentMIS) );
+				vo.currentMIS = DataUtils.getObjectForValue( vo.mis, Number(xml.currentMIS));
+			}
+			
 			userModel.iteration = 0;//incremented when the user presses go
 			userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
 			userModel.vo = vo;
 			
+			var copyVO:CopyVO = new CopyVO();
+			copyVO.currency = xml.currencyUnit;
+			
+			userModel.copyVO = copyVO;
 			
 			//wait received
 			var waitMilliseconds:int = Number(xml.waitTime)*1000;

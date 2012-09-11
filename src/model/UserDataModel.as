@@ -65,6 +65,7 @@ package model
 		public function set copyVO(value:CopyVO):void
 		{
 			_copyVO = value;
+			
 		}
 
 		public function get stage():int

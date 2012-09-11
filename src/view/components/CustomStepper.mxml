@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
 		 xmlns:mx="library://ns.adobe.com/flex/mx"
-		 width="340" height="40" xmlns:components="view.components.*">
+		 xmlns:components="view.components.*"
+		 width="340" height="40" xmlns:local="*">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -20,6 +21,11 @@
 			public var unit:String;
 			[Bindable]
 			public var values:Vector.<InputObjectVO>;
+			[Bindable]
+			public var totalRects:uint;
+			[Bindable]
+			public var currentRects:uint;
+			
 			private var _budget:Number;//used to store the user's current balance so we can check if an incrment can be made
 			
 			public var initVal:InputObjectVO;//used to set the value at the start of the turn that you cant go below
@@ -71,7 +77,7 @@
 					}			
 					
 				}
-				
+				volStepper.value = _currVal.theIndex;
 			}
 			
 			protected function down_clickHandler(event:MouseEvent):void
@@ -87,6 +93,7 @@
 				}
 				var newCost:Number = (values[_currIndex] as InputObjectVO).cost;
 				updateBalance(oldCost - newCost);
+				volStepper.value = _currIndex;
 			}
 			
 			public function disable():void{
@@ -136,6 +143,7 @@
 			
 			protected function up_clickHandler(event:MouseEvent):void
 			{
+				
 				//check if the balance will not be negative
 				if (checkBalanceIsAvailable()){
 					var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
@@ -155,7 +163,7 @@
 					}
 				}
 				
-				
+				volStepper.value = _currIndex;
 			}
 			
 			public function get switchDirection():Boolean
@@ -184,6 +192,9 @@
 			public function set currIndex(value:uint):void
 			{
 				_currIndex = value;
+				//set the number of visible rects
+				volStepper.value = value;
+				
 			}
 
 			public function get budget():Number
@@ -236,18 +247,19 @@
 		
 		
 	</fx:Script>
-	<s:Group width="100%" verticalCenter="0" height="100%">
-			<components:InformationButton id="infoButton" x="-60" y="3" click="infoButton_clickHandler(event)"/>
-		<s:Group x="365" height="100%" y="5" >
-			<s:Label id="valLabel" text="---" styleName="supportPanelCategoryNumber" textAlign="center" horizontalCenter="0" verticalCenter="0" verticalAlign="middle" />
-		</s:Group>
-		<s:HGroup verticalAlign="middle" height="100%" x="28" y="5">
-			<s:Label text="{title}" styleName="supportPanelCategory" verticalCenter="0" verticalAlign="middle" height="100%"/>
-			<s:Label id="unitLabel" text="{unit}" styleName="supportPanelCategoryItalic" verticalCenter="0" verticalAlign="middle"  height="100%"/>
-		</s:HGroup>
-		<s:HGroup right="0" verticalAlign="middle" gap="0">
-			<components:DownArrowButton id="down" />
-			<components:UpArrowButton id="up" />
+	<s:Group width="100%" height="100%" verticalCenter="0">
+			<components:InformationButton id="infoButton" x="-60" y="3"
+										  click="infoButton_clickHandler(event)"/>
+			<s:Label x="28" y="5"  styleName="supportPanelCategory" text="{title}"
+					 verticalAlign="middle" verticalCenter="0"/>
+		<s:HGroup x="110" y="5" height="100%" verticalAlign="middle" width="100%">
+	<!--		<s:Label id="unitLabel" height="100%" styleName="supportPanelCategoryItalic"
+					 text="{unit}" verticalAlign="middle" verticalCenter="0"/>-->
+		<components:DownArrowButton id="down"/>
+			<s:Label id="valLabel" horizontalCenter="0" styleName="supportPanelCategoryNumber"
+					 text="---" textAlign="center" verticalAlign="middle" verticalCenter="0" includeInLayout="false"/>
+			<local:VolumeStepper id="volStepper" totalRects="{totalRects}" />
+			<components:UpArrowButton id="up"/>
 		</s:HGroup>
 	</s:Group>
 	
