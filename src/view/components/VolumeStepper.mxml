@@ -23,6 +23,8 @@
 			
 			public var padding:uint = 5;
 			
+			public var horiPadding:uint = 15;
+			
 			//public var rectPadding::uint = 
 			
 			
@@ -48,7 +50,7 @@
 			
 			private function generateRects():void{
 				
-				var horiPadding:uint = 15;
+			
 				var maxHeight:uint = 39;
 				var rectHeightUnit:Number = maxHeight/totalRects;
 				var totalWidth:Number = display.width-((totalRects-1)*horiPadding);

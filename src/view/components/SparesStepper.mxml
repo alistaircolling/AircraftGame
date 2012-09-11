@@ -2,6 +2,7 @@
 <s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
 		 xmlns:s="library://ns.adobe.com/flex/spark" 
 		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="view.components.*"
+		 creationComplete="group1_creationCompleteHandler(event)"
 		 
 		 >
 	<fx:Script>
@@ -9,8 +10,14 @@
 			import events.LeverEvent;
 			import events.NumberEvent;
 			
+			import mx.events.FlexEvent;
+			
 			[Bindable]
 			public var title:String;
+			[Bindable]
+			public var totalRects:uint;
+			[Bindable]
+			public var currentRects:uint;
 			
 			public var sparesInc:Number;
 			public var costInc:Number;
@@ -19,8 +26,10 @@
 			private var _budget:Number; 
 			
 			public var vidId:uint;
+			public var sparesStartingValue:Number;
 			
 			//hides both buttons so nothing can be pressed
+			
 			public function disable():void{
 				
 				up.visible = false;
@@ -38,7 +47,7 @@
 					
 					trace("at the bottom value");
 				}
-				
+				volStepper.value = sparesCurr-sparesInit;
 			}
 			
 			
@@ -53,6 +62,8 @@
 					up.visible = false;
 					trace("no budget left for spares");
 				}
+				
+				volStepper.value = sparesCurr-sparesInit;
 				
 				
 			}
@@ -86,8 +97,10 @@
 			public function set sparesInit(value:Number):void
 			{
 				_sparesInit = value;
+				
 				//make the  down button inv
 				down.visible = false;
+				volStepper.value = 0;
 			}
 			
 			public function get sparesCurr():Number
@@ -130,6 +143,7 @@
 				}
 				
 				updateBalance(diff*costInc);
+				volStepper.value = _sparesCurr-sparesStartingValue;
 			}
 			
 			private function updateBalance( n:Number ):void{
@@ -167,23 +181,32 @@
 				dispatchEvent(e);
 			}
 			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				down.addEventListener(MouseEvent.CLICK, down_clickHandler);
+				up.addEventListener(MouseEvent.CLICK, up_clickHandler);
+				
+			}
+			
 		]]>
 	</fx:Script>
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
-	<s:Group width="100%" height="100%" >
-		<components:InformationButton id="infoButton" x="-60" click="infoButton_clickHandler(event)"/>
-		<s:Group x="365" height="100%" y="5" >
-			<s:Label id="valLabel" text="---" styleName="supportPanelCategoryNumber" textAlign="center"  verticalCenter="0" verticalAlign="middle" height="100%" />
-		</s:Group>
-		<s:HGroup verticalAlign="middle" height="100%" x="28" y="5">
-			<s:Label text="{title}" styleName="supportPanelCategory" verticalCenter="0" verticalAlign="middle" height="100%"/>
-			<s:Label text="Numberz" styleName="supportPanelCategoryItalic" verticalCenter="0" verticalAlign="middle"  height="100%" includeInLayout="false"/>
-		</s:HGroup>
-		<s:HGroup right="0" verticalAlign="middle" gap="0">
-			<components:DownArrowButton id="down" click="down_clickHandler(event)" />
-			<components:UpArrowButton id="up" click="up_clickHandler(event)"/>
+	<s:Group width="100%" height="100%" verticalCenter="0">
+		<components:InformationButton id="infoButton" x="-60" y="3"
+									  click="infoButton_clickHandler(event)"/>
+		<s:Label x="18" y="15"  styleName="supportPanelCategory" text="{title}"
+				 verticalAlign="middle" verticalCenter="0"/>
+		<s:HGroup x="150" y="5" height="100%" verticalAlign="middle" width="540">
+			<!--		<s:Label id="unitLabel" height="100%" styleName="supportPanelCategoryItalic"
+			text="{unit}" verticalAlign="middle" verticalCenter="0"/>-->
+			<components:UpArrowButton id="down" skinClass="view.skins.DownMinusButtonSkin"/>
+			<s:Label id="valLabel" horizontalCenter="0" styleName="supportPanelCategoryNumber"
+					 text="---" textAlign="center" verticalAlign="middle" verticalCenter="0" includeInLayout="false"/>
+			<components:VolumeStepper id="volStepper" totalRects="{totalRects}" horiPadding="3" />
+			
+			<components:UpArrowButton id="up" skinClass="view.skins.UpPlusButtonSkin" top="1"/>
 		</s:HGroup>
 	</s:Group>
 </s:Group>

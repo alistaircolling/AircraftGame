@@ -210,7 +210,7 @@
 											  currVal="{platformMgtVal}" title="Platform Mgt"
 											  totalRects="3" unit="" values="{platformMgtValues}"
 											  vidId="3"/>
-					<components:SparesStepper id="spares" width="623" height="50" title="Spares"
+					<components:SparesStepper id="spares" width="623" height="50" totalRects="20"  title="Spares"
 											  vidId="0"/>
 					<components:CustomStepper id="mis" width="623" height="48" currVal="{misVal}"
 											  title="MIS" totalRects="3" unit=""
