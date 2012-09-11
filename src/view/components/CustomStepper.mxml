@@ -250,9 +250,9 @@
 	<s:Group width="100%" height="100%" verticalCenter="0">
 			<components:InformationButton id="infoButton" x="-60" y="3"
 										  click="infoButton_clickHandler(event)"/>
-			<s:Label x="28" y="5"  styleName="supportPanelCategory" text="{title}"
+			<s:Label x="18" y="15"  styleName="supportPanelCategory" text="{title}"
 					 verticalAlign="middle" verticalCenter="0"/>
-		<s:HGroup x="110" y="5" height="100%" verticalAlign="middle" width="100%">
+		<s:HGroup x="150" y="5" height="100%" verticalAlign="middle" width="540">
 	<!--		<s:Label id="unitLabel" height="100%" styleName="supportPanelCategoryItalic"
 					 text="{unit}" verticalAlign="middle" verticalCenter="0"/>-->
 		<components:DownArrowButton id="down"/>

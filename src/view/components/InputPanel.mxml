@@ -88,7 +88,7 @@
 					negativeLabel.text = "";
 				}
 				
-				balanceIndicator.text  = budgetString+"m";
+				balanceIndicator.text  = budgetString;//+"m";
 				
 			}
 			
@@ -158,12 +158,12 @@
 		<s:Group id="supportVidGroup" top="8" right="167">
 			<components:SupportVideo id="supportVideo" />
 		</s:Group>
-		<mx:Image source="@Embed('../embed/supportPanel.png')" smoothBitmapContent="true" />
+		<mx:Image source="@Embed('../embed/supportPanel-land.png')" smoothBitmapContent="true" />
 		
-		<s:Label text="Remaining budget" styleName="supportPanelBudgetCopy"  textAlign="left" left="580" top="70"/>
-		<s:Group left="535" top="90" >
+		<s:Label text="Remaining budget" styleName="supportPanelBudgetCopy"  textAlign="left" left="706" top="45"/>
+		<s:Group left="635" top="20" >
 			
-			<s:HGroup horizontalCenter="0">
+			<s:HGroup horizontalCenter="20" top="40">
 				<s:Group >
 					<s:Label id="negativeLabel" styleName="supportPanelBudget" text="-" y="-3" x="45"/>
 				</s:Group>
@@ -177,8 +177,8 @@
 			</s:HGroup>
 		</s:Group>
 		
-		<s:Group  left="60" top="60" width="100%" >
-			<s:VGroup>
+		<s:Group  left="30" top="25" width="100%" >
+			<s:VGroup top="20">
 				<s:HGroup id="turnImageHolder">
 					<!--<s:Label id="title" text="Support Options"  fontWeight="bold" styleName="supportPanelTitle" />-->
 					<mx:Image id="turn1" source="@Embed('../embed/support1.png')" smoothBitmapContent="true" includeInLayout="true"/>
@@ -186,7 +186,7 @@
 					<mx:Image id="turn3" source="@Embed('../embed/support3.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
 					<!-- <s:Label id="turn" text="" styleName="supportPanelTitleItalic"/> -->		
 				</s:HGroup>
-				<s:Group left="65">
+				<s:Group left="70" top="15">
 				<s:VGroup gap="10" left="54">
 					<mx:Spacer height="29" left="54"/>					
 					<components:CustomStepper id="reliability" title="MTBF" totalRects="5"  unit="" currVal="{reliablityVal}" values="{reliabilityValues}" width="623" height="50" vidId="1"/>
@@ -199,7 +199,7 @@
 				</s:VGroup>
 				</s:Group>
 			</s:VGroup>
-			<s:Label id="flownCurr" styleName="supportPanelCategory" text="Current % Flown:" paddingLeft="3" paddingTop="38"/>
+			<s:Label id="flownCurr" styleName="supportPanelCategory" text="Current % Flown:" paddingLeft="6" paddingTop="48"/>
 		</s:Group>
 		
 		

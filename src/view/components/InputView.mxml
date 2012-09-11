@@ -76,7 +76,7 @@
 				inputPanel.platformMgt.currVal = _receivedVO.currentPlatformMgt;
 
 				//set the % flown remaining
-				inputPanel.flownCurr.text = "Current % Flown: "+_receivedVO.lastPercent.toString()+"%";
+				inputPanel.flownCurr.text = "Current Military Output Achieved: "+_receivedVO.lastPercent.toString()+"%";
 			}
 			
 			public function showBalance( n:Number ):void{
@@ -115,7 +115,8 @@
 		
 		<components:BudgetComponent id="budgetIndicator" />
 	</s:Group>
-	<s:Group horizontalCenter="0" verticalCenter="246" >
+<!--	<s:Group horizontalCenter="0" verticalCenter="246" > -->
+	<s:Group horizontalCenter="0" top="56" >
 		<components:InputPanel id="inputPanel" verticalCenter="0" horizontalCenter="0"/>
 	</s:Group>
 	<!-- <s:Group id="lbHolder" right="100" top="200">

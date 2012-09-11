@@ -37,11 +37,7 @@
 			
 		
 			
-			public function get currency():String
-			{
-				return _currency;
-			}
-
+		
 			
 
 			protected function list_clickHandler(event:MouseEvent):void
