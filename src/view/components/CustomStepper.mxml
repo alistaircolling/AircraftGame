@@ -258,7 +258,7 @@
 		<components:DownArrowButton id="down"/>
 			<s:Label id="valLabel" horizontalCenter="0" styleName="supportPanelCategoryNumber"
 					 text="---" textAlign="center" verticalAlign="middle" verticalCenter="0" includeInLayout="false"/>
-			<local:VolumeStepper id="volStepper" totalRects="{totalRects}" />
+			<components:VolumeStepper id="volStepper" totalRects="{totalRects}" />
 			<components:UpArrowButton id="up"/>
 		</s:HGroup>
 	</s:Group>

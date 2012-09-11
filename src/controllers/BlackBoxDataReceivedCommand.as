@@ -1,9 +1,5 @@
 package controllers
 {
-	import flash.globalization.LastOperationStatus;
-	
-	import flashx.textLayout.operations.SplitParagraphOperation;
-	
 	import model.UserDataModel;
 	import model.vo.GraphResultsVO;
 	import model.vo.ReceivedDataVO;
@@ -13,8 +9,6 @@ package controllers
 	import services.InitialXMLService;
 	
 	import utils.DataUtils;
-	
-	import view.components.BudgetIndicator;
 	
 	public class BlackBoxDataReceivedCommand extends SignalCommand
 	{
@@ -36,7 +30,7 @@ package controllers
 			var graphVO:GraphResultsVO = new GraphResultsVO();
 			//create the vectors
 			var pcFlown:Vector.<Number>;
-			var pcVals:String = xml..percentFlown.valueOf();
+			var pcVals:String = xml..percentSuccess.valueOf();
 			var pc:Array = pcVals.split(",");
 			pcFlown = DataUtils.convertArrayToVector(pc);
 			var month:Vector.<Number>;
@@ -44,12 +38,12 @@ package controllers
 			var monthA:Array = monthVals.split(",");
 			month = DataUtils.convertArrayToVector(monthA);
 			var inAir:Vector.<Number>;
-			var inAirVals:String = xml..inAir.valueOf();
+			var inAirVals:String = xml..inUse.valueOf();
 			var inA:Array = inAirVals.split(",");
 			
 			inAir = DataUtils.convertArrayToVector(inA);
 			var onGround:Vector.<Number>;
-			var onGVals:String = xml..onGround.valueOf();
+			var onGVals:String = xml..unavailable.valueOf();
 			var onG:Array = onGVals.split(",");
 			onGround = DataUtils.convertArrayToVector(onG);
 			
@@ -63,12 +57,17 @@ package controllers
 			//set graph vo
 			userModel.graphVO = graphVO;
 		
-			
+			//TODO update to match the new xml structure
 			trace("black box data received command");
 			var vo:ReceivedDataVO = new ReceivedDataVO();
+			trace("rel:"+userModel.vo.reliability+":"+ Number(xml..currentReliability));
 			vo.currentReliability = DataUtils.getObjectForValue(userModel.vo.reliability, Number(xml..currentReliability));
 			vo.currentNFF = DataUtils.getObjectForValue(userModel.vo.nff, xml..currentNFF);
 			vo.currentTuranaround = DataUtils.getObjectForValue(userModel.vo.turnaround, xml..currentTurnaround);
+			//new
+			vo.currentPlatformMgt = DataUtils.getObjectForValue(userModel.vo.platformMgt, xml..currentPlatformMgt);
+			vo.currentMIS = DataUtils.getObjectForValue(userModel.vo.mis, xml..currentMIS);
+			
 			vo.currentSpares = Number(xml..currentSpares);
 			vo.sparesCostInc = userModel.vo.sparesCostInc;//already set and so retrieved
 			vo.iteration = Number(xml..iteration);
@@ -76,8 +75,9 @@ package controllers
 			vo.lastPercent = graphVO.percentFlown[graphVO.percentFlown.length-1];
 			if (vo.iteration == 3){
 				
-				vo.avAvailability = xml..averageAvailability;
-				vo.finalScore = Number(xml..currentBudget);
+				vo.avAvailability = xml..averageAchieved;
+				//TODO need to check if the final score value should be money in bank for all games
+				vo.finalScore = Number(xml..moneyInBank);
 				vo.costPerFHr = Number(xml..costperFH);
 			}
 			
@@ -85,6 +85,10 @@ package controllers
 			vo.reliability = DataUtils.getVectorFromStartingVO(userModel.vo.reliability, vo.currentReliability);
 			vo.nff = DataUtils.getVectorFromStartingVO(userModel.vo.nff, vo.currentNFF);
 			vo.turnaround = DataUtils.getVectorFromStartingVO(userModel.vo.turnaround, vo.currentTuranaround);
+			//new
+			vo.platformMgt = DataUtils.getVectorFromStartingVO(userModel.vo.platformMgt, vo.currentPlatformMgt);
+			vo.mis = DataUtils.getVectorFromStartingVO(userModel.vo.mis, vo.currentMIS);
+			
 			vo.initialData = false;
 			//set on the model
 			

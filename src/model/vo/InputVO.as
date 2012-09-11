@@ -8,6 +8,9 @@ package model.vo
 		public var nff:String;
 		public var iteration:String;
 		public var gameID:String;
+		public var mis:String;
+		public var platformMgt:String;
+		public var gameType:String;
 		
 	}
 }
