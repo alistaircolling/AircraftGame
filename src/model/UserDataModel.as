@@ -16,6 +16,7 @@ package model
 	import signals.UserDataSetLive;
 	
 	import spark.components.mediaClasses.VolumeBar;
+	import model.vo.CopyVO;
 	
 	public class UserDataModel extends Actor
 	{
@@ -54,6 +55,17 @@ package model
 									4, entering 3rd round, 5, showing 3rd round,
 									6 Final score screen
 									7 Exit Slide Screen */
+		private var _copyVO:CopyVO;
+
+		public function get copyVO():CopyVO
+		{
+			return _copyVO;
+		}
+
+		public function set copyVO(value:CopyVO):void
+		{
+			_copyVO = value;
+		}
 
 		public function get stage():int
 		{

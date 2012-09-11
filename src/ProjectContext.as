@@ -21,6 +21,7 @@ package
 	import model.LeaderBoardModel;
 	import model.SettingsModel;
 	import model.UserDataModel;
+	import model.vo.CopyVO;
 	
 	import org.robotlegs.mvcs.Context;
 	import org.robotlegs.mvcs.SignalCommand;
@@ -131,6 +132,7 @@ package
 			injector.mapSingleton(WaitSetByXML);
 			injector.mapSingleton(ForceShowHighlight);
 			injector.mapSingleton(MusicVolumeSet);
+			injector.mapSingleton(CopyVO);
 
 			
 			//map signals   -maps signals to commands

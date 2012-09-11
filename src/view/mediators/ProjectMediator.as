@@ -90,7 +90,7 @@ package view.mediators
 			trace("close preview vid");
 			viewComp.previewVideo.stop();
 			viewComp.previewVid.visible = false;
-			viewComp.introView.startTimer(true);
+			//viewComp.introView.startTimer(true);
 			
 		}
 		

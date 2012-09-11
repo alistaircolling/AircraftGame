@@ -91,7 +91,7 @@ package services
 			_attempts = 0;
 			initResubmission();
 			
-		//	return  //- only uncomment when testing without blackbox
+			return  //- only uncomment when testing without blackbox
 			statusUpdate.dispatch("connecting to socket on ip:"+_ip+"  port:"+_port);
 			
 			//create socket connection

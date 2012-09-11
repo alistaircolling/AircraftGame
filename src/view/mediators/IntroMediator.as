@@ -63,8 +63,9 @@ package view.mediators
 			trace("add intro mediator listeners");
 			waitSet.add(onWaitSet);
 			introView.continueButton.addEventListener(MouseEvent.CLICK, videoContinueClicked);
-			introView.planeButton.addEventListener(MouseEvent.CLICK, planeClicked);
-			introView.heliButton.addEventListener(MouseEvent.CLICK, heliClicked);
+		//	introView.planeButton.addEventListener(MouseEvent.CLICK, planeClicked);
+		//	introView.heliButton.addEventListener(MouseEvent.CLICK, heliClicked);
+			introView.startButton.addEventListener(MouseEvent.CLICK, startLand);
 			
 			//add listener for signal
 			textSetOnModel.add(onModelChanged);
@@ -78,7 +79,7 @@ package view.mediators
 		private function videoContinueClicked( m:MouseEvent ):void{
 			
 			introView.showVideo(false);		
-			introView.startTimer(true);
+			//introView.startTimer(true);
 		}
 		private function updateLeaderBoard( vo:LeaderBoardVO ):void{
 			introView.leaderboardIntro.dp = vo.winners;
@@ -88,6 +89,11 @@ package view.mediators
 		public function onModelChanged(__s:String):void{
 			
 			
+		}
+		private function startLand( m:MouseEvent ):void{
+				introView.startTimer(false);
+				gameTypeSelected.dispatch("land");
+				startClicked.dispatch();
 		}
 		
 		private function planeClicked( m:MouseEvent ):void{

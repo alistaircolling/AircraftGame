@@ -108,6 +108,14 @@
 						inAir = inAirHelis;
 						onGround = onGroundHelis;
 						break
+					//TODO add the correct assets
+					case "land":
+						_currentAnim = new HeliTakeoff();
+						_currentAnim.x = 0-(1920/2);
+						_currentAnim.y = 0-(1080/2);
+						inAir = inAirHelis;
+						onGround = onGroundHelis;
+						break
 				}
 				
 				inAirPlanes.visible = false;

@@ -13,6 +13,8 @@
 			
 			import mx.events.FlexEvent;
 			
+			
+			
 				private function getBudget():String{
 					var vo:UserVO = data as UserVO;
 					var score:Number = vo.score;
@@ -21,7 +23,7 @@
 					if(scoreStr.substr(0,1) =="-"){
 						retS = scoreStr.substr(1);												
 					}
-					return retS+"m";
+					return retS;//+"m";
 				}
 			
 				private function getMinus():String{

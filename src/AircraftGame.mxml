@@ -39,8 +39,8 @@
 			
 			private function createContextMenu():void{
 				square  = new Sprite();
-				square.graphics.beginFill(0x000000, 0.4);
-				square.graphics.drawRect(-4,-30,80,80);
+				square.graphics.beginFill(0x000000, 0);
+				square.graphics.drawRect(-84,-30,370,80);
 				square.graphics.endFill();
 				
 				var newComponent:UIComponent = new UIComponent();
@@ -48,9 +48,10 @@
 				//must set the UI component to wrap the sprite - so set width and height
 				newComponent.width = 80;
 				newComponent.height = 60;
-				newComponent.alpha = .5;
+				newComponent.alpha = 0;//.5;
 				newComponent.addChild(square);
 				myPanel.addChild(newComponent);
+				myPanel.alpha = 0;
 				
 				var menuItem:ContextMenuItem = new ContextMenuItem("Quit");
 				menuItem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT,quitApp);
@@ -182,7 +183,7 @@
 						
 						showSection(blackout, false);
 						showSection(introView, true);
-						introView.startTimer(true);//used to track user interaction and show video
+			//			introView.startTimer(true);//used to track user interaction and show video
 						showSection(inputView, false);
 						showSection(resultsView, false);
 						showSection(lbHolder, false);
@@ -320,6 +321,7 @@
 	</s:states>
 	<mx:Image id="heliBackground" source="@Embed('../embed/heli-background.png')" width="1920" height="1080" smoothBitmapContent="true" />
 	<mx:Image id="planeBackground" source="@Embed('../embed/selex-background.png')" width="1920" height="1080" smoothBitmapContent="true" />
+	<mx:Image id="landBackground" source="@Embed('../embed/land-background.png')" width="1920" height="1080" smoothBitmapContent="true" />
 	<s:Group id="blackout" >
 		<mx:Canvas width="1920" height="1080" backgroundAlpha=".5" backgroundColor="0x0"/>
 	</s:Group>
@@ -337,7 +339,7 @@
 	</s:Group>
 	<s:Button label="show status" x="1800" y="1000" click="button1_clickHandler(event)" visible="false"/>
 	<components:ErrorMessage id="errorMsg" visible="false"/>
-	<mx:Panel id="myPanel" x="1780"  y="60" alpha="0" visible="true" removedFromStage="onRemoved(event)" remove="onRemoved(event)" removed="onRemoved(event)"/> 
+	<mx:Panel id="myPanel" x="65"  y="33" alpha="0"  removedFromStage="onRemoved(event)" remove="onRemoved(event)" removed="onRemoved(event)"/> 
 	<s:TextArea id="statusLabel" fontSize="24"  left="5"  height="600" width="1000" includeInLayout="false" visible="false"/>
 	<!-- <s:Group id="myPanel" x="1703" y="60" alpha="0"/> -->
 	<audio:BackgroundMusic id="music"/>
