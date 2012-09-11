@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="view.components.*">
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="view.components.*">
 	<s:layout>
 		<s:VerticalLayout/>
 	</s:layout>
@@ -9,8 +10,9 @@
 	
 	<fx:Declarations>
 		
-		<s:Move id="videoShow" duration="1000" yTo="-419" effectEnd="videoShow_effectEndHandler(event)" />
-		<s:Move id="videoHide" duration="1000" yTo="0" effectEnd="videoHide_effectEndHandler(event)"/>
+		<s:Move id="videoShow" duration="1000" effectEnd="videoShow_effectEndHandler(event)"
+				yTo="-419"/>
+		<s:Move id="videoHide" duration="1000" effectEnd="videoHide_effectEndHandler(event)" yTo="0"/>
 		
 	</fx:Declarations>
 	
@@ -154,52 +156,71 @@
 
 		]]>
 	</fx:Script>
-	<s:Group horizontalCenter="0" verticalCenter="0" width="738" >
-		<s:Group id="supportVidGroup" top="8" right="167">
-			<components:SupportVideo id="supportVideo" />
+	<s:Group width="738" horizontalCenter="0" verticalCenter="0">
+		<s:Group id="supportVidGroup" right="167" top="8">
+			<components:SupportVideo id="supportVideo"/>
 		</s:Group>
-		<mx:Image source="@Embed('../embed/supportPanel-land.png')" smoothBitmapContent="true" />
+		<mx:Image smoothBitmapContent="true" source="@Embed('../embed/supportPanel-land.png')"/>
 		
-		<s:Label text="Remaining budget" styleName="supportPanelBudgetCopy"  textAlign="left" left="706" top="45"/>
-		<s:Group left="635" top="20" >
+		<s:Label left="706" top="45" styleName="supportPanelBudgetCopy" text="Remaining budget"
+				 textAlign="left"/>
+		<s:Group left="635" top="20">
 			
-			<s:HGroup horizontalCenter="20" top="40">
-				<s:Group >
-					<s:Label id="negativeLabel" styleName="supportPanelBudget" text="-" y="-3" x="45"/>
+			<s:HGroup top="40" horizontalCenter="20">
+				<s:Group>
+					<s:Label id="negativeLabel" x="45" y="-3" styleName="supportPanelBudget" text="-"/>
 				</s:Group>
 				<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->
 				<s:Group>
-					<mx:Image source="@Embed('../embed/supportBlatt.png')" smoothBitmapContent="true" y="2" x="0"/>
+					<mx:Image x="0" y="2" smoothBitmapContent="true"
+							  source="@Embed('../embed/supportBlatt.png')"/>
 				</s:Group>
 				<s:Group>
-					<s:Label id="balanceIndicator" text="" styleName="supportPanelBudget"  textAlign="left" left="5" />
+					<s:Label id="balanceIndicator" left="5" styleName="supportPanelBudget" text=""
+							 textAlign="left"/>
 				</s:Group>
 			</s:HGroup>
 		</s:Group>
 		
-		<s:Group  left="30" top="25" width="100%" >
-			<s:VGroup top="20">
+		<s:Group left="30" top="23" width="100%">
+			<s:VGroup top="5">
 				<s:HGroup id="turnImageHolder">
 					<!--<s:Label id="title" text="Support Options"  fontWeight="bold" styleName="supportPanelTitle" />-->
-					<mx:Image id="turn1" source="@Embed('../embed/support1.png')" smoothBitmapContent="true" includeInLayout="true"/>
-					<mx:Image id="turn2" source="@Embed('../embed/support2.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
-					<mx:Image id="turn3" source="@Embed('../embed/support3.png')" smoothBitmapContent="true" includeInLayout="false" visible="false"/>
+					<mx:Image id="turn1" includeInLayout="true" smoothBitmapContent="true"
+							  source="@Embed('../embed/support1.png')"/>
+					<mx:Image id="turn2" visible="false" includeInLayout="false"
+							  smoothBitmapContent="true" source="@Embed('../embed/support2.png')"/>
+					<mx:Image id="turn3" visible="false" includeInLayout="false"
+							  smoothBitmapContent="true" source="@Embed('../embed/support3.png')"/>
 					<!-- <s:Label id="turn" text="" styleName="supportPanelTitleItalic"/> -->		
 				</s:HGroup>
-				<s:Group left="70" top="15">
-				<s:VGroup gap="10" left="54">
-					<mx:Spacer height="29" left="54"/>					
-					<components:CustomStepper id="reliability" title="MTBF" totalRects="5"  unit="" currVal="{reliablityVal}" values="{reliabilityValues}" width="623" height="50" vidId="1"/>
-					<components:CustomStepper id="nff" title="NFF" unit="" totalRects="5" currVal="{nffVal}" values="{nffValues}" width="623" height="48" vidId="2"/>
-					<components:CustomStepper id="turnaround" title="RTRT" totalRects="5"  unit="" currVal="{turnaroundVal}" values="{turnaroundValues}" width="623" height="48" vidId="3" />
-					<components:CustomStepper id="platformMgt" title="Platform Mgt" totalRects="3" unit="" currVal="{platformMgtVal}" values="{platformMgtValues}" width="623" height="48" vidId="3" />
-					<components:SparesStepper id="spares" title="Spares" width="623" height="50" vidId="0"/>
-					<components:CustomStepper id="mis" title="MIS" totalRects="3"  unit="" currVal="{misVal}" values="{misValues}" width="623" height="48" vidId="3" />
+				<s:Group left="70" top="35">
+				<s:VGroup left="54" gap="10">
+					<mx:Spacer left="54" height="33"/>					
+					<components:CustomStepper id="reliability" width="623" height="50"
+											  currVal="{reliablityVal}" title="MTBF" totalRects="5"
+											  unit="" values="{reliabilityValues}" vidId="1"/>
+					<components:CustomStepper id="nff" width="623" height="48" currVal="{nffVal}"
+											  title="NFF" totalRects="5" unit=""
+											  values="{nffValues}" vidId="2"/>
+					<components:CustomStepper id="turnaround" width="623" height="48"
+											  currVal="{turnaroundVal}" title="RTRT" totalRects="5"
+											  unit="" values="{turnaroundValues}" vidId="3"/>
+					<components:CustomStepper id="platformMgt" width="623" height="48"
+											  currVal="{platformMgtVal}" title="Platform Mgt"
+											  totalRects="3" unit="" values="{platformMgtValues}"
+											  vidId="3"/>
+					<components:SparesStepper id="spares" width="623" height="50" title="Spares"
+											  vidId="0"/>
+					<components:CustomStepper id="mis" width="623" height="48" currVal="{misVal}"
+											  title="MIS" totalRects="3" unit=""
+											  values="{misValues}" vidId="3"/>
 					<components:GoButton id="submit"/>
 				</s:VGroup>
 				</s:Group>
 			</s:VGroup>
-			<s:Label id="flownCurr" styleName="supportPanelCategory" text="Current % Flown:" paddingLeft="6" paddingTop="48"/>
+			<s:Label id="flownCurr" paddingLeft="6" paddingTop="48" styleName="supportPanelCategory"
+					 text="Current % Flown:"/>
 		</s:Group>
 		
 		

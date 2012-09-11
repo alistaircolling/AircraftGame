@@ -53,13 +53,7 @@
 				var rectWidth:Number = totalWidth/totalRects;
 				for(var i:uint = 0; i<totalRects; i++){
 					
-					var rect:Rect = new Rect();
-					rect.fill = new SolidColor(0xcccccc);
-					rect.stroke = new SolidColorStroke(0x0);
-					
-					rect.width = rectWidth;
-					rect.height = display.height- (padding*2);
-					display.rectHolder.addElement(rect);
+					var rect:GraphBar = new GraphBar();
 					rect.x = padding+(i*rectWidth);
 					rect.y = padding;					
 				}
@@ -67,11 +61,11 @@
 			
 			private function colorRects(num:uint):void{
 				for(var i:uint = 1; i<=totalRects; i++){
-					var rect:* = display.rectHolder.getElementAt(i);
+					var rect:GraphBar = display.rectHolder.getElementAt(i) as GraphBar;
 					if (i<=num){
-						rect.fill = new SolidColor(0x0000ff);
+						rect.alpha = 1;
 					}else{
-						rect.fill = new SolidColor(0xcccccc);
+						rect.alpha = .4;
 					}
 				}
 			}
