@@ -82,7 +82,7 @@ package view.mediators
 			initSocket.dispatch();
 			viewComp.addEventListener("restart", restartGameListener);
 			viewComp.addEventListener("toggleMute", toggleMuteListener);
-			viewComp.addEventListener(IntroView.SHOW_PREVIEW_VIDEO, onShowPreviewVideo);
+	//		viewComp.addEventListener(IntroView.SHOW_PREVIEW_VIDEO, onShowPreviewVideo);
 			viewComp.closePreviewVid.addEventListener(MouseEvent.CLICK, onClosePreviewVid);
 		}
 		
@@ -124,6 +124,13 @@ package view.mediators
 					viewComp.planeBackground.visible = false;
 					viewComp.introView.introPanelHeli.visible = true;
 					viewComp.introView.introPanelPlane.visible = false;
+					break
+				case "land":
+				//	viewComp.heliBackground.visible = true;
+				//	viewComp.planeBackground.visible = false;
+					//viewComp.introView.introPanelHeli.visible = true;
+					//viewComp.introView.introPanelPlane.visible = false;
+					viewComp.landBackground.visible = true;
 					break
 			}
 		}

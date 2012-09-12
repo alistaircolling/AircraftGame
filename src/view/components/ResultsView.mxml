@@ -170,7 +170,7 @@
 					dispatchEvent(e);
 				}else{
 					var f:ChangeStateEvent = new ChangeStateEvent(ChangeState.ENTER_SCREEN);
-					f.state = ChangeState.EXIT_SCREEN;				
+					f.state = ChangeState.FINAL_SCREEN;				
 					dispatchEvent(f);
 				}				
 			}
@@ -256,7 +256,7 @@
 			</s:Group>
 			<s:Label text="" styleName="legend" />
 		</s:HGroup>
-		<s:Label top="71" left="650" text="% Flown" styleName="legend"/>
+		<s:Label top="71" left="650" text="% Military Output" styleName="legend"/>
 		<components:CustomButton id="continueBtn" right="55" top="52" click="continue_clickHandler(event)"/>
 	</s:Group>
 	

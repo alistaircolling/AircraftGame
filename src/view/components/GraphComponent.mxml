@@ -12,7 +12,7 @@
 		<s:SolidColor id="fill" color="white" alpha="0"/>
 		<s:SolidColor id="fill2" color="red" alpha=".5"/>
 		<s:Move id="myMove" easer="{noEase}" 
-				target="{rect}" duration="250" effectEnd="myMove_effectEndHandler(event)" />
+				target="{rect}" duration="25" effectEnd="myMove_effectEndHandler(event)" />
 		<!-- duration was 250 -->
 		<s:Power id="noEase"
 				 exponent="1"/> 

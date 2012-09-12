@@ -160,7 +160,7 @@
 				if (!previewVid.parent){
 					trace("!no parent for PREV VID!");
 					//used to re-add panel as it is being removed on state change for some reason  //HACK
-					addElement(previewVid);
+					//addElement(previewVid);
 				}
 				if (!music.parent){
 					trace("!no parent for music!");
@@ -237,7 +237,7 @@
 						exitView.userEntered();
 						showSection(blackout, true);
 						showSection(exitView, true);
-						exitView.playVideo(true);
+				//		exitView.playVideo(true);
 						showSection(finalView, false);
 						showSection(introView, false);
 						showSection(lbHolder, false);
@@ -343,7 +343,7 @@
 	<s:TextArea id="statusLabel" fontSize="24"  left="5"  height="600" width="1000" includeInLayout="false" visible="false"/>
 	<!-- <s:Group id="myPanel" x="1703" y="60" alpha="0"/> -->
 	<audio:BackgroundMusic id="music"/>
-	<s:Group id="previewVid" visible="false" width="1920" height="1080" >
+	<s:Group id="previewVid" visible="false" width="1920" height="1080" includeInLayout="false" >
 		<s:VideoDisplay id="previewVideo" width="1920" height="1080" source="previewVid.flv"/>
 		<components:ContinueButton id="closePreviewVid" bottom="20" right="40"/>
 	</s:Group>
