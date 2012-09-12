@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:components="view.components.*"
-		 creationComplete="group1_creationCompleteHandler(event)"
-		 
-		 >
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="view.components.*"
+		 creationComplete="group1_creationCompleteHandler(event)">
 	<fx:Script>
 		<![CDATA[
 			import events.LeverEvent;
@@ -29,6 +28,7 @@
 			public var sparesStartingValue:Number;
 			
 			//hides both buttons so nothing can be pressed
+			private var _downClicked:Boolean;
 			
 			public function disable():void{
 				
@@ -38,6 +38,7 @@
 			}
 			
 			protected function down_clickHandler(event:MouseEvent):void{
+				_downClicked = true;
 				//check that the value is not going below min
 				if(sparesCurr - sparesInc >= sparesInit){
 					
@@ -48,14 +49,27 @@
 					trace("at the bottom value");
 				}
 				volStepper.value = sparesCurr-sparesInit;
+				if (volStepper.totalRects-volStepper.value>0){
+					up.visible = true;
+				}
 			}
 			
 			
 			protected function up_clickHandler(event:MouseEvent):void{
+				_downClicked = false;
 				//check the upper limit of the budget
-				var maxSpares:uint = Math.floor(budget/costInc);
-				//if there is some budget left for spares increase 
 				trace("maxspares:"+maxSpares);
+				var maxSpares:uint = Math.floor(budget/costInc);
+				//prevent the user adding more than 20 spares
+				trace("remaining spares:"+(volStepper.totalRects-volStepper.value));
+				if (maxSpares>(volStepper.totalRects-volStepper.value)){
+					maxSpares = volStepper.totalRects-volStepper.value;
+					trace("max spares set to remaining:"+maxSpares);
+					if (maxSpares==1){
+						up.visible = false;
+					}
+				}
+				//if there is some budget left for spares increase 
 				if (maxSpares>0){
 					sparesCurr += sparesInc;
 				}else{
@@ -64,7 +78,9 @@
 				}
 				
 				volStepper.value = sparesCurr-sparesInit;
-				
+				if (volStepper.totalRects-volStepper.value==0){
+					up.visible = false;
+				}
 				
 			}
 			
@@ -75,15 +91,20 @@
 			
 			public function set budget(value:Number):void
 			{
+				trace("set budget");
 				_budget = value;
 				//every time the budget is set regenerate the vector for the stepper  --budget should be set after the vo
 				//if the value is negative then disable the spares buttons
-				if (_budget<costInc){
+				if (_budget<costInc ){
 					up.visible = false;
 					down.visible = false;
 				}else{
 					down.visible = true;
-					up.visible = true;
+					if  (volStepper.totalRects-volStepper.value>1){
+						up.visible = true;
+					}else{
+						up.visible = false;
+					}
 				}
 				checkIfCanBuyMoreSpares();
 			}
@@ -118,6 +139,7 @@
 			
 			public function set sparesCurr(value:Number):void
 			{
+				trace("set spare curr:"+value+"  init:"+_sparesInit);
 				//only update the difference if _sparesCurr is defined as it will error on the first load	
 				var diff:Number;
 				
@@ -136,7 +158,7 @@
 				}
 				
 				var maxSpares:uint = Math.floor(budget/costInc);
-				if (maxSpares>0){
+				if (maxSpares>0){// && (volStepper.totalRects-volStepper.value>1)){
 					up.visible = true;
 				}else{
 					up.visible = false;
@@ -157,9 +179,9 @@
 			
 			private function checkIfCanBuyMoreSpares():void{
 				trace(" - - -  check if can buy more spares - - - ");
-				trace("_sparesCur:"+_sparesCurr+"  _sparesInit:"+_sparesInit);
+				trace("_sparesCur:"+_sparesCurr+"  _sparesInit:"+_sparesInit+" remaining rects:"+ (volStepper.totalRects - volStepper.value));
 				var maxSpares:uint = Math.floor(budget/costInc);
-				if (maxSpares>0){
+				if (maxSpares>0 ){
 					up.visible = true;
 				}else{
 					up.visible = false;
@@ -196,17 +218,18 @@
 	<s:Group width="100%" height="100%" verticalCenter="0">
 		<components:InformationButton id="infoButton" x="-60" y="3"
 									  click="infoButton_clickHandler(event)"/>
-		<s:Label x="18" y="15"  styleName="supportPanelCategory" text="{title}"
-				 verticalAlign="middle" verticalCenter="0"/>
-		<s:HGroup x="150" y="5" height="100%" verticalAlign="middle" width="540">
+		<s:Label x="18" y="15" styleName="supportPanelCategory" text="{title}" verticalAlign="middle"
+				 verticalCenter="0"/>
+		<s:HGroup x="150" y="5" width="540" height="100%" verticalAlign="middle">
 			<!--		<s:Label id="unitLabel" height="100%" styleName="supportPanelCategoryItalic"
 			text="{unit}" verticalAlign="middle" verticalCenter="0"/>-->
 			<components:UpArrowButton id="down" skinClass="view.skins.DownMinusButtonSkin"/>
-			<s:Label id="valLabel" horizontalCenter="0" styleName="supportPanelCategoryNumber"
-					 text="---" textAlign="center" verticalAlign="middle" verticalCenter="0" includeInLayout="false"/>
-			<components:VolumeStepper id="volStepper" totalRects="{totalRects}" horiPadding="3" />
+			<s:Label id="valLabel" horizontalCenter="0" includeInLayout="false"
+					 styleName="supportPanelCategoryNumber" text="---" textAlign="center"
+					 verticalAlign="middle" verticalCenter="0"/>
+			<components:VolumeStepper id="volStepper" horiPadding="3" totalRects="{totalRects}"/>
 			
-			<components:UpArrowButton id="up" skinClass="view.skins.UpPlusButtonSkin" top="1"/>
+			<components:UpArrowButton id="up" top="1" skinClass="view.skins.UpPlusButtonSkin"/>
 		</s:HGroup>
 	</s:Group>
 </s:Group>

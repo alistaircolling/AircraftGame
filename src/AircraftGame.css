@@ -138,6 +138,20 @@ global
 	fontSize: 30;
 	color:#ffffff;
 }
+.supportInfoTitle
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#ffffff;
+}
+.supportInfoBody
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 18;
+	color:#ffffff;
+}
 
 
 .panelSecondaryTitle

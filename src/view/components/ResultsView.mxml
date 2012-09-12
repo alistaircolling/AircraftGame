@@ -224,6 +224,7 @@
 			{
 				graph.showData();
 			}
+			//TODO add the correct currency from the xml here
 
 		]]>
 	</fx:Script>
@@ -237,9 +238,10 @@
 	<components:OnGroundHelis id="onGroundHelis"/>
 	<components:InAirPlanes id="inAirPlanes" x="510" top="20"/>
 	<components:OnGroundPlanes id="onGroundPlanes" x="110" bottom="-10"/>
-	<mx:UIComponent id="animHolder" horizontalCenter="0" verticalCenter="0" alpha="1"/>
-	<s:Group id="mainPanel" horizontalCenter="0" verticalCenter="150" width="1148" height="516">
-		<mx:Image source="@Embed('../embed/graph.png')" width="1148" height="516" smoothBitmapContent="true" />
+	<mx:UIComponent id="animHolder" horizontalCenter="0" top="50" alpha="1"/>
+	<s:Group id="mainPanel" horizontalCenter="0" verticalCenter="-250" width="1148" height="516">
+<!--		<mx:Image source="@Embed('../embed/graph.png')" width="1148" height="516" smoothBitmapContent="true" /> -->
+		<mx:Image source="@Embed('../embed/graph-land.png')" width="1148" height="516" smoothBitmapContent="true" />
 		<components:GraphComponent id="graph" y="10" x="-2"/>
 		<s:HGroup id="turnImageHolder" top="65" left="55" width="345" height="28">
 			<mx:Image id="turn1" source="@Embed('../embed/results1.png')" smoothBitmapContent="true" includeInLayout="true"/>
@@ -252,7 +254,7 @@
 			<s:Group>
 			<mx:Image source="@Embed('../embed/greyCurrSmall.png')" smoothBitmapContent="true" y="-2" scaleX=".9" scaleY=".9" />
 			</s:Group>
-			<s:Label text="m" styleName="legend" />
+			<s:Label text="" styleName="legend" />
 		</s:HGroup>
 		<s:Label top="71" left="650" text="% Flown" styleName="legend"/>
 		<components:CustomButton id="continueBtn" right="55" top="52" click="continue_clickHandler(event)"/>

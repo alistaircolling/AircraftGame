@@ -108,7 +108,7 @@ package view.mediators
 			//increase iteration first so it is correct for submission
 			statusUpdate.dispatch("> > > > > go clicked");
 			//stop the video if it has been started
-			inputView.inputPanel.supportVideo.myVid.stop();
+		//	inputView.inputPanel.supportVideo.myVid.stop();
 			inputView.inputPanel.hideVideo();
 			//return;
 			//create a new VO

@@ -11,7 +11,7 @@
 	<fx:Declarations>
 		
 		<s:Move id="videoShow" duration="1000" effectEnd="videoShow_effectEndHandler(event)"
-				yTo="-419"/>
+				yTo="515"/>
 		<s:Move id="videoHide" duration="1000" effectEnd="videoHide_effectEndHandler(event)" yTo="0"/>
 		
 	</fx:Declarations>
@@ -122,14 +122,14 @@
 			}
 			public function hideVideo():void{
 				videoHide.play([supportVideo]);
-				supportVideo.myVid.stop();
+			//	supportVideo.myVid.stop();
 			}
 			
 			
 
 			protected function videoShow_effectEndHandler(event:EffectEvent):void
 			{
-				switch(vidToPlay){
+			/*	switch(vidToPlay){
 					case 0:
 						supportVideo.myVid.source = "lever1.flv";
 						break
@@ -142,23 +142,23 @@
 					case 3:
 						supportVideo.myVid.source = "lever4.flv";
 						break
-				}
-				supportVideo.myVid.play();
-				supportVideo.myVid.visible = true;
+				}*/
+			//	supportVideo.myVid.play();
+			//	supportVideo.myVid.visible = true;
 			}
 
 
 			protected function videoHide_effectEndHandler(event:EffectEvent):void
 			{
 				// TODO Auto-generated method stub
-				supportVideo.myVid.visible = false;
+			//	supportVideo.myVid.visible = false;
 			}
 
 		]]>
 	</fx:Script>
 	<s:Group width="738" horizontalCenter="0" verticalCenter="0">
-		<s:Group id="supportVidGroup" right="167" top="8">
-			<components:SupportVideo id="supportVideo"/>
+		<s:Group id="supportVidGroup" >
+			<components:LandInfoPopup id="supportVideo" x="32" y="0"/>
 		</s:Group>
 		<mx:Image smoothBitmapContent="true" source="@Embed('../embed/supportPanel-land.png')"/>
 		
