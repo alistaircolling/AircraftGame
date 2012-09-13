@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			
+			private var _value:Number = 50;
+			//TODO must set value last for calc!
+			
+			public var minVal:Number = 0;
+			public var maxVal:Number = 100;
+			
+			public function get value():Number
+			{
+				return _value;
+			}
+
+			public function set value(value:Number):void
+			{
+				_value = value;
+				var range:Number = maxVal - minVal;
+				var perc:Number = _value/range;
+				indicator.x = (perc*425)-(.5*indicator.width);
+			}
+
+		]]>
+	</fx:Script>
+	<s:HGroup>
+		<s:Rect width="425" height="50" radiusX="15" radiusY="15">
+			<s:stroke>
+				
+				<s:SolidColorStroke color="0x9e9e9e" weight="1"/>
+			</s:stroke>
+			<s:fill>
+				<s:LinearGradient>
+					<s:entries>
+						<mx:GradientEntry alpha="1" color="0xffffff" ratio=".2"/>
+						<mx:GradientEntry alpha="1" color="0xFFFF00" ratio=".5"/>
+						<mx:GradientEntry alpha="1" color="0x47CB00" ratio="0.8"/>
+					</s:entries>
+				</s:LinearGradient>
+			</s:fill>
+		</s:Rect>
+		
+	</s:HGroup>
+	<s:Group id="indicator" y="12">
+		<s:VGroup horizontalAlign="center" horizontalCenter="0">
+			<s:Group horizontalCenter="0">
+				<s:Rect width="85" height="25" radiusX="7" radiusY="7">
+					<s:stroke>
+						
+						<s:SolidColorStroke color="0x9e9e9e" weight="1"/>
+					</s:stroke>
+					<s:fill>
+						<s:LinearGradient rotation="90">
+							<s:entries>
+								<mx:GradientEntry alpha="1" color="0xffffff" ratio=".2"/>
+								<mx:GradientEntry alpha="1" color="0xdddddd" ratio=".5"/>
+							</s:entries>
+						</s:LinearGradient>
+					</s:fill>
+				</s:Rect>
+				<s:Label id="result" horizontalCenter="0" text="{value}" verticalCenter="0" textAlign="center" styleName="finalValueLozenge"/>
+			</s:Group>
+			<mx:Image horizontalAlign="center" horizontalCenter="0" includeInLayout="true" y="-5"
+					  smoothBitmapContent="true" source="@Embed('../embed/resultsArrow.png')"/>
+		</s:VGroup>
+	</s:Group>
+</s:Group>

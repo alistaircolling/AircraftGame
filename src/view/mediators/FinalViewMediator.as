@@ -101,6 +101,11 @@ package view.mediators
 					finalView.planePanel.visible = false;
 					finalView.heliPanel.visible = true;
 					break
+				case "land":
+					finalView.planePanel.visible = false;
+					finalView.heliPanel.visible = false;
+					finalView.landPanel.visible = true;
+					break
 			}	
 		}
 		
@@ -161,8 +166,9 @@ package view.mediators
 					finalView.negativeLabel.text = "";
 				}
 				
-				finalView.finalScore.text = budgetString+"m"; 
+				finalView.remainingBudget.text = budgetString+"m"; 
 				_score = vo.finalScore;
+				finalView.finalScoreComponent.value = _score;
 				//check if the user has a high score
 				_boardPosition = -1;
 				var winners:ArrayCollection = finalView.leaderBoard.dp;

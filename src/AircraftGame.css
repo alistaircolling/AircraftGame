@@ -232,6 +232,13 @@ global
 	fontSize: 30;
 	color:#174f73;
 }
+.finalValueLozenge
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#174f73;
+}
 
 .finalMessage
 {

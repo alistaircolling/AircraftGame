@@ -16,6 +16,7 @@
 	<s:Group id="panel" horizontalCenter="0" verticalCenter="0">
 		<mx:Image id="planePanel" source="@Embed('../embed/introPanelOld.png')" smoothBitmapContent="true" visible="false"/>		
 		<mx:Image id="heliPanel" source="@Embed('../embed/introPanelOldHeli.png')" smoothBitmapContent="true" visible="false" />		
+		<mx:Image id="landPanel" source="@Embed('../embed/introPanelLand.png')" smoothBitmapContent="true" visible="false" />		
 		<s:HGroup x="55" y="50">
 			<s:VGroup  >
 				
@@ -26,24 +27,30 @@
 					
 					<s:VGroup gap="15">
 						<s:HGroup>
-							<s:Label text="Average % Flown = " styleName="finalCategory"/>
+							<s:Label text="Average Military Output Achieved = " styleName="finalCategory"/>
 							<s:Label id="availability" text="" styleName="finalValue"/>
 						</s:HGroup>
 						<s:HGroup>
-							<s:Label text="Change in Cost per Flying Hr = " styleName="finalCategory"/>
+							<s:Label text="Change in Cost of Ownership = " styleName="finalCategory"/>
 							<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->		
 							<s:Label id="cost" text="" styleName="finalValue"/>
 							<s:Label text="%" styleName="finalValue"/>
 						</s:HGroup>
 						<s:HGroup>
-							<s:Label  text="Final Score = " styleName="finalValue"/>
+							<s:Label text="Remaining Budget = " styleName="finalCategory"/>
 							<s:Group>
 								<s:Label  id="negativeLabel" text="" styleName="finalValue" y="-1"/>
 							</s:Group>
+							<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->		
+							<s:Label id="remainingBudget" text="" styleName="finalValue"/>
+							<s:Label text="%" styleName="finalValue"/>
+						</s:HGroup>
+						<s:HGroup verticalAlign="middle" verticalCenter="0">
+							<s:Label  text="Final Score = " styleName="finalValue"/>
+							<s:Spacer width="20"/>
 							<s:Group>
-								<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" y="3" />		
+							<components:FinalScoreLozenge id="finalScoreComponent" y="30"/>
 							</s:Group>
-							<s:Label id="finalScore" text="" styleName="finalValue"/>
 						</s:HGroup>
 						<s:RichText id="message" styleName="finalMessage" text="" width="490" />
 						<s:HGroup gap="30" id="enterInitials">
