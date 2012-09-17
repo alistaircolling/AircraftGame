@@ -34,6 +34,9 @@ package model.vo
 		public var lastPercent:Number;
 		public var name:String;
 		public var debug:Boolean;
+		public var finalScoreLowest:Number;
+		public var finalScoreHighest:Number;
+		public var finalWhiteFlag:Number;
 		
 	}
 }

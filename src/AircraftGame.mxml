@@ -337,10 +337,10 @@
 		<mx:Image source="@Embed('../embed/lbtop3.png')" smoothBitmapContent="true" />
 		<components:LeaderBoard id="leaderBoard" title="0" horizontalCenter="29" top="55" spacerHeight="43"/>
 	</s:Group>
-	<s:Button label="show status" x="1800" y="1000" click="button1_clickHandler(event)" visible="false"/>
+	<s:Button label="show status" x="1800" y="1000" click="button1_clickHandler(event)" visible="true"/>
 	<components:ErrorMessage id="errorMsg" visible="false"/>
 	<mx:Panel id="myPanel" x="65"  y="33" alpha="0"  removedFromStage="onRemoved(event)" remove="onRemoved(event)" removed="onRemoved(event)"/> 
-	<s:TextArea id="statusLabel" fontSize="24"  left="5"  height="600" width="1000" includeInLayout="false" visible="true"/>
+	<s:TextArea id="statusLabel" fontSize="24"  left="5"  height="600" width="1000" includeInLayout="false" visible="false"/>
 	<!-- <s:Group id="myPanel" x="1703" y="60" alpha="0"/> -->
 	<audio:BackgroundMusic id="music"/>
 	<s:Group id="previewVid" visible="false" width="1920" height="1080" includeInLayout="false" >

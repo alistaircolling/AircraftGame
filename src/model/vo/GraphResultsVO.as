@@ -6,6 +6,7 @@ package model.vo
 		public var monthTotal:Vector.<Number>;
 		public var inAir:Vector.<Number>;
 		public var onGround:Vector.<Number>;
+		public var whiteFlag:Number;
 		
 	}
 }

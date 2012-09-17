@@ -189,8 +189,9 @@
 			
 			//shows the default amount of planes (used the very first time the graph shows)
 			public function initPlanes():void{
-				showPlanesInAir(0);
-				showPlanesOnGround(10);
+				trace("init planes - showing all planes initially");
+			//	showPlanesInAir(10);
+			//	showPlanesOnGround(10);
 			}
 			
 			//these are for month 0

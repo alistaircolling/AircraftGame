@@ -29,6 +29,7 @@
 			private var inAir:*;
 			private var onGround:*;
 			
+			public var whiteFlag:uint = 0;
 			//	private var _planes:Planes;
 			[Inject]
 			public var statusUpdate:StatusUpdate;
@@ -58,6 +59,7 @@
 			private function startAnim( t:TimerEvent = null ):void{
 				_animTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, startAnim);
 				_animTimer = null;
+				//showInAir(10);
 				_currentAnim.gotoAndPlay(2);				
 				
 			}
@@ -67,12 +69,12 @@
 				if (b) {
 					alph = 1;
 					showSection(mainPanel, true);
-					
-					fadeInPlanes.play([inAir, onGround]);
+					//TODO check if we need to show anything here, as land version shows all tanks at the start of the go.
+				//	fadeInPlanes.play([inAir, onGround]);
 				}else{
 					mainPanel.alpha = alph;
-					inAir.alpha = alph;
-					onGround.alpha = alph;
+					//inAir.alpha = alph;
+					//onGround.alpha = alph;
 				}
 				
 			}
@@ -92,6 +94,12 @@
 				//remove previous if it exists
 				while(animHolder.numChildren>0) {
 					animHolder.removeChildAt(0);
+					if (_currentAnim){
+						if (_currentAnim.hasEventListener(Event.COMPLETE)){
+							_currentAnim.removeEventListener(Event.COMPLETE, animCompleted);
+							_currentAnim = null;
+						}
+					}
 				}
 				_currentAnim = null;
 				switch(type){
@@ -113,8 +121,8 @@
 					//TODO add the correct assets
 					case "land":
 						_currentAnim = new LandAnim();
-						_currentAnim.x = 960;//0-(1920/2);
-						_currentAnim.y = 539;//0-(1080/2);
+						_currentAnim.x = 0;//-(1920/2);
+						_currentAnim.y = 495;//-(1080/2);
 						
 					//	onGround = onGroundHelis;
 						break
@@ -124,8 +132,8 @@
 				onGroundPlanes.visible = false;
 				inAirHelis.visible = false;
 				onGroundHelis.visible = false;
-				inAir.visible = false;
-				onGround.visible = false;
+			//	inAir.visible = false;
+			//	onGround.visible = false;
 				
 				animHolder.addChild(_currentAnim);
 				_currentAnim.addEventListener(Event.COMPLETE, animCompleted);
@@ -158,7 +166,7 @@
 				//inAir.showPlanes(n);
 				for (var i:int = 1; i <=10; i++) 
 				{
-					var child:MovieClip = (_currentAnim as LandAnim).tanks.getChildByName("t"+i);
+					var child:* = (_currentAnim as LandAnim).tanks.getChildByName("l"+i);
 					if (i<=n){
 						TweenMax.to(child, .3, {alpha:1});
 					}else{
@@ -179,11 +187,16 @@
 				if (_iteration <3){
 					var e:ChangeStateEvent = new ChangeStateEvent(ChangeState.ENTER_SCREEN);	
 					dispatchEvent(e);
+					_currentAnim.gotoAndStop(1);
 				}else{
+					_currentAnim.removeEventListener(Event.COMPLETE, animCompleted);
+					animHolder.removeChild(_currentAnim);
+					_currentAnim = null;
 					var f:ChangeStateEvent = new ChangeStateEvent(ChangeState.ENTER_SCREEN);
 					f.state = ChangeState.FINAL_SCREEN;				
 					dispatchEvent(f);
-				}				
+				}		
+				
 			}
 			
 			

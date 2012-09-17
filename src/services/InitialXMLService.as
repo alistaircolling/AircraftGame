@@ -62,7 +62,8 @@ package services
 			
 			var xml:XML = new XML(s);
 			var vo:ReceivedDataVO = new ReceivedDataVO();
-			vo.debug = xml.debug=="true";
+			trace("val:"+xml.debug.valueOf());
+			vo.debug = (xml.debug.valueOf()=="true")?true:false;
 			//set lookup tables
 			var reliabList:XMLList = xml.reliability;
 			vo.reliability = DataUtils.returnVectorFromList( reliabList[0], Number(xml.currentReliability) );
