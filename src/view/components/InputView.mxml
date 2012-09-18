@@ -15,6 +15,7 @@
 			
 		
 			
+			
 			public function setData( vo:ReceivedDataVO ):void{
 				
 				_receivedVO = vo;

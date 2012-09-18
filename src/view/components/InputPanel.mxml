@@ -18,6 +18,7 @@
 	
 	<fx:Script>
 		<![CDATA[
+			import model.vo.InfoCopyVO;
 			import model.vo.InputObjectVO;
 			
 			import mx.events.EffectEvent;
@@ -61,6 +62,8 @@
 			//TODO add the vectors for the other values
 			private var vidToPlay:uint;
 			
+			public var currency:String;
+			public var infoCopys: Vector.<InfoCopyVO>;
 			
 			private var _budget:Number;
 			
@@ -90,7 +93,7 @@
 					negativeLabel.text = "";
 				}
 				
-				balanceIndicator.text  = budgetString;//+"m";
+				balanceIndicator.text  = budgetString+currency;
 				
 			}
 			
@@ -118,6 +121,9 @@
 			
 			public function showVideo(num:uint):void{
 				vidToPlay = num;
+				var infoCopy:InfoCopyVO = infoCopys[num];
+				supportVideo.title.text = infoCopy.title;
+				supportVideo.body.text = infoCopy.body;
 				videoShow.play([supportVideo]);
 			}
 			public function hideVideo():void{
@@ -199,22 +205,22 @@
 					<mx:Spacer left="54" height="33"/>					
 					<components:CustomStepper id="reliability" width="623" height="50"
 											  currVal="{reliablityVal}" title="MTBF" totalRects="5"
-											  unit="" values="{reliabilityValues}" vidId="1"/>
+											  unit="" values="{reliabilityValues}" vidId="0"/>
 					<components:CustomStepper id="nff" width="623" height="48" currVal="{nffVal}"
 											  title="NFF" totalRects="5" unit=""
-											  values="{nffValues}" vidId="2"/>
+											  values="{nffValues}" vidId="1"/>
 					<components:CustomStepper id="turnaround" width="623" height="48"
 											  currVal="{turnaroundVal}" title="RTRT" totalRects="5"
-											  unit="" values="{turnaroundValues}" vidId="3"/>
+											  unit="" values="{turnaroundValues}" vidId="2"/>
 					<components:CustomStepper id="platformMgt" width="623" height="48"
 											  currVal="{platformMgtVal}" title="Platform Mgt"
 											  totalRects="3" unit="" values="{platformMgtValues}"
 											  vidId="3"/>
 					<components:SparesStepper id="spares" width="623" height="50" totalRects="20"  title="Spares"
-											  vidId="0"/>
+											  vidId="4"/>
 					<components:CustomStepper id="mis" width="623" height="48" currVal="{misVal}"
 											  title="MIS" totalRects="3" unit=""
-											  values="{misValues}" vidId="3"/>
+											  values="{misValues}" vidId="5"/>
 					<components:GoButton id="submit"/>
 				</s:VGroup>
 				</s:Group>

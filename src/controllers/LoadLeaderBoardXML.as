@@ -18,9 +18,9 @@ package controllers
 		
 		
 		override public function execute():void{
-			leaderBoard.requestData();
 		//TODO remove for the multi version game
 			initXMLService.loadXML("data/initParams.xml");
+			leaderBoard.requestData();
 			
 		}
 	}

@@ -59,7 +59,6 @@ package services
 		
 		private function handleServiceResult(s:String):void{
 			trace("initialise xml received");
-			 
 			
 			var xml:XML = new XML(s);
 			var vo:ReceivedDataVO = new ReceivedDataVO();
@@ -102,16 +101,7 @@ package services
 				vo.currentMIS = DataUtils.getObjectForValue( vo.mis, Number(xml.currentMIS));
 			}
 			
-			//final score
-			vo.finalScoreLowest = Number(xml..lowest);
-			vo.finalScoreHighest = Number(xml..highest);
-			vo.finalWhiteFlag = Number(xml..whiteFlag);
-			
-			userModel.iteration = 0;//incremented when the user presses go
-			userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
-			userModel.vo = vo;
-			
-			//add copy
+			//add copy = before budget so it is set correctly in the input panel
 			var copyVO:CopyVO = new CopyVO();
 			copyVO.infoCopys = new Vector.<InfoCopyVO>();
 			var gamesCopy:XMLList = xml.copy.game;
@@ -119,7 +109,7 @@ package services
 			copyVO.introText = thisGameCopy.introText;
 			//add info copy
 			var infoCopys:XMLList = thisGameCopy.infoText;
-			for (var i:uint = 0; i<infoCopys.length; i++){
+			for (var i:uint = 0; i<infoCopys.length(); i++){
 				var infoCopy:InfoCopyVO = new InfoCopyVO();
 				infoCopy.id = infoCopys[i].@id;
 				infoCopy.title = infoCopys[i].title;
@@ -133,6 +123,18 @@ package services
 			
 			
 			userModel.copyVO = copyVO;
+			
+			
+			//final score
+			vo.finalScoreLowest = Number(xml..lowest);
+			vo.finalScoreHighest = Number(xml..highest);
+			vo.finalWhiteFlag = Number(xml..whiteFlag);
+			
+			userModel.iteration = 0;//incremented when the user presses go
+			userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
+			userModel.vo = vo;
+			
+			
 			
 			//wait received
 			var waitMilliseconds:int = Number(xml.waitTime)*1000;

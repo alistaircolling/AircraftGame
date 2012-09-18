@@ -23,6 +23,7 @@
 					if(scoreStr.substr(0,1) =="-"){
 						retS = scoreStr.substr(1);												
 					}
+					retS += vo.currency;
 					return retS;//+"m";
 				}
 			

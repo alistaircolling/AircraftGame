@@ -5,5 +5,6 @@ package model.vo
 		public var label:String;
 		public var score:Number;
 		public var highlight:Boolean;
+		public var currency:String;
 	}
 }

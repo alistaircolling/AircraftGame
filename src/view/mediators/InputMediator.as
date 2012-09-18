@@ -8,6 +8,7 @@ package view.mediators
 	import flash.utils.Timer;
 	
 	import model.UserDataModel;
+	import model.vo.CopyVO;
 	import model.vo.InputVO;
 	import model.vo.LeaderBoardVO;
 	import model.vo.ReceivedDataVO;
@@ -18,6 +19,7 @@ package view.mediators
 	import org.robotlegs.mvcs.Mediator;
 	
 	import signals.BalanceSet;
+	import signals.CopySet;
 	import signals.DataSubmitted;
 	import signals.IterationChange;
 	import signals.LeaderBoardSet;
@@ -51,6 +53,8 @@ package view.mediators
 		public var statusUpdate:StatusUpdate;
 		[Inject]
 		public var userDataLiveSet:UserDataSetLive;
+		[Inject]
+		public var copySet:CopySet;
 		
 		
 		private var _showTurnTimer:Timer
@@ -66,6 +70,7 @@ package view.mediators
 			statusUpdate.dispatch("===== input mediator registered ===== ");
 			balanceSet.add(showBalance);
 			iterationChange.add(updateIteration);
+			copySet.add(onCopySet);
 			userDataLiveSet.add(liveDataReceived);
 			inputView.addEventListener(NumberEvent.BALANCE_UPDATE, updateBalance);//event triggered by steppers
 			inputView.inputPanel.submit.addEventListener(MouseEvent.CLICK, goClicked);
@@ -81,12 +86,18 @@ package view.mediators
 			statusUpdate.dispatch("===== input mediator removed ===== ");
 			userDataLiveSet.remove(liveDataReceived);
 			balanceSet.remove(showBalance);
+			copySet.remove(onCopySet);
 			iterationChange.remove(updateIteration);
 			inputView.removeEventListener(LeverEvent.CLICKED, videoClicked);//event triggered by steppers
 			inputView.removeEventListener(NumberEvent.BALANCE_UPDATE, updateBalance);//event triggered by steppers
 			inputView.inputPanel.submit.removeEventListener(MouseEvent.CLICK, goClicked);
 			inputView.removeEventListener(LeverEvent.HIDE_VIDEO, hideVideo);//event triggered by steppers
 			
+		}
+		private function onCopySet(vo:CopyVO):void
+		{
+			inputView.inputPanel.currency = vo.currency;
+			inputView.inputPanel.infoCopys = vo.infoCopys;
 		}
 		
 		private function videoClicked(e:LeverEvent):void{

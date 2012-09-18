@@ -8,6 +8,7 @@ package services
 	import flash.filesystem.FileStream;
 	
 	import model.LeaderBoardModel;
+	import model.UserDataModel;
 	import model.vo.ErrorVO;
 	import model.vo.LeaderBoardVO;
 	import model.vo.UserVO;
@@ -31,6 +32,8 @@ package services
 		public var errorReceived:ErrorReceived;
 		[Inject]
 		public var statusUpdate:StatusUpdate;
+		[Inject]
+		public var userModel:UserDataModel;
 		
 		private var _xmlFile:String = "data/winners.xml";
 		private var _data:String;
@@ -41,7 +44,7 @@ package services
 		{
 			//todo swap out to use flash vars instead
 			//loads xml
-			
+			trace("requesting leaderboard data...");
 			var directory:File = File.documentsDirectory;
 			_dataFile = directory.resolvePath("Selex"+File.separator+"winners.xml");
 			statusUpdate.dispatch("loading leaderboard from:"+_dataFile.url);
@@ -109,6 +112,7 @@ package services
 			for(var i:uint = 0; i< winnersList.length(); i++){
 				var user:XML = winnersList[i];
 				var userVO:UserVO = new UserVO();
+				userVO.currency = userModel.copyVO.currency;
 				userVO.label = user.@name;
 				userVO.score = Number(user.@score);
 				userVO.highlight = false;
