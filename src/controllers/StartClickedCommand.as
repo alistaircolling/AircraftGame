@@ -27,7 +27,7 @@ package controllers
 			
 			trace("start clicked command, loading intial XML.....");
 			leaderBoardService.requestData();
-			initXMLService.loadXML("data/initParams.xml");
+		//	initXMLService.loadXML("data/initParams.xml");
 		
 		}
 		

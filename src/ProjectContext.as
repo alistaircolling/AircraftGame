@@ -38,6 +38,7 @@ package
 	import signals.BalanceSet;
 	import signals.BlackBoxDataReceived;
 	import signals.ChangeState;
+	import signals.CopySet;
 	import signals.DataSubmitted;
 	import signals.EnterWinner;
 	import signals.ErrorReceived;
@@ -133,6 +134,7 @@ package
 			injector.mapSingleton(ForceShowHighlight);
 			injector.mapSingleton(MusicVolumeSet);
 			injector.mapSingleton(CopyVO);
+			injector.mapSingleton(CopySet);
 
 			
 			//map signals   -maps signals to commands

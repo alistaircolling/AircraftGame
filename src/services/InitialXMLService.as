@@ -7,6 +7,7 @@ package services
 	import model.UserDataModel;
 	import model.vo.CopyVO;
 	import model.vo.ErrorVO;
+	import model.vo.InfoCopyVO;
 	import model.vo.InputObjectVO;
 	import model.vo.ReceivedDataVO;
 	
@@ -101,12 +102,35 @@ package services
 				vo.currentMIS = DataUtils.getObjectForValue( vo.mis, Number(xml.currentMIS));
 			}
 			
+			//final score
+			vo.finalScoreLowest = Number(xml..lowest);
+			vo.finalScoreHighest = Number(xml..highest);
+			vo.finalWhiteFlag = Number(xml..whiteFlag);
+			
 			userModel.iteration = 0;//incremented when the user presses go
 			userModel.budget = Number(xml.currentBudget); //moved from last so spares stepper updates correctly
 			userModel.vo = vo;
 			
+			//add copy
 			var copyVO:CopyVO = new CopyVO();
-			copyVO.currency = xml.currencyUnit;
+			copyVO.infoCopys = new Vector.<InfoCopyVO>();
+			var gamesCopy:XMLList = xml.copy.game;
+			var thisGameCopy:XML = gamesCopy[0];//hard coded to land TODO remove for multi type game
+			copyVO.introText = thisGameCopy.introText;
+			//add info copy
+			var infoCopys:XMLList = thisGameCopy.infoText;
+			for (var i:uint = 0; i<infoCopys.length; i++){
+				var infoCopy:InfoCopyVO = new InfoCopyVO();
+				infoCopy.id = infoCopys[i].@id;
+				infoCopy.title = infoCopys[i].title;
+				infoCopy.body = infoCopys[i].body;
+				copyVO.infoCopys.push(infoCopy);
+			}
+			
+			
+			var currency:XMLList = thisGameCopy..currencyUnit;
+			copyVO.currency = currency[0].valueOf();
+			
 			
 			userModel.copyVO = copyVO;
 			

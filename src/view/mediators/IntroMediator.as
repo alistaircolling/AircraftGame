@@ -2,13 +2,15 @@ package view.mediators
 {
 	import flash.events.MouseEvent;
 	
-	import model.vo.LeaderBoardVO;
-	import model.vo.UserVO;
+	import flashx.textLayout.conversion.TextConverter;
 	
-	import mx.collections.ArrayCollection;
+	import model.vo.CopyVO;
+	import model.vo.LeaderBoardVO;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
+	import signals.ChangeState;
+	import signals.CopySet;
 	import signals.GameTypeSelected;
 	import signals.LeaderBoardSet;
 	import signals.LoadXML;
@@ -37,6 +39,10 @@ package view.mediators
 		public var gameTypeSelected:GameTypeSelected;
 		[Inject]
 		public var waitSet:WaitSetByXML;
+		[Inject]
+		public var changeState:ChangeState;
+		[Inject]
+		public var copySet:CopySet;
 		
 		override public function onRegister():void{
 			trace("Intro Mediator registered");
@@ -45,6 +51,7 @@ package view.mediators
 			addListeners();
 			//
 			loadXML.dispatch();
+			
 		}
 		
 		override public function onRemove():void{
@@ -56,6 +63,7 @@ package view.mediators
 			textSetOnModel.add(onModelChanged);
 			leaderBoardSet.add(updateLeaderBoard);
 			waitSet.remove(onWaitSet);
+			copySet.remove(onCopySet);
 			
 		}
 		
@@ -70,6 +78,14 @@ package view.mediators
 			//add listener for signal
 			textSetOnModel.add(onModelChanged);
 			leaderBoardSet.add(updateLeaderBoard);
+			copySet.add(onCopySet);
+			
+		}
+		
+		private function onCopySet(vo:CopyVO):void
+		{
+			introView.introText.textFlow = TextConverter.importToFlow(vo.introText, TextConverter.TEXT_FIELD_HTML_FORMAT)
+			
 		}
 		//milliseconds wait set
 		private function onWaitSet(n:int):void{
@@ -93,7 +109,8 @@ package view.mediators
 		private function startLand( m:MouseEvent ):void{
 				introView.startTimer(false);
 				gameTypeSelected.dispatch("land");
-				startClicked.dispatch();
+				//startClicked.dispatch();
+				changeState.dispatch(ChangeState.ENTER_SCREEN); //this has been removed from initxmlservice spo we can set the text first
 		}
 		
 		private function planeClicked( m:MouseEvent ):void{

@@ -44,6 +44,9 @@
 			public function setData( vo:GraphResultsVO ):void{
 				//clear the planes and panel
 				showPanels(false);
+				
+				whiteFlag = vo.whiteFlag;
+				
 				_graphResults = vo;
 				
 				_animTimer = new Timer(800, 1);
@@ -173,6 +176,12 @@
 						TweenMax.to(child, .3, {alpha:0});
 					}
 				}
+				if (n<whiteFlag){
+					showWhiteFlagAnim(true);
+				}else{
+					showWhiteFlagAnim(false);
+					
+				}
 			}
 			
 			public function showOnGround( n:uint ):void{
@@ -250,6 +259,13 @@
 			}
 			//TODO add the correct currency from the xml here
 
+			private function showWhiteFlagAnim(param0:Boolean):void
+			{
+				trace("show white flag:"+param0);
+				(_currentAnim as LandAnim).tanks.l1.tank.flag.visible = param0;
+				
+			}
+			
 		]]>
 	</fx:Script>
 	

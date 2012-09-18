@@ -51,6 +51,7 @@ package controllers
 			graphVO.monthTotal = month;
 			graphVO.onGround = onGround;
 			graphVO.percentFlown = pcFlown;
+			graphVO.whiteFlag = userModel.vo.finalWhiteFlag;
 			
 			
 		
@@ -78,7 +79,9 @@ package controllers
 				vo.avAvailability = xml..averageAchieved;
 				//TODO need to check if the final score value should be money in bank for all games
 				vo.finalScore = Number(xml..moneyInBank);
+			
 				vo.costPerFHr = Number(xml..costperFH);
+				
 			}
 			
 			//update vectors to start at minimum values
@@ -90,6 +93,12 @@ package controllers
 			vo.mis = DataUtils.getVectorFromStartingVO(userModel.vo.mis, vo.currentMIS);
 			
 			vo.initialData = false;
+			
+			//add the existing white flag and min/max values as these are not passed by the black box
+			vo.finalWhiteFlag = userModel.vo.finalWhiteFlag;
+			vo.finalScoreLowest = userModel.vo.finalScoreLowest;
+			vo.finalScoreHighest = userModel.vo.finalScoreHighest;
+			
 			//set on the model
 			
 			userModel.vo = vo;

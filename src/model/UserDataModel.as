@@ -1,5 +1,6 @@
 package model
 {
+	import model.vo.CopyVO;
 	import model.vo.GraphResultsVO;
 	import model.vo.ReceivedDataVO;
 	
@@ -7,6 +8,7 @@ package model
 	
 	import signals.BalanceSet;
 	import signals.ChangeState;
+	import signals.CopySet;
 	import signals.GameIDSet;
 	import signals.GameTypeSet;
 	import signals.GraphDataSet;
@@ -16,7 +18,6 @@ package model
 	import signals.UserDataSetLive;
 	
 	import spark.components.mediaClasses.VolumeBar;
-	import model.vo.CopyVO;
 	
 	public class UserDataModel extends Actor
 	{
@@ -38,6 +39,8 @@ package model
 		public var testSignal:UserDataSetLive;
 		[Inject]
 		public var gameTypeSet:GameTypeSet;
+		[Inject]
+		public var copySet:CopySet;
 		
 		private var _gameID:Number;
 		
@@ -65,6 +68,7 @@ package model
 		public function set copyVO(value:CopyVO):void
 		{
 			_copyVO = value;
+			copySet.dispatch(_copyVO);
 			
 		}
 
@@ -96,11 +100,12 @@ package model
 		{
 			trace("received data vo set on model");
 			_vo = value;
-			if (vo.initialData){
+			//TODO add this back in the multi version - moved to intro mediator when user clicks go
+		/*	if (vo.initialData){
 				
 				changeState.dispatch(ChangeState.ENTER_SCREEN); //
 				
-			}
+			}*/
 			//dispatch after so the mediator is instantiated
 			userDataSet.dispatch(_vo);
 			testSignal.dispatch(_vo);

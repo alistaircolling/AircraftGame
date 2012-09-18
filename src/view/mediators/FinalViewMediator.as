@@ -168,6 +168,8 @@ package view.mediators
 				
 				finalView.remainingBudget.text = budgetString+"m"; 
 				_score = vo.finalScore;
+				finalView.finalScoreComponent.minVal = vo.finalScoreLowest;
+				finalView.finalScoreComponent.maxVal = vo.finalScoreHighest;
 				finalView.finalScoreComponent.value = _score;
 				//check if the user has a high score
 				_boardPosition = -1;
