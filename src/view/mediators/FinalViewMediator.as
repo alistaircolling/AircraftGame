@@ -166,7 +166,7 @@ package view.mediators
 					finalView.negativeLabel.text = "";
 				}
 				
-				finalView.remainingBudget.text = budgetString+"m"; 
+				finalView.remainingBudget.text = budgetString+userModel.copyVO.currency;
 				_score = vo.finalScore;
 				finalView.finalScoreComponent.minVal = vo.finalScoreLowest;
 				finalView.finalScoreComponent.maxVal = vo.finalScoreHighest;

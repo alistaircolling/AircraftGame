@@ -4,6 +4,7 @@ package view.mediators
 	
 	import flashx.textLayout.conversion.TextConverter;
 	
+	import model.UserDataModel;
 	import model.vo.CopyVO;
 	import model.vo.LeaderBoardVO;
 	
@@ -43,14 +44,21 @@ package view.mediators
 		public var changeState:ChangeState;
 		[Inject]
 		public var copySet:CopySet;
+		[Inject]
+		public var userModel:UserDataModel;
 		
 		override public function onRegister():void{
 			trace("Intro Mediator registered");
 			update.dispatch("Intro mediator registered");
 			//register listeners 
 			addListeners();
-			//
-			loadXML.dispatch();
+			//check if xml is already loaded
+			if(!userModel.vo || userModel.vo.iteration==3){
+				trace("loading xml as this is the first time!");
+				loadXML.dispatch();
+			}else{
+				trace("not loading XML from input mediator as it is already loaded");
+			}
 			
 		}
 		
@@ -109,6 +117,9 @@ package view.mediators
 		private function startLand( m:MouseEvent ):void{
 				introView.startTimer(false);
 				gameTypeSelected.dispatch("land");
+				//load xml again to reset?
+			
+			//	loadXML.dispatch();
 				//startClicked.dispatch();
 				changeState.dispatch(ChangeState.ENTER_SCREEN); //this has been removed from initxmlservice spo we can set the text first
 		}
