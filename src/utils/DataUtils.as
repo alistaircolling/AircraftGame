@@ -31,7 +31,6 @@ package utils
 			retVect = vect.slice(startInd, vect.length);
 			return retVect;
 			
-			
 		}
 		
 		public static function convertArrayToVector( a:Array ):Vector.<Number>{

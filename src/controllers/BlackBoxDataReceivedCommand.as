@@ -30,7 +30,7 @@ package controllers
 			var graphVO:GraphResultsVO = new GraphResultsVO();
 			//create the vectors
 			var pcFlown:Vector.<Number>;
-			var pcVals:String = xml..percentSuccess.valueOf();
+			var pcVals:String = xml..percentFlown.valueOf();
 			var pc:Array = pcVals.split(",");
 			pcFlown = DataUtils.convertArrayToVector(pc);
 			var month:Vector.<Number>;
@@ -38,12 +38,12 @@ package controllers
 			var monthA:Array = monthVals.split(",");
 			month = DataUtils.convertArrayToVector(monthA);
 			var inAir:Vector.<Number>;
-			var inAirVals:String = xml..inUse.valueOf();
+			var inAirVals:String = xml..inAir.valueOf();
 			var inA:Array = inAirVals.split(",");
 			
 			inAir = DataUtils.convertArrayToVector(inA);
 			var onGround:Vector.<Number>;
-			var onGVals:String = xml..unavailable.valueOf();
+			var onGVals:String = xml..onGround.valueOf();
 			var onG:Array = onGVals.split(",");
 			onGround = DataUtils.convertArrayToVector(onG);
 			

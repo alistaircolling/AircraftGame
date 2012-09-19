@@ -128,6 +128,9 @@ package view.mediators
 			vo.turnaround = inputView.inputPanel.turnaround.currVal.theIndex.toString();
 			vo.reliability = inputView.inputPanel.reliability.currVal.theIndex.toString();
 			vo.spares = (inputView.inputPanel.spares.sparesCurr - inputView.inputPanel.spares.sparesInit).toString();
+			vo.platformMgt = inputView.inputPanel.platformMgt.currVal.theIndex.toString();
+			vo.mis = inputView.inputPanel.mis.currVal.theIndex.toString();
+			
 			trace("SPARES SUBMITTED:"+vo.spares);
 			var it:uint = userModel.iteration;
 			it++; //avoid updating the iteration on the model directly so a new iteration signal is not sent, this is set by the black box when data is returned anyway
@@ -197,6 +200,7 @@ package view.mediators
 			inputView.inputPanel.nff.budget = newBudget;
 			inputView.inputPanel.turnaround.budget = newBudget;
 			inputView.inputPanel.reliability.budget = newBudget;
+			
 			
 		}
 		
