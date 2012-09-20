@@ -146,6 +146,7 @@ package view.mediators
 			
 			_animating = true;
 			resultsView.setData(vo);
+			
 			resultsView.continueBtn.visible = false;
 			
 		}
