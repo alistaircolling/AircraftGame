@@ -79,7 +79,7 @@ package controllers
 				vo.avAvailability = xml..averageAvailability;
 				//TODO need to check if the final score value should be money in bank for all games
 				vo.finalScore = Number(xml..moneyinbank);
-			
+				graphVO.finalScore = vo.finalScore;
 				vo.costPerFHr = Number(xml..costperFH);
 				
 			}

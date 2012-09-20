@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="1920" height="1080" xmlns:components="view.components.*" xmlns:skins="view.skins.*">
+	<fx:Declarations>
+		<fx:String id="htmlTextAsHTML"><![CDATA[Congratulations, you have made the leader board.<br>Please enter your initials below.]]></fx:String>
+		<s:SolidColorStroke id="greyStroke" color="0xcccccc" weight="2"/>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.conversion.TextConverter;
+		]]>
+	</fx:Script>
+	<!--<mx:Canvas width="1920" height="1080" backgroundAlpha="0" backgroundColor="0x0"/> -->
+	<s:Group id="panel" horizontalCenter="0" verticalCenter="0">
+		<mx:Image id="planePanel" source="@Embed('../embed/introPanelOld.png')" smoothBitmapContent="true" visible="false"/>		
+		<mx:Image id="heliPanel" source="@Embed('../embed/introPanelOldHeli.png')" smoothBitmapContent="true" visible="false" />		
+		<mx:Image id="landPanel" source="@Embed('../embed/smalllandpanel.png')" smoothBitmapContent="true" visible="false" />		
+		<s:HGroup x="55" y="50">
+			<s:VGroup  >
+				
+				<!-- <s:Label id="title" text="Your Score" width="300" styleName="panelTitle"/> -->
+				<mx:Image source="@Embed('../embed/yourResults.png')" smoothBitmapContent="true" />
+				<mx:Spacer height="60"/>
+				<s:Group >
+					
+					<s:VGroup gap="15">
+						<s:HGroup>
+							<s:Label text="Average Military Output Achieved = " styleName="finalCategory"/>
+							<s:Label id="availability" text="" styleName="finalValue"/>
+						</s:HGroup>
+						<s:HGroup>
+							<s:Label text="Change in Cost of Ownership = " styleName="finalCategory"/>
+							<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->		
+							<s:Label id="cost" text="" styleName="finalValue"/>
+							<s:Label text="%" styleName="finalValue"/>
+						</s:HGroup>
+						<s:HGroup>
+							<s:Label text="Remaining Budget = " styleName="finalCategory"/>
+							<s:Group>
+								<s:Label  id="negativeLabel" text="" styleName="finalValue" y="-1"/>
+							</s:Group>
+							<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->		
+							<s:Label id="remainingBudget" text="" styleName="finalValue"/>
+							<s:Label text="" styleName="finalValue"/>
+						</s:HGroup>
+						<s:HGroup verticalAlign="middle" verticalCenter="0">
+							<s:Label  text="Final Score = " styleName="finalValue"/>
+							<s:Spacer width="20"/>
+							<s:Group>
+							<components:FinalScoreLozenge id="finalScoreComponent" y="30"/>
+							</s:Group>
+						</s:HGroup>
+						<s:RichText id="message" styleName="finalMessage" text="" width="490" />
+						<s:HGroup gap="30" id="enterInitials">
+							<mx:Spacer width="5"/>
+							<components:LetterStepper id="lS1" stepperID="0"/>
+							<components:LetterStepper id="lS2" stepperID="1"/>
+							<components:LetterStepper id="lS3" stepperID="2"/>
+						</s:HGroup>
+					</s:VGroup>
+				</s:Group>
+				
+			</s:VGroup>
+			<mx:Spacer width="0"/>
+		</s:HGroup>
+		<components:LeaderBoard id="leaderBoard" width="262" title="1" height="100%" top="50" right="-5" spacerHeight="33"/>
+		<components:EndButton id="continueBtn" label="" left="55" bottom="55"/>
+		
+	</s:Group>
+	
+</s:Group>

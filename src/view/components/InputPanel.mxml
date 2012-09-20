@@ -180,7 +180,7 @@
 				</s:Group>
 				<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->
 				<s:Group>
-					<mx:Image x="0" y="2" smoothBitmapContent="true"
+					<mx:Image x="0" y="2" smoothBitmapContent="true" includeInLayout="false"
 							  source="@Embed('../embed/supportBlatt.png')"/>
 				</s:Group>
 				<s:Group>

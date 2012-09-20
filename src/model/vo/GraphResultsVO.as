@@ -7,6 +7,7 @@ package model.vo
 		public var inAir:Vector.<Number>;
 		public var onGround:Vector.<Number>;
 		public var whiteFlag:Number;
+		public var finalScore:Number;
 		
 	}
 }

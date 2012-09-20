@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:local="*" creationComplete="group1_creationCompleteHandler(event)" xmlns:components="view.components.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import mx.core.IVisualElement;
+			import mx.events.FlexEvent;
+			import mx.graphics.SolidColor;
+			import mx.graphics.SolidColorStroke;
+			
+			import spark.primitives.Rect;
+			
+			[Bindable]
+			public var labelText:String = "";
+			
+			private var _value:uint = 2;
+			
+			public var totalRects:uint = 5;
+			
+			public var padding:uint = 5;
+			
+			public var horiPadding:uint = 15;
+			
+			//public var rectPadding::uint = 
+			
+			
+			
+
+			public function get value():uint
+			{
+				return _value;
+			}
+
+			public function set value(value:uint):void
+			{
+				_value = value;
+				colorRects(_value);
+				
+			}
+
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				generateRects();
+				
+			}
+			
+			private function generateRects():void{
+				
+			
+				var maxHeight:uint = 39;
+				var rectHeightUnit:Number = maxHeight/totalRects;
+				var totalWidth:Number = display.width-((totalRects-1)*horiPadding);
+				var rectWidth:Number = totalWidth/totalRects;
+				for(var i:uint = 0; i<totalRects; i++){
+					
+					var rect:GraphBar = new GraphBar();
+					rect.x = (i*(rectWidth+horiPadding));
+					rect.rectWidth = rectWidth;
+					rect.rectHeight = (i+1)*rectHeightUnit;
+					rect.y = maxHeight - rect.rectHeight+5;
+					display.rectHolder.addElement(rect);
+				}
+			}
+			
+			private function colorRects(num:uint):void{
+				for(var i:uint = 1; i<=totalRects; i++){
+					var rect:GraphBar = display.rectHolder.getElementAt(i) as GraphBar;
+					if (i<=num){
+						rect.alpha = 1;
+					}else{
+						rect.alpha = .4;
+					}
+				}
+			}
+
+
+			protected function downButton_clickHandler(event:MouseEvent):void
+			{
+				if (value>0){
+					value--;
+					colorRects(value);
+				}
+			}
+
+
+			protected function upButton_clickHandler(event:MouseEvent):void
+			{
+				if (value<totalRects){
+					value++;
+					colorRects(value);
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<s:HGroup verticalAlign="middle" verticalCenter="0">
+		<s:Label text="{labelText}" includeInLayout="false"/>
+		<s:Button id="downButton" skinClass="view.skins.MinusButtonSkin" label="-" click="downButton_clickHandler(event)" includeInLayout="false"/>
+		<components:VolumeDisplay id="display" />
+		<s:Button id="upButton" skinClass="view.skins.PlusButtonSkin" label="+" click="upButton_clickHandler(event)" includeInLayout="false"/>
+	</s:HGroup>
+</s:Group>

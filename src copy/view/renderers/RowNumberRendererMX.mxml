@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:MXDataGridItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+						  xmlns:s="library://ns.adobe.com/flex/spark" 
+						  xmlns:mx="library://ns.adobe.com/flex/mx" 
+						  focusEnabled="true" mouseEnabled="false"
+						  width="208"
+						  autoDrawBackground="false"
+						  dataChange="mxdatagriditemrenderer1_dataChangeHandler(event)"
+						  >
+	<fx:Script>
+		<![CDATA[
+			import model.vo.UserVO;
+			
+			import mx.events.FlexEvent;
+			
+			
+			
+				private function getBudget():String{
+					var vo:UserVO = data as UserVO;
+					var score:Number = vo.score;
+					var scoreStr:String = score.toString();
+					var retS:String = scoreStr;
+					if(scoreStr.substr(0,1) =="-"){
+						retS = scoreStr.substr(1);												
+					}
+					retS += vo.currency;
+					return retS;//+"m";
+				}
+			
+				private function getMinus():String{
+					var vo:UserVO = data as UserVO;
+					var score:Number = vo.score;
+					var scoreStr:String = score.toString();
+					var retS:String = "";
+					if(scoreStr.substr(0,1) =="-"){
+						retS = "-";												
+					}
+					return retS
+				}
+			
+
+			protected function mxdatagriditemrenderer1_dataChangeHandler(event:FlexEvent):void
+			{
+				if(!data) return;//do not render if there is no data
+				amount.text = getBudget();
+				negativeLabel.text = getMinus();
+				var vo:UserVO = data as UserVO;
+				editing.visible = vo.highlight;
+				if(vo.highlight){
+					depth = 1;
+				}else{
+					depth = 0;
+				}
+			}
+
+		]]>
+	</fx:Script>
+	<mx:Image source="@Embed('../embed/scoreBg.png')" smoothBitmapContent="true" x="102" y="-13"/>
+	<s:Group height="42" width="208" >
+		<s:Label horizontalCenter="11" id="lblData" text="{(itemIndex+1)}" styleName="dataGridRenderer" textAlign="center" />
+		<s:Label horizontalCenter="60" text="{data.label}" styleName="dataGridRendererGrey"  textAlign="center" />
+		
+	</s:Group>
+	<s:HGroup x="195" gap="2">
+		<s:Group>
+		<s:Label id="negativeLabel" styleName="dataGridRenderer" textAlign="center" y="-3"/>
+		</s:Group>
+		<s:Group>
+		<mx:Image source="@Embed('../embed/leaderBoardCurrency.png')" smoothBitmapContent="true" top="2"/>
+		</s:Group>
+		<s:Label id="amount" styleName="dataGridRenderer" textAlign="center"/>
+	</s:HGroup>
+	<mx:Image id="editing" source="@Embed('../embed/scoreHighlight.png')" smoothBitmapContent="true" x="97" y="-19"/>
+	
+	
+</s:MXDataGridItemRenderer>

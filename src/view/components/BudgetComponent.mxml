@@ -189,7 +189,7 @@
 			<s:Group>
 				
 				<mx:Image id="negCurr" source="@Embed('../embed/whiteCurr48.png')" smoothBitmapContent="true" y="4" visible="false" includeInLayout="false"/>
-				<mx:Image id="posCurr" source="@Embed('../embed/blueCurr48.png')" smoothBitmapContent="true" y="4" />
+				<mx:Image id="posCurr" source="@Embed('../embed/blueCurr48.png')" smoothBitmapContent="true" y="4" includeInLayout="false" />
 			</s:Group>
 			<s:Label id="title" styleName="mainBudget" textAlign="center" />
 		</s:HGroup>

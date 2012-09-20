@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="1920" height="1080" xmlns:components="view.components.*" >
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import model.vo.ReceivedDataVO;
+			
+			import utils.DataUtils;
+			
+			private var _receivedVO:ReceivedDataVO;
+			
+		
+			
+			
+			public function setData( vo:ReceivedDataVO ):void{
+				
+				_receivedVO = vo;
+				
+				//set switches first so buttons know which buttons to display vos
+				inputPanel.nff.switchDirection = true;
+				inputPanel.turnaround.switchDirection = true;
+				inputPanel.reliability.switchDirection = false;
+				inputPanel.platformMgt.switchDirection = false;
+				inputPanel.mis.switchDirection = false;
+				
+				
+				inputPanel.spares.sparesInc = 1;//hard coded for the moment - not passed in xml
+				inputPanel.spares.costInc = _receivedVO.sparesCostInc;
+				trace(" === setting sparesINit on spares stepper from input view === ");
+				//set the spares once if this is teh first time
+				if (_receivedVO.initialData){
+					inputPanel.spares.sparesStartingValue = _receivedVO.currentSpares;
+				}
+				inputPanel.spares.sparesInit = _receivedVO.currentSpares;//initialize the value --set this first to make buttons display correctly 
+				
+				//reset the sparesCurr so it knows that this has been set but the black box, not updated by the user (and so does not update the budget)
+				if (_receivedVO.iteration==0){
+					inputPanel.spares.systemUpdateSpares(_receivedVO.currentSpares);
+				}else{
+					inputPanel.spares.sparesCurr = _receivedVO.currentSpares; 
+				}
+				
+				//set the initval objects to check we dont go below them
+				inputPanel.reliability.initVal = _receivedVO.currentReliability;
+				inputPanel.turnaround.initVal = _receivedVO.currentTuranaround;
+				inputPanel.nff.initVal = _receivedVO.currentNFF;
+				//new
+				inputPanel.platformMgt.initVal = _receivedVO.currentPlatformMgt;
+				inputPanel.mis.initVal = _receivedVO.currentMIS;
+				
+				inputPanel.reliablityVal = _receivedVO.currentReliability;
+				inputPanel.turnaroundVal = _receivedVO.currentTuranaround;
+				inputPanel.nffVal = _receivedVO.currentNFF;
+				//new
+				inputPanel.platformMgtVal = _receivedVO.currentPlatformMgt;
+				inputPanel.mis.initVal = _receivedVO.currentMIS;
+				
+				//set new vectors
+				inputPanel.reliabilityValues = _receivedVO.reliability;
+				inputPanel.turnaroundValues = _receivedVO.turnaround;
+				inputPanel.nffValues = _receivedVO.nff;
+				//new	
+				inputPanel.misValues = _receivedVO.mis;
+				inputPanel.platformMgtValues = _receivedVO.platformMgt;
+				//resetn current indices to 0
+				
+				inputPanel.nff.currIndex = 0;
+				inputPanel.turnaround.currIndex = 0;
+				inputPanel.reliability.currIndex = 0;
+				inputPanel.platformMgt.currIndex = 0;
+				inputPanel.mis.currIndex = 0;
+
+				inputPanel.reliability.currVal = _receivedVO.currentReliability;
+				inputPanel.turnaround.currVal = _receivedVO.currentTuranaround;
+				inputPanel.nff.currVal = _receivedVO.currentNFF;
+				inputPanel.mis.currVal = _receivedVO.currentMIS;
+				inputPanel.platformMgt.currVal = _receivedVO.currentPlatformMgt;
+
+				//set the % flown remaining
+				inputPanel.flownCurr.text = "Current Military Output Achieved: "+_receivedVO.lastPercent.toString()+"%";
+			}
+			
+			public function showBalance( n:Number ):void{
+				
+				budgetIndicator.budget = n;
+				inputPanel.spares.budget = n;
+				//set balance on custom steppers
+				
+				inputPanel.spares.budget = n;
+				inputPanel.nff.budget = n;
+				inputPanel.turnaround.budget = n;
+				inputPanel.reliability.budget = n;
+				inputPanel.mis.budget = n;
+				inputPanel.platformMgt.budget = n;
+				
+				
+				inputPanel.budget = n;
+				
+				//if the balance is negative disable all buttons
+				if (n<0){
+					inputPanel.disableAllButtons();
+				}
+				
+				
+			}
+			
+			public function updateDisplay():void{
+				
+				budgetIndicator.updateDisplay();
+			}
+			
+			
+		]]>
+	</fx:Script>
+	<s:Group bottom="50" left="50">
+		
+		<components:BudgetComponent id="budgetIndicator" />
+	</s:Group>
+<!--	<s:Group horizontalCenter="0" verticalCenter="246" > -->
+	<s:Group horizontalCenter="0" top="56" >
+		<components:InputPanel id="inputPanel" verticalCenter="0" horizontalCenter="0"/>
+	</s:Group>
+	<!-- <s:Group id="lbHolder" right="100" top="200">
+	<mx:Image source="@Embed('../embed/lbtop3.png')" smoothBitmapContent="true" />
+	<components:LeaderBoard id="leaderBoard" title="Top 3" horizontalCenter="0" top="50"
+	visible="true"
+	/>
+	</s:Group>  -->
+</s:Group>

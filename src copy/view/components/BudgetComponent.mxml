@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="100%" height="100%"
+		 creationComplete="group1_creationCompleteHandler(event)">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+		<s:Move id="coinFall" duration="2000" yBy="2000" perElementOffset="400" startDelay="400" effectEnd="coinFall_effectEndHandler(event)" />
+	</fx:Declarations>
+	<fx:Script>
+		<![CDATA[
+			import com.greensock.TweenMax;
+			
+			import mx.events.EffectEvent;
+			import mx.events.FlexEvent;
+			
+			import utils.StringUtils;
+			
+			import view.sound.CoinSound;
+			
+			private var _budget:Number;
+			
+			public var sound:CoinSound;
+			
+			public var coinsTimer:Timer;
+			
+			private var coinCounter:uint = 0;
+			
+			private var currentCoin:CoinMC;
+			
+			public function get budget():Number
+			{
+				return _budget;
+			}
+			
+			public function set budget(value:Number):void
+			{
+				_budget = value;
+				showCoins(_budget);
+			}
+			
+			private function showPositiveCurrency(b:Boolean):void{
+				posCurr.includeInLayout = b;
+				negCurr.includeInLayout = !b;
+				posCurr.visible = b;
+				negCurr.visible = !b;
+				positive.visible = b;
+				negative.visible = !b;
+				if(b){
+					title.styleName = "mainBudget";
+					negativeLabel.styleName = "mainBudget";
+				}else{
+					title.styleName = "mainBudgetNeg";
+					negativeLabel.styleName = "mainBudgetNeg";
+				}
+			}
+			
+			
+			
+			public function showCoins(n:Number):void{
+				//holder.removeAllElements();
+				while(holder.numChildren>0){
+					holder.removeChildAt(0);
+				}
+				
+				
+				if (n>=2.5){
+					var coins:uint = Math.floor(n/2.5);
+					coinCounter = 0;
+					for (var i:uint = 0; i<coins; i++){
+						/*var c:Coin = new Coin();
+						c.y = -2000 - (i*15);
+						holder.addElement(c);*/
+						var c:CoinSprite = new CoinSprite();
+					//	c.y = -2000 - (i*15);
+						c.y = 0-(i*15);
+						//holder.addChild(c);
+						trace("adding coin");
+						var coinMC:CoinMC = new CoinMC();
+						coinMC.y = 0-(i*15);
+						coinMC.x = 0-(coinMC.width*.5);
+						holder.addChild(coinMC);
+						//coinMC.play();
+					}
+				}
+			}
+			
+			private function onCoinsTimer(t:TimerEvent):void{
+				trace("timer");
+				
+				currentCoin = holder.getChildAt(coinCounter) as CoinMC;
+				currentCoin.gotoAndPlay(2);
+				coinCounter++;
+			}
+			
+			public function resetCoinsTimer():void{
+				trace("===RESET COINS TIMER===");
+				if (currentCoin){
+					trace("stopping curent coin");
+					currentCoin.stop();
+				}
+				if (coinsTimer){
+					trace("stopping coins timer");
+					coinsTimer.stop();
+					coinsTimer.removeEventListener(TimerEvent.TIMER, onCoinsTimer);
+					coinsTimer= null;
+				}
+				
+			}
+			
+			public function updateDisplay():void{
+//				if (holder.numElements>0){
+//					var targets:Array = [];
+//					for (var i:uint = 0; i<holder.numElements; i++){
+//						var c:Coin = holder.getElementAt(i) as Coin;
+//						targets.push(c);
+//					}
+//					coinFall.play(targets);
+//				}
+				if (coinsTimer){
+					coinsTimer.stop();
+					coinsTimer.removeEventListener(TimerEvent.TIMER, onCoinsTimer);
+					coinsTimer= null;
+				}
+				if(holder.numChildren>0){
+					coinsTimer = new Timer(1000, holder.numChildren);
+					coinsTimer.addEventListener(TimerEvent.TIMER, onCoinsTimer);
+					coinsTimer.start();
+				}
+				
+//				if (holder.numChildren>0){
+//					
+//					var targets:Array = [];
+//					for (var i:uint = 0; i<holder.numChildren; i++){
+//						var c:CoinMC = holder.getChildAt(i) as CoinMC;
+//						//targets.push(c);
+//						trace("playing coin");
+//						c.gotoAndPlay(2);
+//						//TweenMax.from(c, 2, {y:c.y-2000, delay:i*.4, onComplete:playSound});
+//						
+//					}
+//				//	coinFall.play(targets);
+//				}
+				
+				var budgetString:String = _budget.toString();
+				var hasMinus:Boolean = StringUtils.hasMinus(budgetString);
+				showPositiveCurrency(!hasMinus);
+				//returns true if a minus exists
+				if (hasMinus){
+					negativeLabel.text = "-";
+					budgetString = budgetString.slice(1);
+				}else{
+					negativeLabel.text = "";
+				}
+				title.text = budgetString;//+"m";
+				
+			}
+			
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				sound = new CoinSound();
+				
+			}
+			
+			private function playSound():void{
+				
+				sound.playCoin();
+				
+			}
+
+			protected function coinFall_effectEndHandler(event:EffectEvent):void
+			{
+				
+				sound.playCoin();
+			}
+
+		]]>
+	</fx:Script>
+	<mx:UIComponent id="holder" horizontalCenter="0" y="-2080" />
+	<s:Group>
+		<mx:Image id="positive" source="@Embed('../embed/positive.png')" smoothBitmapContent="true"  horizontalCenter="0" verticalCenter="0"/>
+		<mx:Image id="negative" source="@Embed('../embed/negative.png')" smoothBitmapContent="true"  horizontalCenter="0" verticalCenter="0"/>
+		<s:HGroup horizontalCenter="0" y="50" gap="2">
+			<s:Group>
+				
+				<s:Label id="negativeLabel" styleName="mainBudget" text="" y="-3"/>
+			</s:Group>
+			<s:Group>
+				
+				<mx:Image id="negCurr" source="@Embed('../embed/whiteCurr48.png')" smoothBitmapContent="true" y="4" visible="false" includeInLayout="false"/>
+				<mx:Image id="posCurr" source="@Embed('../embed/blueCurr48.png')" smoothBitmapContent="true" y="4" />
+			</s:Group>
+			<s:Label id="title" styleName="mainBudget" textAlign="center" />
+		</s:HGroup>
+	</s:Group>
+</s:Group>

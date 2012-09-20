@@ -66,7 +66,7 @@
 		<s:Label id="negativeLabel" styleName="dataGridRenderer" textAlign="center" y="-3"/>
 		</s:Group>
 		<s:Group>
-		<mx:Image source="@Embed('../embed/leaderBoardCurrency.png')" smoothBitmapContent="true" top="2"/>
+		<mx:Image source="@Embed('../embed/leaderBoardCurrency.png')" smoothBitmapContent="true" top="2" includeInLayout="false"/>
 		</s:Group>
 		<s:Label id="amount" styleName="dataGridRenderer" textAlign="center"/>
 	</s:HGroup>

@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" 
+		 creationComplete="group1_creationCompleteHandler(event)" xmlns:components="view.components.*">
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import flash.text.engine.FontWeight;
+			
+			import model.vo.LeaderBoardVO;
+			
+			import mx.collections.ArrayCollection;
+			import mx.events.FlexEvent;
+			
+			import view.renderers.RowNumberRendererMX;
+			
+			
+			[Bindable]
+			public var dp:ArrayCollection; 
+			[Bindable]
+			public var title:uint;
+			[Bindable]
+			public var spacerHeight:uint = 27;
+			
+			
+			
+			
+			
+			[Embed(source="../embed/fonts/MyriadPro-Bold.otf",
+                    fontFamily="MyriadPro", fontWeight="bold",
+                    embedAsCFF="false")]
+			private const MyriadProEmbed:Class;
+			
+		
+			
+		
+			
+
+			protected function list_clickHandler(event:MouseEvent):void
+			{
+				var t:Number = 10;
+			}
+			
+			
+			protected function group1_creationCompleteHandler(event:FlexEvent):void
+			{
+				list.setStyle("fontFamily", "MyriadPro");
+				showImage(title);
+			}
+			
+			//0 shows leaderboard, 1 shows top 10
+			public function showImage( n:uint ):void{
+				var imToShow:Image;
+				switch(n){
+					case 0:
+						imToShow = leaderBoard;
+					break;
+					case 1:
+						imToShow = top10;
+					break;
+				}
+				imToShow.includeInLayout = true;
+				imToShow.visible = true;
+				
+			}
+			
+		]]>
+	</fx:Script>
+	<s:VGroup height="100%"  left="25" gap="0" >
+		<s:Group>
+		<!--	<s:Label id="topTitle" text="{title}" styleName="panelTitle" x="-22"/> -->
+			<mx:Image id="leaderBoard" source="@Embed('../embed/leaderBoard.png')" smoothBitmapContent="true" includeInLayout="false" visible="false" x="-22"/>
+			<mx:Image id="top10" source="@Embed('../embed/top10.png')" smoothBitmapContent="true" includeInLayout="false" visible="false" x="-22"/>
+		</s:Group>
+		<mx:Spacer id="spacer" height="{spacerHeight}"/>
+		<s:Group>
+			
+			<s:DataGroup id="list" itemRenderer="view.renderers.RowNumberRendererMX"
+						 mouseEnabled="false" 
+						 width="100%" height="100%"  dataProvider="{dp}" contentBackgroundAlpha="0" alternatingItemColors="[]"
+						 fontSize="28" color="#174f73"  left="-128">
+				<s:layout>
+					<s:VerticalLayout/>
+				</s:layout>
+			</s:DataGroup>
+		</s:Group>
+		<!--<s:List id="list" width="100%" height="100%" dataProvider="{dp}"  click="list_clickHandler(event)"/>-->
+	</s:VGroup>
+</s:Group>

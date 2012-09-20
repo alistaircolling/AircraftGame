@@ -1,0 +1,275 @@
+/* CSS file */
+@namespace s "library://ns.adobe.com/flex/spark";
+@namespace mx "library://ns.adobe.com/flex/mx";
+
+
+global
+{
+	content-background-color: #A0CEFF;
+}
+
+
+@font-face {
+	src: url("../embed/fonts/MyriadPro-Regular.otf");
+	fontFamily: MyriadPro;
+	fontStyle: normal;
+	fontWeight: normal;
+	advancedAntiAliasing: true;
+}
+
+@font-face {
+	src: url("../embed/fonts/MyriadPro-It.otf");
+	fontFamily: MyriadPro;
+	fontStyle: italic;
+	fontWeight: normal;
+	advancedAntiAliasing: true;
+}
+
+
+@font-face {
+	src: url("../embed/fonts/MyriadPro-Bold.otf");
+	fontFamily: MyriadPro;
+	fontStyle: normal;
+	fontWeight: bold;
+	advancedAntiAliasing: true;
+}
+@font-face {
+	src: url("../embed/fonts/MyriadPro-BoldIt.otf");
+	fontFamily: MyriadPro;
+	fontStyle: italic;
+	fontWeight: bold;
+	advancedAntiAliasing: true;
+}
+
+.topTitle
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 30;
+	color:#4a4a4a;
+}
+
+
+.panelTitle
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 46;
+	color:#4a4a4a;
+}
+
+.mainBudget
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 46;
+	color:#044047;
+}
+
+.mainBudgetNeg
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 46;
+	color:#ffffff;
+}
+
+
+.gameID
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 30;
+	color:#ffffff;
+}
+
+.supportPanelTitle
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#4a4a4a;
+}
+
+.supportPanelTitleItalic
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontStyle:italic;
+	fontSize: 26;
+	color:#898989;
+}
+
+.supportPanelCategory
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 18;
+	color:#464646;
+}
+
+.supportPanelCategoryItalic
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontStyle:italic;
+	fontSize: 18;
+	color:#868686;
+}
+
+.supportPanelBudget
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#044047;
+}
+.supportPanelBudgetCopy
+{
+	fontFamily:MyriadPro;	
+	fontSize: 14;
+	color:#004f59;
+}
+
+.supportPanelCategoryNumber
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 30;
+	color:#ffffff;
+}
+.supportInfoTitle
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#ffffff;
+}
+.supportInfoBody
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 18;
+	color:#ffffff;
+}
+
+
+.panelSecondaryTitle
+{
+	fontFamily:MyriadPro;
+	fontSize: 30;
+	color:#4a4a4a;
+}
+
+.panelSecondaryTitle
+{
+	fontFamily:MyriadPro;
+	fontSize: 30;
+	color:#4a4a4a;
+}
+
+.dataGrid
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 30;
+	color:#174f73;
+}
+
+.dataGridRenderer
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#174f73;
+}
+
+.dataGridRendererGrey
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#768c9b;
+}
+
+	
+.panelBody
+{
+	fontFamily:MyriadPro;
+	color:#4a4a4a;
+	fontSize: 30;
+}
+
+.buttonText
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 28;
+	color:#ffffff;
+}
+
+.legend
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontStyle:italic;
+	fontSize: 18;
+	color:#aeaeae;
+}
+
+.finalCategory
+{
+	fontFamily:MyriadPro;
+	fontSize: 30;
+	color:#4a4a4a;
+}
+
+
+.finalValue
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 30;
+	color:#174f73;
+}
+.finalValueLozenge
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 26;
+	color:#174f73;
+}
+
+.finalMessage
+{
+	fontFamily:MyriadPro;
+	fontSize: 21;
+	color:#4a4a4a;
+}
+
+.exitBody
+{
+	fontFamily:MyriadPro;
+	fontSize: 20;
+	color:#4a4a4a;
+}
+.errorText
+{
+	fontFamily:MyriadPro;
+	fontSize: 20;
+	color:#000000;
+}
+
+.errorTextBold
+{
+	fontFamily:MyriadPro;
+	fontSize: 20;
+	fontWeight:bold;
+	color:#000000;
+}
+
+
+
+
+
+

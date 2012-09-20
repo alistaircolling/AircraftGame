@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
+		 xmlns:s="library://ns.adobe.com/flex/spark" 
+		 xmlns:mx="library://ns.adobe.com/flex/mx" width="351" height="426" xmlns:skins="view.skins.*" xmlns:components="view.components.*" >
+
+	<fx:Script>
+		<![CDATA[
+			import events.LeverEvent;
+			
+			import view.skins.ArrowButtonSkin;
+			protected function btn_clickHandler(event:MouseEvent):void
+			{
+				trace("close video button clicked");
+				var e:LeverEvent = new LeverEvent(LeverEvent.HIDE_VIDEO);
+				dispatchEvent(e);
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<s:Group top="18">
+		
+	<mx:Image source="@Embed('../embed/Info-box-land.png')" smoothBitmapContent="true" />
+		<s:VGroup left="20" top="20">		
+			<s:Label id="title" styleName="supportInfoTitle" width="700" text="LOREM IPSUM"/>
+			<s:Spacer height="25"/>
+			<s:Label id="body" styleName="supportInfoBody" width="700" text="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. "/>
+		</s:VGroup>
+		<s:Button skinClass="view.skins.ArrowButtonSkin" id="btn" right="13" bottom="10" rotation="180" width="40" height="40" click="btn_clickHandler(event)" alpha="1" useHandCursor="true" buttonMode="true"/>
+	</s:Group>
+</s:Group>

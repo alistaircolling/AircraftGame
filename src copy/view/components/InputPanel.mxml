@@ -1,0 +1,239 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="view.components.*">
+	<s:layout>
+		<s:VerticalLayout/>
+	</s:layout>
+	
+	
+	<fx:Declarations>
+		
+		<s:Move id="videoShow" duration="1000" effectEnd="videoShow_effectEndHandler(event)"
+				yTo="515"/>
+		<s:Move id="videoHide" duration="1000" effectEnd="videoHide_effectEndHandler(event)" yTo="0"/>
+		
+	</fx:Declarations>
+	
+	<fx:Script>
+		<![CDATA[
+			import model.vo.InfoCopyVO;
+			import model.vo.InputObjectVO;
+			
+			import mx.events.EffectEvent;
+			
+			import utils.StringUtils;
+			
+			[Bindable]
+			public var sparesInit:Number = -1;
+			[Bindable]
+			public var sparesInc:Number = .5;
+			[Bindable]
+			public var sparesBottom:Number = -1;
+			[Bindable]
+			public var reliablityVal:InputObjectVO;
+			[Bindable]
+			public var sparesVal:InputObjectVO;
+			//current values
+			[Bindable]
+			public var nffVal:InputObjectVO;
+			[Bindable]
+			public var turnaroundVal:InputObjectVO;
+			[Bindable]
+			public var platformMgtVal:InputObjectVO;
+			[Bindable]
+			public var misVal:InputObjectVO;
+			
+			
+			
+			//vectors for lookup tables
+			[Bindable]
+			public var reliabilityValues:Vector.<InputObjectVO>;
+			[Bindable]
+			public var nffValues:Vector.<InputObjectVO>;
+			[Bindable]
+			public var turnaroundValues:Vector.<InputObjectVO>;
+			[Bindable]
+			public var platformMgtValues:Vector.<InputObjectVO>;
+			[Bindable]
+			public var misValues:Vector.<InputObjectVO>;
+			
+			//TODO add the vectors for the other values
+			private var vidToPlay:uint;
+			
+			public var currency:String;
+			public var infoCopys: Vector.<InfoCopyVO>;
+			
+			private var _budget:Number;
+			
+			protected function go_clickHandler(event:MouseEvent):void
+			{
+			}
+			
+			protected function spares_clickHandler(event:MouseEvent):void
+			{
+			}
+			
+			public function get budget():Number
+			{
+				return _budget;
+			}
+			
+			public function set budget(value:Number):void
+			{
+				_budget = value;
+				
+				var budgetString:String = _budget.toString();
+				//returns true if a minus exists
+				if (StringUtils.hasMinus(budgetString)){
+					negativeLabel.text = "-";
+					budgetString = budgetString.slice(1);
+				}else{
+					negativeLabel.text = "";
+				}
+				
+				balanceIndicator.text  = budgetString+currency;
+				
+			}
+			
+			public function disableAllButtons(){
+				
+				spares.disable();
+				reliability.disable();
+				nff.disable();
+				turnaround.disable();
+				
+			}
+			
+			public function showTurn( n:uint ):void{
+				//hck to fix when iteration is 0
+				if (n==0) n=1;
+				for (var i:uint = 0; i<turnImageHolder.numElements; i++){
+					var im:Image = turnImageHolder.getElementAt(i) as Image;
+					if (i==n-1){
+						im.includeInLayout = true;
+						im.visible = true;
+					}else{
+						im.includeInLayout = false;
+						im.visible = false;
+					}
+				}
+			}
+			
+			public function showVideo(num:uint):void{
+				vidToPlay = num;
+				var infoCopy:InfoCopyVO = infoCopys[num];
+				supportVideo.title.text = infoCopy.title;
+				supportVideo.body.text = infoCopy.body;
+				videoShow.play([supportVideo]);
+			}
+			public function hideVideo():void{
+				videoHide.play([supportVideo]);
+			//	supportVideo.myVid.stop();
+			}
+			
+			
+
+			protected function videoShow_effectEndHandler(event:EffectEvent):void
+			{
+			/*	switch(vidToPlay){
+					case 0:
+						supportVideo.myVid.source = "lever1.flv";
+						break
+					case 1:
+						supportVideo.myVid.source = "lever2.flv";
+						break
+					case 2:
+						supportVideo.myVid.source = "lever3.flv";
+						break
+					case 3:
+						supportVideo.myVid.source = "lever4.flv";
+						break
+				}*/
+			//	supportVideo.myVid.play();
+			//	supportVideo.myVid.visible = true;
+			}
+
+
+			protected function videoHide_effectEndHandler(event:EffectEvent):void
+			{
+				// TODO Auto-generated method stub
+			//	supportVideo.myVid.visible = false;
+			}
+
+		]]>
+	</fx:Script>
+	<s:Group width="738" horizontalCenter="0" verticalCenter="0">
+		<s:Group id="supportVidGroup" >
+			<components:LandInfoPopup id="supportVideo" x="32" y="0"/>
+		</s:Group>
+		<mx:Image smoothBitmapContent="true" source="@Embed('../embed/supportPanel-land.png')"/>
+		
+		<s:Label left="706" top="45" styleName="supportPanelBudgetCopy" text="Remaining budget"
+				 textAlign="left"/>
+		<s:Group left="635" top="20">
+			
+			<s:HGroup top="40" horizontalCenter="20">
+				<s:Group>
+					<s:Label id="negativeLabel" x="45" y="-3" styleName="supportPanelBudget" text="-"/>
+				</s:Group>
+				<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->
+				<s:Group>
+					<mx:Image x="0" y="2" smoothBitmapContent="true"
+							  source="@Embed('../embed/supportBlatt.png')"/>
+				</s:Group>
+				<s:Group>
+					<s:Label id="balanceIndicator" left="5" styleName="supportPanelBudget" text=""
+							 textAlign="left"/>
+				</s:Group>
+			</s:HGroup>
+		</s:Group>
+		
+		<s:Group left="30" top="23" width="100%">
+			<s:VGroup top="5">
+				<s:HGroup id="turnImageHolder">
+					<!--<s:Label id="title" text="Support Options"  fontWeight="bold" styleName="supportPanelTitle" />-->
+					<mx:Image id="turn1" includeInLayout="true" smoothBitmapContent="true"
+							  source="@Embed('../embed/support1.png')"/>
+					<mx:Image id="turn2" visible="false" includeInLayout="false"
+							  smoothBitmapContent="true" source="@Embed('../embed/support2.png')"/>
+					<mx:Image id="turn3" visible="false" includeInLayout="false"
+							  smoothBitmapContent="true" source="@Embed('../embed/support3.png')"/>
+					<!-- <s:Label id="turn" text="" styleName="supportPanelTitleItalic"/> -->		
+				</s:HGroup>
+				<s:Group left="70" top="35">
+				<s:VGroup left="54" gap="10">
+					<mx:Spacer left="54" height="33"/>					
+					<components:CustomStepper id="reliability" width="623" height="50"
+											  currVal="{reliablityVal}" title="MTBF" totalRects="5"
+											  unit="" values="{reliabilityValues}" vidId="0"/>
+					<components:CustomStepper id="nff" width="623" height="48" currVal="{nffVal}"
+											  title="NFF" totalRects="5" unit=""
+											  values="{nffValues}" vidId="1"/>
+					<components:CustomStepper id="turnaround" width="623" height="48"
+											  currVal="{turnaroundVal}" title="RTRT" totalRects="5"
+											  unit="" values="{turnaroundValues}" vidId="2"/>
+					<components:CustomStepper id="platformMgt" width="623" height="48"
+											  currVal="{platformMgtVal}" title="Platform Mgt"
+											  totalRects="3" unit="" values="{platformMgtValues}"
+											  vidId="3"/>
+					<components:SparesStepper id="spares" width="623" height="50" totalRects="20"  title="Spares"
+											  vidId="4"/>
+					<components:CustomStepper id="mis" width="623" height="48" currVal="{misVal}"
+											  title="MIS" totalRects="3" unit=""
+											  values="{misValues}" vidId="5"/>
+					<components:GoButton id="submit"/>
+				</s:VGroup>
+				</s:Group>
+			</s:VGroup>
+			<s:Label id="flownCurr" paddingLeft="6" paddingTop="48" styleName="supportPanelCategory"
+					 text="Current % Flown:"/>
+		</s:Group>
+		
+		
+	</s:Group>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:Group>
