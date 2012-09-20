@@ -49,6 +49,7 @@ package view.mediators
 		
 		override public function onRegister():void{
 			trace("Intro Mediator registered");
+			trace("+++++++++++++INTRO PANEL ADDED+++++++++++++");
 			update.dispatch("Intro mediator registered");
 			//register listeners 
 			addListeners();
@@ -63,10 +64,11 @@ package view.mediators
 		}
 		
 		override public function onRemove():void{
-			
-			introView.planeButton.removeEventListener(MouseEvent.CLICK, planeClicked);
-			introView.heliButton.removeEventListener(MouseEvent.CLICK, heliClicked);
+			trace("///////INTRO PANEL REMOVED////////");
+		//	introView.planeButton.removeEventListener(MouseEvent.CLICK, planeClicked);
+		//	introView.heliButton.removeEventListener(MouseEvent.CLICK, heliClicked);
 			introView.continueButton.removeEventListener(MouseEvent.CLICK, videoContinueClicked);
+			introView.startButton.removeEventListener(MouseEvent.CLICK, startLand);
 			//add listener for signal
 			textSetOnModel.add(onModelChanged);
 			leaderBoardSet.add(updateLeaderBoard);
@@ -77,12 +79,12 @@ package view.mediators
 		
 		private function addListeners():void{
 			trace("add intro mediator listeners");
-			waitSet.add(onWaitSet);
 			introView.continueButton.addEventListener(MouseEvent.CLICK, videoContinueClicked);
 		//	introView.planeButton.addEventListener(MouseEvent.CLICK, planeClicked);
 		//	introView.heliButton.addEventListener(MouseEvent.CLICK, heliClicked);
 			introView.startButton.addEventListener(MouseEvent.CLICK, startLand);
 			
+			waitSet.add(onWaitSet);
 			//add listener for signal
 			textSetOnModel.add(onModelChanged);
 			leaderBoardSet.add(updateLeaderBoard);
@@ -118,10 +120,11 @@ package view.mediators
 				introView.startTimer(false);
 				gameTypeSelected.dispatch("land");
 				//load xml again to reset?
-			
-			//	loadXML.dispatch();
+				
 				//startClicked.dispatch();
 				changeState.dispatch(ChangeState.ENTER_SCREEN); //this has been removed from initxmlservice spo we can set the text first
+				userModel.vo = userModel.vo;
+				//userModel.budget = userModel.budget;
 		}
 		
 		private function planeClicked( m:MouseEvent ):void{

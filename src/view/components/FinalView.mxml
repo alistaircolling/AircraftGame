@@ -43,7 +43,7 @@
 							</s:Group>
 							<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->		
 							<s:Label id="remainingBudget" text="" styleName="finalValue"/>
-							<s:Label text="%" styleName="finalValue"/>
+							<s:Label text="" styleName="finalValue"/>
 						</s:HGroup>
 						<s:HGroup verticalAlign="middle" verticalCenter="0">
 							<s:Label  text="Final Score = " styleName="finalValue"/>

@@ -107,6 +107,8 @@
 			}
 			
 			public function showTurn( n:uint ):void{
+				//hck to fix when iteration is 0
+				if (n==0) n=1;
 				for (var i:uint = 0; i<turnImageHolder.numElements; i++){
 					var im:Image = turnImageHolder.getElementAt(i) as Image;
 					if (i==n-1){

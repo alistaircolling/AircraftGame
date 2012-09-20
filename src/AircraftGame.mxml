@@ -337,7 +337,7 @@
 		<mx:Image source="@Embed('../embed/lbtop3.png')" smoothBitmapContent="true" />
 		<components:LeaderBoard id="leaderBoard" title="0" horizontalCenter="29" top="55" spacerHeight="43"/>
 	</s:Group>
-	<s:Button label="show status" x="1800" y="1000" click="button1_clickHandler(event)" visible="true"/>
+	<s:Button label="show status" x="1800" y="1000" click="button1_clickHandler(event)" visible="false"/>
 	<components:ErrorMessage id="errorMsg" visible="false"/>
 	<mx:Panel id="myPanel" x="65"  y="33" alpha="0"  removedFromStage="onRemoved(event)" remove="onRemoved(event)" removed="onRemoved(event)"/> 
 	<s:TextArea id="statusLabel" fontSize="24"  left="5"  height="600" width="1000" includeInLayout="false" visible="false"/>

@@ -28,6 +28,8 @@ package controllers
 			gameIDService.updateID( userModel.gameID );
 			
 			changeState.dispatch(ChangeState.INTRO_SCREEN);
+			//trying to force model to re-send user data set
+			userModel.vo = userModel.vo;
 			
 			
 		}

@@ -76,9 +76,9 @@ package controllers
 			vo.lastPercent = graphVO.percentFlown[graphVO.percentFlown.length-1];
 			if (vo.iteration == 3){
 				
-				vo.avAvailability = xml..averageAchieved;
+				vo.avAvailability = xml..averageAvailability;
 				//TODO need to check if the final score value should be money in bank for all games
-				vo.finalScore = Number(xml..moneyInBank);
+				vo.finalScore = Number(xml..moneyinbank);
 			
 				vo.costPerFHr = Number(xml..costperFH);
 				

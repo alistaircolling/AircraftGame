@@ -71,7 +71,8 @@ package view.mediators
 			balanceSet.add(showBalance);
 			iterationChange.add(updateIteration);
 			copySet.add(onCopySet);
-			userDataLiveSet.add(liveDataReceived);
+		//	userDataLiveSet.add(liveDataReceived);
+			userDataSet.add(liveDataReceived);
 			inputView.addEventListener(NumberEvent.BALANCE_UPDATE, updateBalance);//event triggered by steppers
 			inputView.inputPanel.submit.addEventListener(MouseEvent.CLICK, goClicked);
 			inputView.addEventListener(LeverEvent.CLICKED, videoClicked);//event triggered by steppers
@@ -81,10 +82,10 @@ package view.mediators
 		}
 		
 		override public function onRemove():void{
-			userDataLiveSet.add(liveDataReceived);
+			userDataSet.remove(liveDataReceived);
 			trace("===== input mediator removed ===== ");
 			statusUpdate.dispatch("===== input mediator removed ===== ");
-			userDataLiveSet.remove(liveDataReceived);
+	//		userDataLiveSet.remove(liveDataReceived);
 			balanceSet.remove(showBalance);
 			copySet.remove(onCopySet);
 			iterationChange.remove(updateIteration);
@@ -124,12 +125,20 @@ package view.mediators
 			//return;
 			//create a new VO
 			var vo:InputVO = new InputVO();
+			statusUpdate.dispatch("*");
 			vo.nff = inputView.inputPanel.nff.currVal.theIndex.toString();
+			statusUpdate.dispatch("*");
+			statusUpdate.dispatch("turnaround:"+inputView.inputPanel.turnaround.currVal.theIndex.toString());
 			vo.turnaround = inputView.inputPanel.turnaround.currVal.theIndex.toString();
+			statusUpdate.dispatch("reliability:"+inputView.inputPanel.reliability.currVal.theIndex.toString());
 			vo.reliability = inputView.inputPanel.reliability.currVal.theIndex.toString();
+			statusUpdate.dispatch("*");
 			vo.spares = (inputView.inputPanel.spares.sparesCurr - inputView.inputPanel.spares.sparesInit).toString();
+			statusUpdate.dispatch("*");
 			vo.platformMgt = inputView.inputPanel.platformMgt.currVal.theIndex.toString();
+			statusUpdate.dispatch("*");
 			vo.mis = inputView.inputPanel.mis.currVal.theIndex.toString();
+ 
 			
 			trace("SPARES SUBMITTED:"+vo.spares);
 			var it:uint = userModel.iteration;
@@ -206,6 +215,10 @@ package view.mediators
 		
 		private function showDataReal(t:TimerEvent = null):void{
 			inputView.setData(_data);
+			//force to show turn
+			if (_data.iteration==0){
+				showTurn();
+			}
 		}
 		
 		private function setData( vo:ReceivedDataVO ):void{
