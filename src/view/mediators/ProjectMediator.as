@@ -178,7 +178,7 @@ package view.mediators
 			viewComp.updateState(s);
 			//hack to force the model to update the input screen
 			if (s == ChangeState.ENTER_SCREEN || s== ChangeState.ENTER_SCREEN){
-					userModel.vo = userModel.vo;
+					//userModel.vo = userModel.vo;
 			}
 		}
 		

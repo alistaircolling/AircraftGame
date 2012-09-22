@@ -98,7 +98,7 @@
 			}
 			
 			private function onCoinsTimer(t:TimerEvent):void{
-				trace("timer");
+		//		trace("timer");
 				
 				currentCoin = holder.getChildAt(coinCounter) as CoinMC;
 				currentCoin.gotoAndPlay(2);

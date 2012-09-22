@@ -48,7 +48,8 @@
 					
 					trace("at the bottom value");
 				}
-				volStepper.value = sparesCurr-sparesInit;
+			//	volStepper.value = sparesCurr-sparesInit;
+			//	trace("down -----volstepper value set :"+volStepper.value);
 				if (volStepper.totalRects-volStepper.value>0){
 					up.visible = true;
 				}
@@ -77,7 +78,7 @@
 					trace("no budget left for spares");
 				}
 				
-				volStepper.value = sparesCurr-sparesInit;
+			//	volStepper.value = sparesCurr-sparesInit;
 				if (volStepper.totalRects-volStepper.value==0){
 					up.visible = false;
 				}
@@ -122,6 +123,7 @@
 				//make the  down button inv
 				down.visible = false;
 				volStepper.value = 0;
+				trace("--------- set spares init volStepper val:"+volStepper.value);
 			}
 			
 			public function get sparesCurr():Number
@@ -166,6 +168,7 @@
 				
 				updateBalance(diff*costInc);
 				volStepper.value = _sparesCurr-sparesStartingValue;
+				trace("------------------------set spares Curr volstepper value:"+volStepper.value);
 			}
 			
 			private function updateBalance( n:Number ):void{
@@ -192,7 +195,8 @@
 					down.visible = false;
 				}
 				
-				
+				volStepper.value = _sparesCurr-sparesStartingValue;
+				trace("------------------------checkIfCanBuyMoreSpares volstepper value:"+volStepper.value);
 			}
 			
 			

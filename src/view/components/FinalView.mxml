@@ -41,7 +41,7 @@
 							<s:Group>
 								<s:Label  id="negativeLabel" text="" styleName="finalValue" y="-1"/>
 							</s:Group>
-							<!--<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />-->		
+							<mx:Image source="@Embed('../embed/blueCurr30.png')" smoothBitmapContent="true" />		
 							<s:Label id="remainingBudget" text="" styleName="finalValue"/>
 							<s:Label text="" styleName="finalValue"/>
 						</s:HGroup>

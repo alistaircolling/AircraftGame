@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009" 
-		 xmlns:s="library://ns.adobe.com/flex/spark" 
-		 xmlns:mx="library://ns.adobe.com/flex/mx" width="1920" height="1080" xmlns:components="view.components.*" >
+<s:Group xmlns:fx="http://ns.adobe.com/mxml/2009"
+		 xmlns:s="library://ns.adobe.com/flex/spark"
+		 xmlns:mx="library://ns.adobe.com/flex/mx"
+		 xmlns:components="view.components.*"
+		 width="1920" height="1080">
 	<fx:Declarations>
 		<!-- Place non-visual elements (e.g., services, value objects) here -->
 	</fx:Declarations>
@@ -21,8 +23,8 @@
 				_receivedVO = vo;
 				
 				//set switches first so buttons know which buttons to display vos
-				inputPanel.nff.switchDirection = true;
-				inputPanel.turnaround.switchDirection = true;
+				inputPanel.nff.switchDirection = false;
+				inputPanel.turnaround.switchDirection = false;
 				inputPanel.reliability.switchDirection = false;
 				inputPanel.platformMgt.switchDirection = false;
 				inputPanel.mis.switchDirection = false;
@@ -59,20 +61,21 @@
 				inputPanel.platformMgtVal = _receivedVO.currentPlatformMgt;
 				inputPanel.mis.initVal = _receivedVO.currentMIS;
 				
-				//set new vectors
-				inputPanel.reliabilityValues = _receivedVO.reliability;
-				inputPanel.turnaroundValues = _receivedVO.turnaround;
-				inputPanel.nffValues = _receivedVO.nff;
-				//new	
-				inputPanel.misValues = _receivedVO.mis;
-				inputPanel.platformMgtValues = _receivedVO.platformMgt;
+				//set new vectors- only on first go
+				if (_receivedVO.iteration==0){
+					inputPanel.reliabilityValues = _receivedVO.reliability;
+					inputPanel.turnaroundValues = _receivedVO.turnaround;
+					inputPanel.nffValues = _receivedVO.nff;
+					inputPanel.misValues = _receivedVO.mis;
+					inputPanel.platformMgtValues = _receivedVO.platformMgt;
+				}
 				//resetn current indices to 0
 				
-				inputPanel.nff.currIndex = 0;
-				inputPanel.turnaround.currIndex = 0;
-				inputPanel.reliability.currIndex = 0;
-				inputPanel.platformMgt.currIndex = 0;
-				inputPanel.mis.currIndex = 0;
+				inputPanel.nff.currIndex =  _receivedVO.currentNFF.theIndex;
+				inputPanel.turnaround.currIndex =  _receivedVO.currentTuranaround.theIndex;
+				inputPanel.reliability.currIndex =  _receivedVO.currentReliability.theIndex;
+				inputPanel.platformMgt.currIndex =  _receivedVO.currentPlatformMgt.theIndex;
+				inputPanel.mis.currIndex =  _receivedVO.currentMIS.theIndex;
 
 				inputPanel.reliability.currVal = _receivedVO.currentReliability;
 				inputPanel.turnaround.currVal = _receivedVO.currentTuranaround;
@@ -116,13 +119,13 @@
 			
 		]]>
 	</fx:Script>
-	<s:Group bottom="50" left="50">
+	<s:Group left="50" bottom="50">
 		
-		<components:BudgetComponent id="budgetIndicator" />
+		<components:BudgetComponent id="budgetIndicator"/>
 	</s:Group>
 <!--	<s:Group horizontalCenter="0" verticalCenter="246" > -->
-	<s:Group horizontalCenter="0" top="56" >
-		<components:InputPanel id="inputPanel" verticalCenter="0" horizontalCenter="0"/>
+	<s:Group top="56" horizontalCenter="0">
+		<components:InputPanel id="inputPanel" horizontalCenter="0" verticalCenter="0"/>
 	</s:Group>
 	<!-- <s:Group id="lbHolder" right="100" top="200">
 	<mx:Image source="@Embed('../embed/lbtop3.png')" smoothBitmapContent="true" />
