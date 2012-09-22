@@ -28,6 +28,18 @@
 			
 			private var currentCoin:CoinMC;
 			
+			private var _currency:String;
+			
+			public function get currency():String
+			{
+				return _currency;
+			}
+
+			public function set currency(value:String):void
+			{
+				_currency = value;
+			}
+
 			public function get budget():Number
 			{
 				return _budget;
@@ -152,7 +164,7 @@
 				}else{
 					negativeLabel.text = "";
 				}
-				title.text = budgetString;//+"m";
+				title.text = budgetString+currency;
 				
 			}
 			

@@ -102,6 +102,7 @@ package view.mediators
 		private function onCopySet(vo:CopyVO):void
 		{
 			inputView.inputPanel.currency = vo.currency;
+			inputView.budgetIndicator.currency = vo.currency;
 			inputView.inputPanel.infoCopys = vo.infoCopys;
 		}
 		

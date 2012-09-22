@@ -304,7 +304,7 @@
 			<s:Label styleName="legend" text=" Monthly Profit / Loss "/>
 				<mx:Spacer width="3"/>
 			<s:Group>
-			<mx:Image y="-2" scaleX=".9" scaleY=".9" smoothBitmapContent="true" includeInLayout="false"
+			<mx:Image y="-2" scaleX=".9" scaleY=".9" smoothBitmapContent="true" includeInLayout="true"
 					  source="@Embed('../embed/greyCurrSmall.png')"/>
 			</s:Group>
 			<s:Label styleName="legend" text=""/>
