@@ -172,9 +172,9 @@
 		
 		<s:Label left="706" top="45" styleName="supportPanelBudgetCopy" text="Remaining budget"
 				 textAlign="left"/>
-		<s:Group left="635" top="20">
+		<s:Group left="665" top="20">
 			
-			<s:HGroup top="40" horizontalCenter="20">
+			<s:HGroup top="45" horizontalCenter="0">
 				<s:Group>
 					<s:Label id="negativeLabel" x="45" y="-3" styleName="supportPanelBudget" text="-"/>
 				</s:Group>
@@ -203,9 +203,9 @@
 					<!-- <s:Label id="turn" text="" styleName="supportPanelTitleItalic"/> -->		
 				</s:HGroup>
 				<s:Group left="70" top="35">
-				<s:VGroup left="54" gap="10">
+				<s:VGroup left="54" gap="11">
 					<mx:Spacer left="54" height="33"/>					
-					<components:CustomStepper id="reliability" width="623" height="50"
+					<components:CustomStepper id="reliability" width="623" height="48"
 											  currVal="{reliablityVal}" title="MTBF" totalRects="5"
 											  unit="" values="{reliabilityValues}" vidId="0"/>
 					<components:CustomStepper id="nff" width="623" height="48" currVal="{nffVal}"
@@ -218,17 +218,20 @@
 											  currVal="{platformMgtVal}" title="Platform Mgt"
 											  totalRects="3" unit="" values="{platformMgtValues}"
 											  vidId="3"/>
-					<components:SparesStepper id="spares" width="623" height="50" totalRects="20"  title="Spares"
+					<components:SparesStepper id="spares" width="623" height="48" totalRects="20"  title="Spares"
 											  vidId="4"/>
 					<components:CustomStepper id="mis" width="623" height="48" currVal="{misVal}"
 											  title="MIS" totalRects="3" unit=""
 											  values="{misValues}" vidId="5"/>
-					<components:GoButton id="submit"/>
+					
 				</s:VGroup>
 				</s:Group>
 			</s:VGroup>
 			<s:Label id="flownCurr" paddingLeft="6" paddingTop="48" styleName="supportPanelCategory"
 					 text="Current % Flown:"/>
+			<s:Group left="-6" bottom="-63">
+			<components:GoButton id="submit" />
+			</s:Group>
 		</s:Group>
 		
 		

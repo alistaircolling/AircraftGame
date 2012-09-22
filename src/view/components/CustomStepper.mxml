@@ -250,12 +250,12 @@
 	<s:Group width="100%" height="100%" verticalCenter="0">
 			<components:InformationButton id="infoButton" x="-60" y="3"
 										  click="infoButton_clickHandler(event)"/>
-			<s:Label x="18" y="15"  styleName="supportPanelCategory" text="{title}"
-					 verticalAlign="middle" verticalCenter="0"/>
-		<s:HGroup x="150" y="5" height="100%" verticalAlign="middle" width="540">
+			<s:Label x="18" top="23"  styleName="supportPanelCategory" text="{title}"
+					 />
+		<s:HGroup x="149" y="5" height="100%" verticalAlign="middle" width="540">
 	<!--		<s:Label id="unitLabel" height="100%" styleName="supportPanelCategoryItalic"
 					 text="{unit}" verticalAlign="middle" verticalCenter="0"/>-->
-		<components:UpArrowButton id="down" skinClass="view.skins.DownMinusButtonSkin"/>
+		<components:UpArrowButton id="down" skinClass="view.skins.DownMinusButtonSkin" left="2"/>
 			<s:Label id="valLabel" horizontalCenter="0" styleName="supportPanelCategoryNumber"
 					 text="---" textAlign="center" verticalAlign="middle" verticalCenter="0" includeInLayout="false"/>
 			<components:VolumeStepper id="volStepper" totalRects="{totalRects}" />

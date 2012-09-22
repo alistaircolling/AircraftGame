@@ -70,7 +70,7 @@ in accordance with the terms of the license agreement accompanying it.
 	<s:BitmapImage source="@Embed('../embed/plusup.png')"
 				   source.down="@Embed('../embed/plusdown.png')"
 				   source.over="@Embed('../embed/plusdown.png')"
-				   left="0" right="0" top="0" bottom="0" smooth="true" />
+				   left="-1"  top="0" bottom="0" smooth="true" />
 	
 	<!-- layer 8: text -->
 	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
