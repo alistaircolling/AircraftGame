@@ -17,7 +17,16 @@ package utils
 			for (var i:uint = 0; i<xmlList.children().length(); i++){
 				var obj:InputObjectVO = new InputObjectVO();
 				obj.cost = Number(xmlList.children()[i].@cost);
-				obj.value = currRel+Number(xmlList.children()[i].@value); //
+				//round to 4 chars
+				var newValS:String = xmlList.children()[i].@value
+					newValS = newValS.substr(0,4);
+				var newVal:Number = Number(newValS); //
+				
+				obj.value = currRel+newVal;
+				var objVal:String = obj.value.toString();
+				objVal = objVal.substr(0,4);
+				obj.value = Number(objVal);
+				trace(">> > > > > > > > > > val set:"+obj.value);
 				obj.theIndex = i;
 				retVector.push(obj);
 			}

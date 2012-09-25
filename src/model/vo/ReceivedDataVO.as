@@ -37,6 +37,7 @@ package model.vo
 		public var finalScoreLowest:Number;
 		public var finalScoreHighest:Number;
 		public var finalWhiteFlag:Number;
+		public var remainingBudget:Number;
 		
 	}
 }

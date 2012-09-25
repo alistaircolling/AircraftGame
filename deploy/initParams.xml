@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<initParams>
+	<reliability>
+		<unit value="0.0" cost="0"/>
+		<unit value="1.0" cost="5"/>
+		<unit value="1.6" cost="10"/>
+		<unit value="2.6" cost="20"/>
+		<unit value="4.1" cost="30"/>
+		<unit value="6.6" cost="40"/>
+	</reliability>
+	<nff>
+		<unit value="0" cost="0"/>
+		<unit value="-5" cost="2"/>
+		<unit value="-10" cost="4"/>
+		<unit value="-15" cost="8"/>
+		<unit value="-20" cost="10"/>
+		<unit value="-25" cost="15"/>
+	</nff>
+	<turnaround>
+		<unit value="0" cost="0"/>
+		<unit value="-8" cost="2"/>
+		<unit value="-16" cost="4"/>
+		<unit value="-24" cost="8"/>
+		<unit value="-32" cost="14"/>
+		<unit value="-40" cost="24"/>
+	</turnaround>
+	<platformMgt>
+		<unit value="0.0" cost="0"/>
+		<unit value="0.5" cost="2"/>
+		<unit value="1.0" cost="4"/>
+		<unit value="1.5" cost="6"/>
+	</platformMgt>
+	<mis>
+		<unit value="0.0" cost="0"/>
+		<unit value="0.5" cost="2"/>
+		<unit value="1.0" cost="4"/>
+		<unit value="1.5" cost="6"/>
+	</mis>
+	<spares>
+		<sparesCost_ea>0.5</sparesCost_ea>
+		<leadtime_mths>6</leadtime_mths>
+	</spares>
+	<currentPlatformMgt>15</currentPlatformMgt>
+	<currentMIS>5</currentMIS>
+	<currentReliability>25</currentReliability>
+	<currentNFF>45</currentNFF>
+	<currentTurnaround>45</currentTurnaround>
+	<currentSpares>120</currentSpares>
+	<currentBudget>17</currentBudget>
+	<debug>false</debug>
+	<waitTime>120</waitTime>
+	<finalScore><lowest>-100</lowest><highest>100</highest><whiteFlag>9</whiteFlag></finalScore>
+	<copy>
+		<game type="land">
+			<introText><![CDATA[With increasing challenges on manpower and budgets, the Commander of the Land Forces is struggling to meet his operational commitments.  The impact of these reductions has led to a drop in equipment availability which is now as low as 65%. Based on your knowledge and experience of logistic support, you have been brought in on a six year contract to recover the situation and ensure maximum equipment availability whilst meeting the affordability and manpower challenges.<br><br>To succeed, you will need to bring the Availability Levels up to at least 75% with a decreasing budget. You have been allocated an initial budget which you can spend on 6 different logistic levers.<br><br>The simulation will allow you 3 decision points to recover the situation and meet by the Land Commander’s operational and affordability challenges. Each attempt will represent 2 years and you will need to decide at the start of each round on how best to allocate your budget against the various support service options.<br><br>The contract is incentivised so you will be rewarded with bonus payments for meeting the availability target of 75% or above; however, if you fail to meet the target you will be faced with financial penalties.<br><br>Your success and final score will be calculated using a combination of the following success criteria:<br>
+				
+<br>•	Monthly cash flow   &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;•	 Remaining money in bank
+	<br>•	Average Military Output Achieved % &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; •	Change in Cost of Ownership %
+
+<br><br><br><br>Good Luck]]></introText>
+		<infoText id="1">
+			<title><![CDATA[Increasing Mean Time Before Failure %:
+Equipment reliability improvements]]></title>
+			<body><![CDATA[Your equipment will fail more often with a low Mean Time Before Failure (MTBF).
+Improving the Reliability of a system will reduce failure rates and the need for costly spares and repairs.]]></body>
+		</infoText>
+		<infoText id="2">
+			<title><![CDATA[Reducing No Fault Found %:
+Increase diagnostic accuracy]]></title>
+			<body><![CDATA[Removing perfectly serviceable equipment and sending it into the repair lifecycle reduces the availability of equipment and unnecessarily increases ownership costs.
+Investing in improved fault detection increases spares availability and reduces the cost of ownership.]]></body>
+		</infoText>
+		<infoText id="3">
+			<title><![CDATA[Reducing Repair Turn Round Time days:
+Reduce time taken to repair]]></title>
+			<body><![CDATA[Lengthy repair times mean your equipment will be unavailable for long periods.
+Reducing Repair Turn Round Time (RTRT) increases the availability of spares and maximises the availability of your assets at the front line.]]></body>
+		</infoText>
+		<infoText id="4">
+			<title><![CDATA[Optimising Platform Management:
+More effective and efficient equipment utilisation]]></title>
+			<body><![CDATA[A lack of strategic fleet management will impact fleet availability and ultimately lead to additional through life costs.
+By adopting a centrally controlled Platform Management strategy, the introduction of reliability centred maintenance and optimised maintenance policies, effective Platform Management enhances the readiness of platform and equipment fleet and improves the efficiency of their deployment.]]></body>
+		</infoText>
+		<infoText id="5">
+			<title><![CDATA[Optimising Spares Pool:
+Purchase additional equipment]]></title>
+			<body><![CDATA[Without sufficient spares, it is near impossible to operate your service at the expected levels.
+It is therefore vital to have sufficient spares to enable you to locate them where and when required.]]></body>
+		</infoText>
+		<infoText id="6">
+			<title><![CDATA[Introducing Management Information System:
+Optimised decision making through accurate data analysis]]></title>
+			<body><![CDATA[Inadequate information gathering and poor analysis causes ill-informed decisions to be made around spares deployment, No Fault Found (NFF) investigations, reliability improvements and repair life cycles. 
+Improving Management Information System (MIS) ensures that accurate data is gathered and converted to valuable knowledge, leading to improved availability and reduced through-life support costs.]]></body>
+		</infoText>
+		<currencyUnit>z</currencyUnit><!--normally 'm' -->
+		</game>
+			<game type="heli">
+				<introText><![CDATA[With increasing challenges on manpower and budgets, the Commander of the Land Forces is struggling to meet his operational commitments.  The impact of these reductions has led to a drop in equipment availability which is now as low as 65%. Based on your knowledge and experience of logistic support, you have been brought in on a six year contract to recover the situation and ensure maximum equipment availability whilst meeting the affordability and manpower challenges.<br><br>To succeed, you will need to bring the Availability Levels up to at least 75% with a decreasing budget. You have been allocated an initial budget which you can spend on 6 different logistic levers.<br><br>The simulation will allow you 3 decision points to recover the situation and meet by the Land Commander’s operational and affordability challenges. Each attempt will represent 2 years and you will need to decide at the start of each round on how best to allocate your budget against the various support service options.<br><br>The contract is incentivised so you will be rewarded with bonus payments for meeting the availability target of 75% or above; however, if you fail to meet the target you will be faced with financial penalties.<br><br>Your success and final score will be calculated using a combination of the following success criteria:<br><br>
+					•	Monthly cash flow
+					•	Remaining money in bank
+					•	Average Military Output Achieved %
+					•	Change in Cost of Ownership %<br><br><br><br>Good Luck]]></introText>
+			<infoText id="1">
+				<title><![CDATA[Info 1 Title]]></title>
+				<body><![CDATA[Lorem 1ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.]]></body>
+			</infoText>
+			<infoText id="2">
+				<title><![CDATA[Info 2 Title]]></title>
+				<body><![CDATA[Lorem 2ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.]]></body>
+			</infoText>
+			<infoText id="3">
+				<title><![CDATA[Info 3 Title]]></title>
+				<body><![CDATA[Lorem31ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.]]></body>
+			</infoText>
+			<infoText id="4">
+				<title><![CDATA[Info 4 Title]]></title>
+				<body><![CDATA[Lorem 4ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim.]]></body>
+			</infoText>
+			<currencyUnit></currencyUnit><!--normally 'm' -->
+			</game>		
+	</copy>
+</initParams>

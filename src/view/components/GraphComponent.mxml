@@ -287,7 +287,8 @@
 				<mx:LineSeries yField="monthT" displayName="Monthly Profit/Loss Bm" lineStroke="{s2}" dataProvider="{chartData}" >
 					<mx:verticalAxis >
 						<!--<mx:LinearAxis id="monthAxis" minimum="-25" maximum="10" />-->
-						<mx:LinearAxis id="monthAxis" minimum="-8.1" maximum="8" />
+						<!--<mx:LinearAxis id="monthAxis" minimum="-8.1" maximum="8" /> -->
+						<mx:LinearAxis id="monthAxis" minimum="0" maximum="2" />
 					</mx:verticalAxis>
 				</mx:LineSeries>
 			</mx:series>
@@ -316,8 +317,8 @@
 			<mx:verticalAxis>
 				<mx:LinearAxis id="yAxis" 
 							   baseAtZero="false"
-							   minimum="-8.1"
-							   maximum="8"
+							   minimum="-4.1"
+							   maximum="4"
 							   
 							   />
 			</mx:verticalAxis>

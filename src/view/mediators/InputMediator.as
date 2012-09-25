@@ -211,9 +211,11 @@ package view.mediators
 			inputView.inputPanel.budget = newBudget;
 			//update balance in other steppers
 			
+			inputView.inputPanel.reliability.budget = newBudget;
 			inputView.inputPanel.nff.budget = newBudget;
 			inputView.inputPanel.turnaround.budget = newBudget;
-			inputView.inputPanel.reliability.budget = newBudget;
+			inputView.inputPanel.platformMgt.budget = newBudget;
+			inputView.inputPanel.mis.budget = newBudget;
 			
 			
 		}

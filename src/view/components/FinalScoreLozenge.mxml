@@ -24,6 +24,9 @@
 				_value = value;
 				var range:Number = maxVal - minVal;
 				var perc:Number = _value/range;
+				if (_value<0){
+					perc = (Math.abs(minVal)-Math.abs(_value))/range;						
+				}
 				indicator.x = (perc*(425-indicator.width));//-(.5*indicator.width);
 				result.text = _value.toString();
 			}

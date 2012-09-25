@@ -52,7 +52,12 @@
 				
 			
 				var maxHeight:uint = 39;
-				var rectHeightUnit:Number = maxHeight/totalRects;
+				var minH:uint = 0;
+				
+				if (totalRects>10){
+					minH = 5;
+				}
+				var rectHeightUnit:Number = (maxHeight-minH)/totalRects;
 				var totalWidth:Number = display.width-((totalRects-1)*horiPadding);
 				var rectWidth:Number = totalWidth/totalRects;
 				for(var i:uint = 0; i<totalRects; i++){
@@ -60,7 +65,7 @@
 					var rect:GraphBar = new GraphBar();
 					rect.x = (i*(rectWidth+horiPadding));
 					rect.rectWidth = rectWidth;
-					rect.rectHeight = (i+1)*rectHeightUnit;
+					rect.rectHeight = minH+(i+1)*rectHeightUnit;
 					rect.y = maxHeight - rect.rectHeight+5;
 					display.rectHolder.addElement(rect);
 				}

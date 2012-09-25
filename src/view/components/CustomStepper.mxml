@@ -86,6 +86,7 @@
 				var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
 				if (_currIndex>0){
 					_currIndex--;
+					trace("_currIndex set to :"+_currIndex+" in:"+title);
 					currVal = values[_currIndex];
 				}else{
 					
@@ -149,6 +150,7 @@
 					var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
 					if (_currIndex<values.length-1){
 						_currIndex++;
+						trace("_currIndex set to :"+_currIndex+" in:"+title);
 						currVal = values[_currIndex];
 					}
 					var newCost:Number = (values[_currIndex] as InputObjectVO).cost;
@@ -192,6 +194,7 @@
 			public function set currIndex(value:uint):void
 			{
 				_currIndex = value;
+				trace("_currIndex set to :"+_currIndex+" in:"+title);
 				//set the number of visible rects
 				volStepper.value = value;
 				

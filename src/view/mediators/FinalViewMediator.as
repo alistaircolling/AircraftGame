@@ -157,7 +157,7 @@ package view.mediators
 				finalView.cost.text = vo.costPerFHr.toString();
 				
 				//format strings for negative budget
-				var budgetString:String = vo.finalScore.toString();
+				var budgetString:String = vo.remainingBudget.toString();
 				//returns true if a minus exists
 				if (StringUtils.hasMinus(budgetString)){
 					finalView.negativeLabel.text = "-";
