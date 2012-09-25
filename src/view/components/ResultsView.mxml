@@ -45,6 +45,7 @@
 				//clear the planes and panel
 				showPanels(false);
 				
+				
 				whiteFlag = vo.whiteFlag;
 				finalScore = vo.finalScore;
 				
@@ -141,6 +142,12 @@
 				
 				animHolder.addChild(_currentAnim);
 				_currentAnim.addEventListener(Event.COMPLETE, animCompleted);
+				//always hide white flag at start
+				try{
+				showWhiteFlagAnim(false);
+				}catch(e:*){
+					trace("!! unable to hide the white flag !!");
+				}
 				
 			}
 			
@@ -177,16 +184,7 @@
 						TweenMax.to(child, .3, {alpha:0});
 					}
 				}
-				if (_iteration==3){
-				if (finalScore<whiteFlag){
-					showWhiteFlagAnim(true);
-				}else{
-					showWhiteFlagAnim(false);
-					
-				}}else{
-					showWhiteFlagAnim(false);
-					
-				}
+				
 			}
 			
 			public function showOnGround( n:uint ):void{
@@ -228,6 +226,7 @@
 				if (_iteration==1){
 					graph.initPlanes();
 				}
+				
 			}
 
 			public function showTurn( n:uint ):void{
@@ -269,6 +268,21 @@
 			{
 				trace("show white flag:"+param0);
 				(_currentAnim as LandAnim).tanks.l1.tank.flag.visible = param0;
+				
+			}
+			
+			public function checkFlag():void
+			{
+				if (_iteration==3){
+					if (finalScore<whiteFlag){
+						showWhiteFlagAnim(true);
+					}else{
+						showWhiteFlagAnim(false);
+						
+					}}else{
+						showWhiteFlagAnim(false);
+						
+					}
 				
 			}
 			

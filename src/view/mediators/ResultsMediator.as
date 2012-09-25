@@ -78,6 +78,7 @@ package view.mediators
 		private function finishedAnimating( e:Event):void{
 			_animating = false;
 			resultsView.continueBtn.visible = true;
+			resultsView.checkFlag();
 		}
 		
 		private function updateInAir( e:PlanesEvent ):void{

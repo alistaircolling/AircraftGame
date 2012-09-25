@@ -53,6 +53,9 @@ package controllers
 			graphVO.percentFlown = pcFlown;
 			graphVO.whiteFlag = userModel.vo.finalWhiteFlag;
 			
+			graphVO.finalScore = Number(xml..currentBudget)
+			
+			
 			
 		
 			//set graph vo
@@ -80,7 +83,7 @@ package controllers
 				//TODO need to check if the final score value should be money in bank for all games
 				vo.finalScore = Number(xml..currentBudget);
 				vo.remainingBudget = Number(xml..moneyinbank);
-				graphVO.finalScore = vo.finalScore;
+				//moved up graphVO.finalScore = vo.finalScore;
 				vo.costPerFHr = Number(xml..costperFH);
 				
 			}
