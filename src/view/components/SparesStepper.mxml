@@ -184,6 +184,11 @@
 				trace(" - - -  check if can buy more spares - - - ");
 				trace("_sparesCur:"+_sparesCurr+"  _sparesInit:"+_sparesInit+" remaining rects:"+ (volStepper.totalRects - volStepper.value));
 				var maxSpares:uint = Math.floor(budget/costInc);
+				//if the rectangles are already filled make maxspares 0
+				if (maxSpares>(volStepper.totalRects-volStepper.value)){
+					maxSpares = volStepper.totalRects-volStepper.value;
+					trace("max spares set to remaining:"+maxSpares);
+				}
 				if (maxSpares>0 ){
 					up.visible = true;
 				}else{
@@ -194,6 +199,8 @@
 				}else{
 					down.visible = false;
 				}
+				
+				
 				
 				volStepper.value = _sparesCurr-sparesStartingValue;
 				trace("------------------------checkIfCanBuyMoreSpares volstepper value:"+volStepper.value);
