@@ -19,6 +19,7 @@ package view.mediators
 	import org.robotlegs.mvcs.Mediator;
 	
 	import signals.BalanceSet;
+	import signals.ChangeState;
 	import signals.CopySet;
 	import signals.DataSubmitted;
 	import signals.IterationChange;
@@ -55,6 +56,8 @@ package view.mediators
 		public var userDataLiveSet:UserDataSetLive;
 		[Inject]
 		public var copySet:CopySet;
+		[Inject]
+		public var changeState:ChangeState;
 		
 		
 		private var _showTurnTimer:Timer
@@ -73,6 +76,7 @@ package view.mediators
 			copySet.add(onCopySet);
 			userDataLiveSet.add(liveDataReceived);
 			userDataSet.add(liveDataReceived);
+			changeState.add(onStateChange);
 			inputView.addEventListener(NumberEvent.BALANCE_UPDATE, updateBalance);//event triggered by steppers
 			inputView.inputPanel.submit.addEventListener(MouseEvent.CLICK, goClicked);
 			inputView.addEventListener(LeverEvent.CLICKED, videoClicked);//event triggered by steppers
@@ -81,6 +85,7 @@ package view.mediators
 			//retrigger the model hack to make sure values are displayed
 			if (userModel && userModel.vo){
 				userModel.vo = userModel.vo;
+				userModel.budget = userModel.budget;
 			}
 			
 		}
@@ -92,12 +97,22 @@ package view.mediators
 			userDataLiveSet.remove(liveDataReceived);
 			balanceSet.remove(showBalance);
 			copySet.remove(onCopySet);
+			changeState.remove(onStateChange);
 			iterationChange.remove(updateIteration);
 			inputView.removeEventListener(LeverEvent.CLICKED, videoClicked);//event triggered by steppers
 			inputView.removeEventListener(NumberEvent.BALANCE_UPDATE, updateBalance);//event triggered by steppers
 			inputView.inputPanel.submit.removeEventListener(MouseEvent.CLICK, goClicked);
 			inputView.removeEventListener(LeverEvent.HIDE_VIDEO, hideVideo);//event triggered by steppers
 			
+		}
+		
+		public function onStateChange(s:String):void{
+			if(s==ChangeState.ENTER_SCREEN){
+				//triger the budget to be set correctly
+				userModel.budget = userModel.budget;
+				inputView.showBalance(userModel.budget);
+				inputView.updateDisplay();
+			}
 		}
 		private function onCopySet(vo:CopyVO):void
 		{
@@ -177,6 +192,8 @@ package view.mediators
 		}
 		
 		private function showBalance( n:Number ):void{
+			//dont show balance if this is a retigger- hack
+			
 			_balance = n;
 			if(_iteration ==1){
 				showBalanceReal();

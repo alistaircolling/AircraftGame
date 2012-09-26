@@ -202,7 +202,7 @@
 						finalView.visible = false;
 						finalView.alpha = 0;
 						setElementIndex(inputView, numElements-3);
-						inputView.updateDisplay();
+				//test as was causing bug oin 2nd go for busget component triggering anim before vals passed		inputView.updateDisplay();
 						break
 					case ChangeState.RESULTS_SCREEN:
 	

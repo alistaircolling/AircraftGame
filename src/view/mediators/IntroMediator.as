@@ -124,7 +124,7 @@ package view.mediators
 				//startClicked.dispatch();
 				changeState.dispatch(ChangeState.ENTER_SCREEN); //this has been removed from initxmlservice spo we can set the text first
 				userModel.vo = userModel.vo;
-				//userModel.budget = userModel.budget;
+				userModel.budget = userModel.budget;
 		}
 		
 		private function planeClicked( m:MouseEvent ):void{

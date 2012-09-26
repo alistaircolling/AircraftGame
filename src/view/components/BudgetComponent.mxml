@@ -49,6 +49,18 @@
 			{
 				_budget = value;
 				showCoins(_budget);
+				//force the text field to display correctly
+				var budgetString:String = _budget.toString();
+				var hasMinus:Boolean = StringUtils.hasMinus(budgetString);
+				showPositiveCurrency(!hasMinus);
+				//returns true if a minus exists
+				if (hasMinus){
+					negativeLabel.text = "-";
+					budgetString = budgetString.slice(1);
+				}else{
+					negativeLabel.text = "";
+				}
+				title.text = budgetString+currency;
 			}
 			
 			private function showPositiveCurrency(b:Boolean):void{
@@ -71,6 +83,7 @@
 			
 			public function showCoins(n:Number):void{
 				//holder.removeAllElements();
+				trace("show coins in BUDGET INDICATOR:"+n);
 				while(holder.numChildren>0){
 					holder.removeChildAt(0);
 				}

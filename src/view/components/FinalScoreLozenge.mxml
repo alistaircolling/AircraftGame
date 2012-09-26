@@ -28,6 +28,12 @@
 					perc = (Math.abs(minVal)-Math.abs(_value))/range;						
 				}
 				indicator.x = (perc*(425-indicator.width));//-(.5*indicator.width);
+				//prevent being above or below the boundaries
+				if (indicator.x<0) indicator.x = 0;
+				if (indicator.x>(425-indicator.width)) indicator.x = 425-indicator.width;
+				
+				
+				
 				result.text = _value.toString();
 			}
 

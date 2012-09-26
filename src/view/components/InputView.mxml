@@ -88,8 +88,12 @@
 			}
 			
 			public function showBalance( n:Number ):void{
-				
-				budgetIndicator.budget = n;
+				if (budgetIndicator.budget!=n){
+					budgetIndicator.budget = n;
+					//test - only updating if a new budget is set previously called from main state set in project
+					
+					
+				}
 				inputPanel.spares.budget = n;
 				//set balance on custom steppers
 				

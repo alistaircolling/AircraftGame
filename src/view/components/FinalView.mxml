@@ -22,10 +22,10 @@
 				
 				<!-- <s:Label id="title" text="Your Score" width="300" styleName="panelTitle"/> -->
 				<mx:Image source="@Embed('../embed/yourResults.png')" smoothBitmapContent="true" />
-				<mx:Spacer height="60"/>
+				<mx:Spacer height="10"/>
 				<s:Group >
 					
-					<s:VGroup gap="15">
+					<s:VGroup gap="12">
 						<s:HGroup>
 							<s:Label text="Average Military Output Achieved = " styleName="finalCategory"/>
 							<s:Label id="availability" text="" styleName="finalValue"/>
