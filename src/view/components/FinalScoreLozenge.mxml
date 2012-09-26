@@ -23,7 +23,8 @@
 			{
 				_value = value;
 				var range:Number = maxVal - minVal;
-				var perc:Number = _value/range;
+				var difFromBottom:Number =   Math.abs((minVal-_value));
+				var perc:Number = difFromBottom/range;
 				if (_value<0){
 					perc = (Math.abs(minVal)-Math.abs(_value))/range;						
 				}
