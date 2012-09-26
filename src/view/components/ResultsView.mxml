@@ -287,7 +287,9 @@
 			
 			public function stopAnim():void
 			{
-				_currentAnim.gotoAndStop(1);
+				if (_currentAnim){
+					_currentAnim.gotoAndStop(1);
+				}
 				
 			}
 			

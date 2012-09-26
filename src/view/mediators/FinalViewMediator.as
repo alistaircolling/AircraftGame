@@ -4,6 +4,8 @@ package view.mediators
 	
 	import flash.events.Event;
 	import flash.events.MouseEvent;
+	import flash.events.TimerEvent;
+	import flash.utils.Timer;
 	
 	import model.UserDataModel;
 	import model.vo.LeaderBoardVO;
@@ -62,6 +64,7 @@ package view.mediators
 		private var _failure:String = "";//Well done! You didn't make the leader board unfortunately."  
 		private var _winnerName:String;
 		private var _score:Number;
+		private var showHighlightTimer:Timer;
 		
 		override public function onRegister():void{
 			
@@ -72,6 +75,7 @@ package view.mediators
 			forceHighlight.add(showWinnerHlight);
 			gameTypeSet.add(onGameTypeSet);
 			requestLeaderBoard.dispatch();
+			changeState.add(onStateChange);
 			finalView.lS1.addEventListener(UpdateLetterEvent.LETTER_CHANGED, letterChangedListener);
 			finalView.lS2.addEventListener(UpdateLetterEvent.LETTER_CHANGED, letterChangedListener);
 			finalView.lS3.addEventListener(UpdateLetterEvent.LETTER_CHANGED, letterChangedListener);
@@ -81,6 +85,7 @@ package view.mediators
 		override public function onRemove():void{
 			
 			trace("finalview unregistered");
+			changeState.remove(onStateChange);
 			finalView.continueBtn.removeEventListener(MouseEvent.CLICK, continueClicked);
 			userDataSet.remove(setData);
 			forceHighlight.remove(showWinnerHlight);
@@ -90,6 +95,28 @@ package view.mediators
 			finalView.lS2.removeEventListener(UpdateLetterEvent.LETTER_CHANGED, letterChangedListener);
 			finalView.lS3.removeEventListener(UpdateLetterEvent.LETTER_CHANGED, letterChangedListener);
 		}
+		 public function onStateChange(s:String):void{
+			 switch(s)
+			 {
+				 case ChangeState.FINAL_SCREEN:
+				 {
+					 showHighlightTimer = new Timer(1500, 1);
+					 showHighlightTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onShowHighlight);
+						showHighlightTimer.start(); 
+					 break;
+				 }
+					 
+				 default:
+				 {
+					 break;
+				 }
+			 }
+		 }
+		 
+		 private function onShowHighlight(t:TimerEvent):void{
+			 showHighlightTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onShowHighlight);
+			 letterChangedListener(null, true);
+		 }
 		
 		private function onGameTypeSet(s:String):void{
 			switch(s){
