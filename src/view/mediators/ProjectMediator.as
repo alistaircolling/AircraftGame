@@ -14,6 +14,7 @@ package view.mediators
 	
 	import signals.ChangeState;
 	import signals.ErrorReceived;
+	import signals.ForceShowHighlight;
 	import signals.GameIDSet;
 	import signals.GameTypeSet;
 	import signals.InitSocket;
@@ -63,6 +64,8 @@ package view.mediators
 		public var musicVolSet:MusicVolumeSet;
 		[Inject]
 		public var userModel:UserDataModel;
+		[Inject]
+		public var forceHighlight:ForceShowHighlight;
 		
 		override public function onRegister():void{
 			trace("Project Mediator registered");
@@ -180,6 +183,7 @@ package view.mediators
 			if (s == ChangeState.ENTER_SCREEN || s== ChangeState.ENTER_SCREEN){
 					userModel.budget = userModel.budget;
 			}
+			
 		}
 		
 		

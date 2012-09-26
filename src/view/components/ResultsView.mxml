@@ -27,7 +27,7 @@
 			private var inAir:*;
 			private var onGround:*;
 			
-			public var whiteFlag:uint = 0;
+			public var whiteFlag:Number = 0;
 			//	private var _planes:Planes;
 			[Inject]
 			public var statusUpdate:StatusUpdate;
@@ -278,11 +278,16 @@
 						showWhiteFlagAnim(true);
 					}else{
 						showWhiteFlagAnim(false);
-						
 					}}else{
 						showWhiteFlagAnim(false);
 						
 					}
+				
+			}
+			
+			public function stopAnim():void
+			{
+				_currentAnim.gotoAndStop(1);
 				
 			}
 			
@@ -321,7 +326,7 @@
 			<mx:Image y="-2" scaleX=".9" scaleY=".9" smoothBitmapContent="true" includeInLayout="true"
 					  source="@Embed('../embed/greyCurrSmall.png')"/>
 			</s:Group>
-			<s:Label styleName="legend" text=""/>
+			<s:Label styleName="legend" text="m"/>
 		</s:HGroup>
 		<s:Label left="650" top="71" styleName="legend" text="% Military Output"/>
 		<components:CustomButton id="continueBtn" right="55" top="52"

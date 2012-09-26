@@ -63,7 +63,7 @@ package view.mediators
 		private var _showTurnTimer:Timer
 		private var _showBalanceTimer:Timer
 		private var _showDataTimer:Timer
-		private static const _showTurnWait:uint = 5000; 
+		private static const _showTurnWait:uint = 2000; 
 		private var _iteration:uint;
 		private var _data:ReceivedDataVO;
 		private var _balance:Number;
@@ -195,9 +195,10 @@ package view.mediators
 			//dont show balance if this is a retigger- hack
 			
 			_balance = n;
-			if(_iteration ==1){
+			if(_iteration ==0){
 				showBalanceReal();
 			}else{
+				//so the balance doesnt show str8 away when user has seen the graph 
 				_showBalanceTimer = new Timer(_showTurnWait, 1);
 				_showBalanceTimer.addEventListener(TimerEvent.TIMER_COMPLETE, showBalanceReal);
 				_showBalanceTimer.start();

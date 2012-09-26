@@ -88,6 +88,7 @@
 			}
 			
 			public function showBalance( n:Number ):void{
+				
 				if (budgetIndicator.budget!=n){
 					budgetIndicator.budget = n;
 					//test - only updating if a new budget is set previously called from main state set in project

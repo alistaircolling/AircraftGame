@@ -97,6 +97,11 @@ package view.mediators
 			if (s == ChangeState.INTRO_SCREEN){
 				resultsView.graph.reset();
 			}
+			
+			if (s==ChangeState.ENTER_SCREEN || s==ChangeState.FINAL_SCREEN){
+				//stop tanks anim
+				resultsView.stopAnim();
+			}
 		}
 		
 		

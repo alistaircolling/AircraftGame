@@ -229,7 +229,7 @@
 			</s:VGroup>
 			<s:Label id="flownCurr" paddingLeft="6" paddingTop="48" styleName="supportPanelCategory"
 					 text="Current % Flown:"/>
-			<s:Group left="-6" bottom="-63">
+			<s:Group left="59" bottom="-63">
 			<components:GoButton id="submit" />
 			</s:Group>
 		</s:Group>
