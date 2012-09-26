@@ -183,6 +183,13 @@ global
 	fontSize: 26;
 	color:#174f73;
 }
+.maxText
+{
+	fontFamily:MyriadPro;
+	fontWeight:bold;
+	fontSize: 14;
+	color:#174f73;
+}
 
 .dataGridRendererGrey
 {

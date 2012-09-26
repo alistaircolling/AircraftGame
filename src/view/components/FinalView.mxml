@@ -47,7 +47,7 @@
 						</s:HGroup>
 						<s:HGroup verticalAlign="middle" verticalCenter="0">
 							<s:Label  text="Final Score = " styleName="finalValue"/>
-							<s:Spacer width="20"/>
+							<s:Spacer width="5"/>
 							<s:Group>
 							<components:FinalScoreLozenge id="finalScoreComponent" y="30"/>
 							</s:Group>

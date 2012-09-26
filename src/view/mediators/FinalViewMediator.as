@@ -115,7 +115,9 @@ package view.mediators
 		 
 		 private function onShowHighlight(t:TimerEvent):void{
 			 showHighlightTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onShowHighlight);
-			 letterChangedListener(null, true);
+			 if (_boardPosition>-1){
+			 	letterChangedListener(null, true);
+			 }
 		 }
 		
 		private function onGameTypeSet(s:String):void{

@@ -29,11 +29,17 @@
 					perc = (Math.abs(minVal)-Math.abs(_value))/range;						
 				}
 				indicator.x = (perc*(425-indicator.width));//-(.5*indicator.width);
+
 				//prevent being above or below the boundaries
-				if (indicator.x<0) indicator.x = 0;
-				if (indicator.x>(425-indicator.width)) indicator.x = 425-indicator.width;
-				
-				
+				arrow.x = indicator.x+(arrow.width*.5)+3;
+				if (indicator.x<0){
+					indicator.x = 0;
+				arrow.x = indicator.x- (arrow.width*.5);
+				}
+				if (indicator.x>(425-indicator.width)){
+					indicator.x = 425-indicator.width;
+					arrow.x = indicator.x+66;
+				}
 				
 				result.text = _value.toString();
 			}
@@ -56,10 +62,11 @@
 				</s:LinearGradient>
 			</s:fill>
 		</s:Rect>
-		
+		<s:Spacer width="3"/>
+	<s:Label text="Maximum" styleName="maxText" paddingTop="17"/>
 	</s:HGroup>
 	<s:Group id="indicator" y="12">
-		<s:VGroup horizontalAlign="center" horizontalCenter="0">
+		<s:VGroup  horizontalCenter="0">
 			<s:Group horizontalCenter="0">
 				<s:Rect width="85" height="25" radiusX="7" radiusY="7">
 					<s:stroke>
@@ -77,8 +84,11 @@
 				</s:Rect>
 				<s:Label id="result" horizontalCenter="0" text="{_value}" verticalCenter="0" textAlign="center" styleName="finalValueLozenge"/>
 			</s:Group>
-			<mx:Image horizontalAlign="center" horizontalCenter="0" includeInLayout="true" y="-5"
-					  smoothBitmapContent="true" source="@Embed('../embed/resultsArrow.png')"/>
+		
+			
+		
 		</s:VGroup>
 	</s:Group>
+	<mx:Image  id="arrow" includeInLayout="true" y="39" 
+			   smoothBitmapContent="true" source="@Embed('../embed/resultsArrow.png')"/>
 </s:Group>
