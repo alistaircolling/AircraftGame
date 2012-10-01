@@ -76,6 +76,9 @@
 			{
 				trace("--setting current in air from last time");
 				removeEventListener(Event.ENTER_FRAME, oef);
+				if (iteration==1){
+					_currentInAir = graph._graphData.inAir[0];
+				}
 				showInAir(_currentInAir);
 				
 				
