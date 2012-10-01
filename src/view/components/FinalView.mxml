@@ -16,13 +16,13 @@
 	<s:Group id="panel" horizontalCenter="0" verticalCenter="0">
 		<mx:Image id="planePanel" source="@Embed('../embed/introPanelOld.png')" smoothBitmapContent="true" visible="false"/>		
 		<mx:Image id="heliPanel" source="@Embed('../embed/introPanelOldHeli.png')" smoothBitmapContent="true" visible="false" />		
-		<mx:Image id="landPanel" source="@Embed('../embed/smalllandpanel.png')" smoothBitmapContent="true" visible="false" />		
+		<mx:Image id="landPanel" source="@Embed('../embed/landresultssmall.png')" smoothBitmapContent="true" visible="false" />		
 		<s:HGroup x="55" y="50">
 			<s:VGroup  >
 				
+				<mx:Spacer height="10"/>
 				<!-- <s:Label id="title" text="Your Score" width="300" styleName="panelTitle"/> -->
 				<mx:Image source="@Embed('../embed/yourResults.png')" smoothBitmapContent="true" />
-				<mx:Spacer height="10"/>
 				<s:Group >
 					
 					<s:VGroup gap="12">

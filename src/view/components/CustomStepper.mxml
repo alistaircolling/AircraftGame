@@ -35,7 +35,9 @@
 			
 			private var _currIndex:uint; //used to store the index of the stepper
 			
-			//used when the user presses go to send to the black box
+			//used used to make sure we aren't checking an index too high if this stepper has been pressed 
+			public var budgetUpdatedByThisStepper:Boolean = false;
+			
 			public function get currVal():InputObjectVO
 			{
 				return _currVal;
@@ -106,6 +108,7 @@
 			
 			private function updateBalance( n:Number ):void{
 				if (n!=0){
+					budgetUpdatedByThisStepper = true;
 					var e:NumberEvent = new NumberEvent(NumberEvent.BALANCE_UPDATE,	n);
 					dispatchEvent(e);
 				}
@@ -116,8 +119,11 @@
 				return currVal.value.toString()
 			}
 			
-			private function checkBalanceIsAvailable():Boolean{
+			private function checkBalanceIsAvailable(indexAlreadySet:Boolean = false):Boolean{
 				var retB:Boolean = false;
+				//increment curr index by 1 unless it has just been set
+				var addIfSet:uint = 1;//=(indexAlreadySet)?0:1;
+				
 				if (values != null){
 					var oldCost:Number = (values[_currIndex] as InputObjectVO).cost;
 					//new cost will be 1 iteration up
@@ -126,9 +132,10 @@
 					if (_currIndex+1>values.length-1){
 						retB = false;
 					}else{
-						newCost = (values[_currIndex+1] as InputObjectVO).cost;
+						//only increment the new cost of it has been set by this stepper
+						newCost = (values[_currIndex+addIfSet] as InputObjectVO).cost;
 						var diff:Number = newCost - oldCost;//will be negative
-						if(budget - diff>0){
+						if(budget - diff>=0){
 							retB = true;
 						}
 					}
@@ -208,12 +215,13 @@
 			public function set budget(value:Number):void
 			{
 				_budget = value;
-				checkCanShowNextButton();
+				checkCanShowNextButton(budgetUpdatedByThisStepper);
+				budgetUpdatedByThisStepper = false;
 			}
 			
 			//triggered every time the budget is updated to see if th enext button can be shown or not - if the budget does allow then it is made visibile
-			private function checkCanShowNextButton():void{
-				if (checkBalanceIsAvailable()){
+			private function checkCanShowNextButton(whenBudgetSetExternal:Boolean = false):void{
+				if (checkBalanceIsAvailable(whenBudgetSetExternal)){
 					if(switchDirection){
 						down.visible = true;						
 					}else{

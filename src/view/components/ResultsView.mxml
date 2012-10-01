@@ -40,6 +40,7 @@
 			private var _animTimer:Timer;
 			
 			public var finalScore:Number= 0;
+			private var _currentInAir:uint = 10;
 			
 			public function setData( vo:GraphResultsVO ):void{
 				//clear the planes and panel
@@ -65,7 +66,18 @@
 				_animTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, startAnim);
 				_animTimer = null;
 				//showInAir(10);
-				_currentAnim.gotoAndPlay(2);				
+				_currentAnim.gotoAndPlay(2);
+				//added to force the correct number of planes to shoe
+				addEventListener(Event.ENTER_FRAME, oef);
+				
+			}
+			
+			protected function oef(event:Event):void
+			{
+				trace("--setting current in air from last time");
+				removeEventListener(Event.ENTER_FRAME, oef);
+				showInAir(_currentInAir);
+				
 				
 			}
 			
@@ -175,6 +187,7 @@
 			
 			public function showInAir( n:uint ):void{
 				//inAir.showPlanes(n);
+				trace("}}}}}} }}}}}} show in air:"+n);
 				for (var i:int = 1; i <=10; i++) 
 				{
 					var child:* = (_currentAnim as LandAnim).tanks.getChildByName("l"+i);
@@ -184,6 +197,8 @@
 						TweenMax.to(child, .3, {alpha:0});
 					}
 				}
+				//used to store the val for the next go
+				_currentInAir = n;
 				
 			}
 			
@@ -292,6 +307,8 @@
 				}
 				
 			}
+			
+			
 			
 		]]>
 	</fx:Script>

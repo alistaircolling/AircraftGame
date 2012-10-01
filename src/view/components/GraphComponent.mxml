@@ -230,13 +230,14 @@
 			}
 			
 			private function updatePlanes(n:uint):void{
+				trace("}}}}}} update planes:"+n);
 				showPlanesInAir(_inAir[_vectPos]);
 				showPlanesOnGround(_onGround[_vectPos]);
 				_vectPos++;
 			}
 			
 			private function showPlanesInAir( n:uint ):void{
-						trace("planes in air:"+n);
+						trace("}}}}}}}}}  planes in air:"+n);
 				var e:PlanesEvent = new PlanesEvent(PlanesEvent.IN_AIR, n);
 				dispatchEvent(e);
 			}
